@@ -1,0 +1,186 @@
+<ion-header>
+
+	<ion-toolbar *ngIf="!pageConfig.isShowSearch">
+		<ion-buttons slot="start">
+			<ion-button color="dark">
+				{{'erp.app.pages.shipping.delivery-review.page-title' | translate}}
+			</ion-button>
+		</ion-buttons>
+
+		<ion-buttons slot="end">
+			<ion-chip outline="true" color="primary" (click)="presentPopover($event)">
+				<ion-icon name="calendar-outline"></ion-icon>
+				<ion-label color="medium">{{query.DeliveryDate}}</ion-label>
+			</ion-chip>
+
+			<ion-button class="hide-small" (click)="refresh()" title="{{'erp.app.pages.shipping.delivery-review.refresh' | translate}}">
+				<ion-icon slot="icon-only" name="reload-outline"></ion-icon>
+			</ion-button>
+
+			<ion-button class="hide-small" title="{{'erp.app.pages.shipping.delivery-review.filter' | translate}}">
+				<ion-icon slot="icon-only" name="list-circle-outline"></ion-icon>
+			</ion-button>
+
+
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content appScrollbarTheme class="ion-padding">
+	<app-page-message [itemsLength]="items.length" [showSpinner]="pageConfig.showSpinner"></app-page-message>
+
+	<div class="main-view">
+		<div class="row-1" [hidden]="!items.length">
+			<div class="col-1">
+				<div class="c-box">
+					<canvas style="cursor: pointer;" id="chartCanvas" #chartCanvas></canvas>
+				</div>
+
+				<div class="btn-change-chart">
+					<ion-segment [(ngModel)]="chartViews" (ionChange)="buildChart();">
+						<ion-segment-button value="doanhThu">
+							<ion-label>{{'erp.app.pages.shipping.delivery-review.delivery' | translate}}</ion-label>
+						</ion-segment-button>
+						<ion-segment-button value="congno">
+							<ion-label>{{'erp.app.pages.shipping.delivery-review.debt' | translate}}</ion-label>
+						</ion-segment-button>
+					</ion-segment>
+				</div>
+			</div>
+			<div class="col-2">
+				<div class="table-contain" *ngIf="item">
+					<ion-grid>
+						<ion-row>
+							<ion-col>
+								<div>
+									<section class="table data-table">
+										<div class="row">
+											<div class="col2 cell">{{'erp.app.pages.shipping.delivery-review.total-value' | translate}} {{item.NumberOfOrder}} {{'erp.app.pages.shipping.delivery-review.order' | translate}}:</div>
+											<div class="col3 cell">{{item.TongGiaTriText}}</div>
+										</div>
+										<div class="row">
+											<div class="col2 cell">{{'erp.app.pages.shipping.delivery-review.total-cash' | translate}} <ion-text color="warning">(1)</ion-text>:</div>
+											<div class="col3 cell">{{item.TotalOfCashOrderText}}</div>
+										</div>
+										<div class="row">
+											<div class="col2 cell">{{item.NumberOfNewDebt}} {{'erp.app.pages.shipping.delivery-review.number-of-new-debt' | translate}} <ion-text color="warning">(2) </ion-text>:</div>
+											<div class="col3 cell">{{item.TotalOfDebtOrderText}}</div>
+										</div>
+										<div class="row">
+											<div class="col2 cell">{{item.NumberOfUndoneOrder}} {{'erp.app.pages.shipping.delivery-review.number-of-undone-order' | translate}}:</div>
+											<div class="col3 cell">{{item.TotalOfUndoneOrderText}}</div>
+										</div>
+										<div class="row">
+											<div class="col2 cell">{{'erp.app.pages.shipping.delivery-review.drop' | translate}} <span>({{item.NumberOfFailOrder}} {{'erp.app.pages.shipping.delivery-review.number-of-return-product' | translate}})</span>:</div>
+											<div class="col3 cell">{{item.TotalOfReturnProductText}}</div>
+										</div>
+									</section>
+								</div>
+							</ion-col>
+
+							<ion-col>
+								<div>
+									<section class="table data-table">
+										<div class="row">
+											<div class="col2 cell">{{'erp.app.pages.shipping.delivery-review.have-to-collect' | translate}} {{item.NumberOfDebt}} {{'erp.app.pages.shipping.delivery-review.debt-order' | translate}}:</div>
+											<div class="col3 cell">{{item.CongNoTongText }}</div>
+										</div>
+										<div class="row">
+											<div class="col2 cell">{{'erp.app.pages.shipping.delivery-review.received' | translate}} {{item.NumberOfReceivedDebt}} {{'erp.app.pages.shipping.delivery-review.debt-order' | translate}} <ion-text color="warning">(3) </ion-text>:</div>
+											<div class="col3 cell">{{item.TotalOfReceivedDebtText}}</div>
+										</div>
+										<div class="row">
+											<div class="col2 cell">{{item.NumberOfRemainingDebt}} {{'erp.app.pages.shipping.delivery-review.number-of-remaining-debt' | translate}} <ion-text color="warning"> (4)</ion-text>:</div>
+											<div class="col3 cell">{{item.TotalRemainingDebtText}}</div>
+										</div>
+										<div class="row">
+											<div class="col2 cell"><b>{{'erp.app.pages.shipping.delivery-review.total-of-cash' | translate}} <ion-text color="warning">(1)+(3)</ion-text>:</b> </div>
+											<div class="col3 cell">
+												<ion-badge color="primary">{{item.TotalOfCashText}}</ion-badge>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col2 cell"><b>{{'erp.app.pages.shipping.delivery-review.total-of-debt' | translate}} <ion-text color="warning">(2)+(4)</ion-text>:</b>
+											</div>
+											<div class="col3 cell">
+												<ion-badge color="primary">{{item.TongPhieuNoMoi}}</ion-badge>
+											</div>
+										</div>
+									</section>
+								</div>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+				</div>
+			</div>
+		</div>
+
+		<div class="row-full shadow" *ngIf="items.length && pageConfig.showSpinner==false">
+			<div class="table-contain table-contain-main">
+				<section class="table">
+					<header class="bold">
+						<div class="col-status cell ion-hide-sm-down"></div>
+						<div class="col2 cell">{{'erp.app.pages.shipping.delivery-review.vehicle' | translate}}</div>
+						<div class="col3 cell">{{'erp.app.pages.shipping.delivery-review.total-of-cash' | translate}}</div>
+						<div class="col1 cell">{{'erp.app.pages.shipping.delivery-review.new-debt' | translate}}</div>
+						<div class="col1 cell">{{'erp.app.pages.shipping.delivery-review.old-debt' | translate}}</div>
+
+						<div class="col3 cell ion-hide-sm-down">{{'erp.app.pages.shipping.delivery-review.total-cash' | translate}}</div>
+						<div class="col3 cell ion-hide-sm-down">{{'erp.app.pages.shipping.delivery-review.debt-total' | translate}}</div>
+						<div class="col3 cell ion-hide-sm-down">{{'erp.app.pages.shipping.delivery-review.debt-collected' | translate}}</div>
+						<div class="col3 cell ion-hide-sm-down">{{'erp.app.pages.shipping.delivery-review.debt-remaining' | translate}}</div>
+						<div class="col1 cell ion-hide-sm-down">{{'erp.app.pages.shipping.delivery-review.undone-order' | translate}}</div>
+						<div class="col3 cell ion-hide-sm-down">{{'erp.app.pages.shipping.delivery-review.undone-order-total' | translate}}</div>
+						<div class="col1 cell ion-hide-sm-down">{{'erp.app.pages.shipping.delivery-review.drop-all' | translate}}</div>
+						<div class="col3 cell ion-hide-sm-down">{{'erp.app.pages.shipping.delivery-review.drop-all-total' | translate}}</div>
+					</header>
+					<ng-container *ngFor="let i of items; let j = index;">
+						<div class="row" [ngClass]="{odd: j % 2 != 0}">
+							<div class="col-status cell cell-btn ion-hide-sm-down">
+								<span class="bar-holder" *ngIf="i.Status.Id != 329">
+									<ion-text class="bar-title" [color]="i.Status.Color">{{i.Status.Name}}</ion-text>
+									<span class="bar" [ngClass]="{active: s.Id==i.Status.Id}" [ngStyle]="{'background-color': 'var(--ion-color-'+s.Color+')'}" *ngFor="let s of statusList" [title]="s.Name"></span>
+								</span>
+								<ion-button class="small-btn" (click)="confirm(i)" *ngIf="i.Status.Id == 329 && pageConfig.canReceiveMoney" size="small">Nhận</ion-button>
+							</div>
+							<div class="col2 cell ">
+								<a class="data-title bold" [routerLink]="['/delivery-review/'+i.Id]" (click)="showDetail(i)">
+									{{i.Vehicle}} <small>{{i.DeliveryTime}}</small>
+								</a>
+							</div>
+							<div class="col3 cell">{{i.TotalOfCashText}}</div>
+							<div class="col1 cell">{{i.NumberOfNewDebt}}</div>
+							<div class="col1 cell">{{i.NumberOfRemainingDebt}}</div>
+
+							<div class="col3 cell ion-hide-sm-down">{{i.TotalOfCashOrderText}}</div>
+							<div class="col3 cell ion-hide-sm-down">{{i.TotalOfDebtOrderText}}</div>
+
+							<div class="col3 cell ion-hide-sm-down">{{i.TotalOfReceivedDebtText}}</div>
+							<div class="col3 cell ion-hide-sm-down">{{i.TotalRemainingDebtText}}</div>
+
+							<div class="col1 cell ion-hide-sm-down">{{i.NumberOfUndoneOrder}}</div>
+							<div class="col3 cell ion-hide-sm-down">{{i.TotalOfUndoneOrderText}}</div>
+							<div class="col1 cell ion-hide-sm-down">{{i.NumberOfFailOrder}}</div>
+							<div class="col3 cell ion-hide-sm-down">{{i.TotalOfReturnProductText}}</div>
+						</div>
+					</ng-container>
+					<div class="row sum ion-hide-sm-down">
+						<div class="col-status cell"></div>
+						<div class="col2 cell">{{'erp.app.pages.shipping.delivery-review.total' | translate}}</div>
+						<div class="col3 cell">{{item.TotalOfCashText}}</div>
+						<div class="col1 cell">{{item.NumberOfNewDebt}}</div>
+						<div class="col1 cell">{{item.NumberOfRemainingDebt}}</div>
+						<div class="col3 cell">{{item.TotalOfCashOrderText}}</div>
+						<div class="col3 cell">{{item.TotalOfDebtOrderText}}</div>
+						<div class="col3 cell">{{item.TotalOfReceivedDebtText}}</div>
+						<div class="col3 cell">{{item.TotalRemainingDebtText}}</div>
+						<div class="col1 cell">{{item.NumberOfUndoneOrder}}</div>
+						<div class="col3 cell">{{item.TotalOfUndoneOrderText}}</div>
+						<div class="col1 cell">{{item.NumberOfFailOrder}}</div>
+						<div class="col3 cell">{{item.TotalOfReturnProductText}}</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</ion-content>
