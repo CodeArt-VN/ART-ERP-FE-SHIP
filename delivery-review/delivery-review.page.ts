@@ -3,8 +3,6 @@ import { PageBase } from 'src/app/page-base';
 import { CustomService } from 'src/app/services/custom.service';
 import { EnvService } from 'src/app/services/core/env.service';
 import { NavController, AlertController, PopoverController } from '@ionic/angular';
-import Chart from 'chart.js';
-import 'chartjs-plugin-labels';
 import { lib } from 'src/app/services/static/global-functions';
 import { PopoverPage } from '../../SYS/popover/popover.page';
 import { ApiSetting } from 'src/app/services/static/api-setting';
@@ -20,7 +18,6 @@ export class DeliveryReviewPage extends PageBase {
 	canvasChart: any;
 
 
-	@ViewChild('chartCanvas') chartCanvas;
 	chartData = {};
 	centerText = '';
 	chartView = 'doanhThu';
@@ -36,47 +33,47 @@ export class DeliveryReviewPage extends PageBase {
 		public navCtrl: NavController,
 	) {
 		super();
-		Chart.pluginService.register({
-			beforeDraw: function (chart) {
-				if (chart.config.options.elements.center) {
-					//Get ctx from string
-					var ctx = chart.chart.ctx;
+		// Chart.pluginService.register({
+		// 	beforeDraw: function (chart) {
+		// 		if (chart.config.options.elements.center) {
+		// 			//Get ctx from string
+		// 			var ctx = chart.chart.ctx;
 
-					//Get options from the center object in options
-					var centerConfig = chart.config.options.elements.center;
-					var fontStyle = centerConfig.fontStyle || 'Arial';
-					var txt = centerConfig.text;
+		// 			//Get options from the center object in options
+		// 			var centerConfig = chart.config.options.elements.center;
+		// 			var fontStyle = centerConfig.fontStyle || 'Arial';
+		// 			var txt = centerConfig.text;
 					
-					var sidePadding = centerConfig.sidePadding || 20;
-					var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2)
-					//Start with a base font of 30px
-					ctx.font = "30px " + fontStyle;
+		// 			var sidePadding = centerConfig.sidePadding || 20;
+		// 			var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2)
+		// 			//Start with a base font of 30px
+		// 			ctx.font = "30px " + fontStyle;
 
-					//Get the width of the string and also the width of the element minus 10 to give it 5px side padding
-					var stringWidth = ctx.measureText(txt).width;
-					var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
+		// 			//Get the width of the string and also the width of the element minus 10 to give it 5px side padding
+		// 			var stringWidth = ctx.measureText(txt).width;
+		// 			var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
 
-					// Find out how much the font can grow in width.
-					var widthRatio = elementWidth / stringWidth;
-					var newFontSize = Math.floor(30 * widthRatio);
-					var elementHeight = (chart.innerRadius * 2);
+		// 			// Find out how much the font can grow in width.
+		// 			var widthRatio = elementWidth / stringWidth;
+		// 			var newFontSize = Math.floor(30 * widthRatio);
+		// 			var elementHeight = (chart.innerRadius * 2);
 
-					// Pick a new font size so it will not be larger than the height of label.
-					var fontSizeToUse = Math.min(newFontSize, elementHeight);
+		// 			// Pick a new font size so it will not be larger than the height of label.
+		// 			var fontSizeToUse = Math.min(newFontSize, elementHeight);
 
-					//Set font settings to draw it correctly.
-					ctx.textAlign = 'center';
-					ctx.textBaseline = 'middle';
-					var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
-					var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
-					ctx.font = fontSizeToUse + "px " + fontStyle;
-					ctx.fillStyle = lib.getCssVariableValue('--ion-color-primary');
+		// 			//Set font settings to draw it correctly.
+		// 			ctx.textAlign = 'center';
+		// 			ctx.textBaseline = 'middle';
+		// 			var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
+		// 			var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+		// 			ctx.font = fontSizeToUse + "px " + fontStyle;
+		// 			ctx.fillStyle = lib.getCssVariableValue('--ion-color-primary');
 
-					//Draw text in center
-					ctx.fillText(txt, centerX, centerY);
-				}
-			}
-		});
+		// 			//Draw text in center
+		// 			ctx.fillText(txt, centerX, centerY);
+		// 		}
+		// 	}
+		// });
 	}
 	needReload = false;
 	chartViews = 'doanhThu';
@@ -222,12 +219,12 @@ export class DeliveryReviewPage extends PageBase {
 
 		};
 
-		let ctx = this.chartCanvas.nativeElement;
-		this.canvasChart = new Chart(ctx, {
-			type: 'doughnut',
-			options: doughnutOption,
-			data: this.chartData,
-		});
+		// let ctx = this.chartCanvas.nativeElement;
+		// this.canvasChart = new Chart(ctx, {
+		// 	type: 'doughnut',
+		// 	options: doughnutOption,
+		// 	data: this.chartData,
+		// });
 		console.log(() => lib.getCssVariableValue('--ion-color-primary'));
 	}
 
