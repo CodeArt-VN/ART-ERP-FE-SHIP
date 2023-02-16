@@ -23,6 +23,13 @@ export class DeliveryReviewPage extends PageBase {
 	chartView = 'doanhThu';
 	countLoad = 0;
 
+	doanhThuChartData = [];
+	congnoChartData = [];
+
+	ChartStyle = {
+        width: '100%',
+        'min-height': '200px',
+    }
 
 	constructor(
 		public pageProvider: SHIP_ShipmentProvider,
@@ -33,48 +40,21 @@ export class DeliveryReviewPage extends PageBase {
 		public navCtrl: NavController,
 	) {
 		super();
-		// Chart.pluginService.register({
-		// 	beforeDraw: function (chart) {
-		// 		if (chart.config.options.elements.center) {
-		// 			//Get ctx from string
-		// 			var ctx = chart.chart.ctx;
-
-		// 			//Get options from the center object in options
-		// 			var centerConfig = chart.config.options.elements.center;
-		// 			var fontStyle = centerConfig.fontStyle || 'Arial';
-		// 			var txt = centerConfig.text;
-					
-		// 			var sidePadding = centerConfig.sidePadding || 20;
-		// 			var sidePaddingCalculated = (sidePadding / 100) * (chart.innerRadius * 2)
-		// 			//Start with a base font of 30px
-		// 			ctx.font = "30px " + fontStyle;
-
-		// 			//Get the width of the string and also the width of the element minus 10 to give it 5px side padding
-		// 			var stringWidth = ctx.measureText(txt).width;
-		// 			var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
-
-		// 			// Find out how much the font can grow in width.
-		// 			var widthRatio = elementWidth / stringWidth;
-		// 			var newFontSize = Math.floor(30 * widthRatio);
-		// 			var elementHeight = (chart.innerRadius * 2);
-
-		// 			// Pick a new font size so it will not be larger than the height of label.
-		// 			var fontSizeToUse = Math.min(newFontSize, elementHeight);
-
-		// 			//Set font settings to draw it correctly.
-		// 			ctx.textAlign = 'center';
-		// 			ctx.textBaseline = 'middle';
-		// 			var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
-		// 			var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
-		// 			ctx.font = fontSizeToUse + "px " + fontStyle;
-		// 			ctx.fillStyle = lib.getCssVariableValue('--ion-color-primary');
-
-		// 			//Draw text in center
-		// 			ctx.fillText(txt, centerX, centerY);
-		// 		}
-		// 	}
-		// });
 	}
+
+	totalPieChart = {
+        Id: 'totalPieChart',
+        Title: '',
+        Subtext: '',
+        SeriesName: '',
+
+        Legend: false,
+		ItemLabel: false,
+        Data: [],
+        Type: 'Doughnut',
+        Style: this.ChartStyle
+    }
+
 	needReload = false;
 	chartViews = 'doanhThu';
 	public buildChart() {
@@ -97,135 +77,54 @@ export class DeliveryReviewPage extends PageBase {
 			return;
 		}
 
+		this.doanhThuChartData = [];
+		this.congnoChartData = [];
 		if (this.chartView == 'doanhThu') {
-			this.chartData = {
-				datasets: [{
-					data: [this.item.TotalOfDoneOrder, this.item.TotalOfReturnProduct, this.item.TotalOfUndoneOrder],
-					backgroundColor: () => { return [lib.getCssVariableValue('--ion-color-primary'), lib.getCssVariableValue('--ion-color-medium'), lib.getCssVariableValue('--ion-color-dark')] },
-					label: 'Doanh thu'
-				}],
-				// TotalOfDoneOrder = (i.TotalOfCashOrder + i.TotalOfDebtOrder)
-				// i.TotalOfOrder = (i.TotalOfCashOrder + i.TotalOfDebtOrder) + i.TotalOfUndoneOrder + i.TotalOfReturnProduct;
+			// this.chartData = {
+			// 	datasets: [{
+			// 		data: [this.item.TotalOfDoneOrder, this.item.TotalOfReturnProduct, this.item.TotalOfUndoneOrder],
+			// 		backgroundColor: () => { return [lib.getCssVariableValue('--ion-color-primary'), lib.getCssVariableValue('--ion-color-medium'), lib.getCssVariableValue('--ion-color-dark')] },
+			// 		label: 'Doanh thu'
+			// 	}],
+			// 	// TotalOfDoneOrder = (i.TotalOfCashOrder + i.TotalOfDebtOrder)
+			// 	// i.TotalOfOrder = (i.TotalOfCashOrder + i.TotalOfDebtOrder) + i.TotalOfUndoneOrder + i.TotalOfReturnProduct;
 
-				labels: ['Đã giao', 'Hàng rớt', 'Chưa giao']
-			};
-			this.centerText = this.item.NumberOfDoneOrder + '/' + this.item.NumberOfOrder;
+			// 	labels: ['Đã giao', 'Hàng rớt', 'Chưa giao']
+			// };
+			// this.centerText = this.item.NumberOfDoneOrder + '/' + this.item.NumberOfOrder;
+
+			let tempLabel = ['Đã giao', 'Hàng rớt', 'Chưa giao'];
+			let tempData = [this.item.TotalOfDoneOrder, this.item.TotalOfReturnProduct, this.item.TotalOfUndoneOrder];
+
+			for (let idx = 0; idx < tempData.length; idx++) {
+				let tempObj = {value: tempData[idx], name: tempLabel[idx]};
+				this.doanhThuChartData.push(tempObj);
+			}
+
+			// this.totalPieChart.Title = 'Doanh thu';
 		}
 		else {
-			this.chartData = {
-				datasets: [{
-					data: [this.item.TotalOfReceivedDebt, this.item.TotalRemainingDebt],
-					backgroundColor: () => { return [lib.getCssVariableValue('--ion-color-primary'), lib.getCssVariableValue('--ion-color-dark')] },
-					label: 'Công nợ'
-				}],
-				labels: ['Đã thu được', 'Còn lại']
-			};
-			this.centerText = this.item.NumberOfReceivedDebt + '/' + this.item.NumberOfDebt;
+			// this.chartData = {
+			// 	datasets: [{
+			// 		data: [this.item.TotalOfReceivedDebt, this.item.TotalRemainingDebt],
+			// 		backgroundColor: () => { return [lib.getCssVariableValue('--ion-color-primary'), lib.getCssVariableValue('--ion-color-dark')] },
+			// 		label: 'Công nợ'
+			// 	}],
+			// 	labels: ['Đã thu được', 'Còn lại']
+			// };
+			// this.centerText = this.item.NumberOfReceivedDebt + '/' + this.item.NumberOfDebt;
+
+			let tempLabel = ['Đã thu được', 'Còn lại'];
+			let tempData = [this.item.TotalOfReceivedDebt, this.item.TotalRemainingDebt];
+
+			for (let idx = 0; idx < tempData.length; idx++) {
+				let tempObj = {value: tempData[idx], name: tempLabel[idx]};
+				this.congnoChartData.push(tempObj);
+			}
+
+			// this.totalPieChart.Title = 'Công nợ';
 		}
-
-
-		let doughnutOption = {
-			maintainAspectRatio: false,
-			responsive: true,
-			// cutoutPercentage: 70,
-			// rotation: 1 * Math.PI,
-			// circumference: 1 * Math.PI,
-			legend: {
-				display: false
-			},
-			title: {
-				display: false,
-			},
-			animation: {
-				animateScale: true,
-				animateRotate: true
-			},
-			tooltips: {
-				callbacks: {
-					label: function (tooltipItem, data) {
-						//var label = ' ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] + ' đơn ' + data.labels[tooltipItem.index];
-						//return label;
-						var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-						var label = data.labels[tooltipItem.index];
-						if (value >= 1000000) {
-							return label + ': ' + Intl.NumberFormat().format(value / 1000000.0) + ' triệu';
-						}
-						else {
-							return label + ': ' + Intl.NumberFormat().format(value / 1000.0) + ' K';
-						}
-					}
-				}
-			},
-			layout: {
-				padding: {
-					left: 5,
-					right: 5,
-					top: 5,
-					bottom: 5
-				}
-			},
-			plugins: {
-				labels: {
-					position: 'outside', // << display data label outside piechart segment
-					//arc: true,  // << make label curve above piechart segment
-					textMargin: 6,   // << spacing
-					// render: 'percentage',  // << display in percent
-					precision: 0,  // << display same as .toFixed(1), ex: 30.1%
-					fontSize: 12,
-					//fontStyle: 'bold',
-					anchor: 'center',
-					fontColor: () => lib.getCssVariableValue('--ion-color-dark'),
-					//offset: 10,
-					// render: (args) => {
-					// return `${args.label}: ${args.value}%`;
-					// return `${args.value}`;
-					// }  // display item Name + Value at the same type (shouldn't use this since names are too long)
-
-					render: (args) => {
-						if (args.percentage < 2.5) {
-							return '';
-						}
-						return `${args.percentage}%` //args.percentage + '%'; //`${args.label}: ${args.percentage}%`
-					},   // if percentage value smaller than limit, then hide, else display. (to minimize and avoid overlapping datalabels)
-				},
-
-				// labels: [
-				// 	{
-				// 		render: 'label',
-				// 		position: 'outside',
-				// 		// outsidePadding: 40,
-				// 		textMargin: 8
-				// 		// showZero: true,
-				// 	},
-				// 	{
-				// 		render: 'percentage',
-				// 		fontColor: '#FFF',
-				// 		precision: 0,
-				// 		//arc: true,
-				// 		//position: 'outside',
-				// 		position: 'border'
-				// 	}]
-			},
-			elements: {
-				arc: {
-					borderWidth: 0
-				},
-				center: {
-					text: this.centerText,
-					fontStyle: 'Arial', // Default is Arial
-					sidePadding: 20 // Defualt is 20 (as a percentage)
-				}
-			},
-
-		};
-
-		// let ctx = this.chartCanvas.nativeElement;
-		// this.canvasChart = new Chart(ctx, {
-		// 	type: 'doughnut',
-		// 	options: doughnutOption,
-		// 	data: this.chartData,
-		// });
-		console.log(() => lib.getCssVariableValue('--ion-color-primary'));
+		// console.log(() => lib.getCssVariableValue('--ion-color-primary'));
 	}
 
 	events(e){
@@ -235,6 +134,7 @@ export class DeliveryReviewPage extends PageBase {
 	}
 
 	refresh() {
+		this.chartView = '';
 		this.loadData();
 	}
 	interval = null;

@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { DeliveryReviewPageRoutingModule } from './delivery-review-routing.module';
 import { DeliveryReviewPage } from './delivery-review.page';
 import { ShareModule } from 'src/app/share.module';
+import { ShareChartsModule } from 'src/app/components/charts/share-charts.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { ShareModule } from 'src/app/share.module';
     FormsModule,
     ShareModule,
     IonicModule,
-    DeliveryReviewPageRoutingModule
+    DeliveryReviewPageRoutingModule,
+    ShareChartsModule
   ],
   declarations: [DeliveryReviewPage]
 })
