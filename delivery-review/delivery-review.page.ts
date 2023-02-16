@@ -51,6 +51,7 @@ export class DeliveryReviewPage extends PageBase {
         Legend: false,
 		ItemLabel: false,
         Data: [],
+		ColorTemplate: [],
         Type: 'Doughnut',
         Style: this.ChartStyle
     }
@@ -102,6 +103,7 @@ export class DeliveryReviewPage extends PageBase {
 			}
 
 			// this.totalPieChart.Title = 'Doanh thu';
+			this.totalPieChart.ColorTemplate = [lib.getCssVariableValue('--ion-color-primary'), lib.getCssVariableValue('--ion-color-medium'), lib.getCssVariableValue('--ion-color-dark')];
 		}
 		else {
 			// this.chartData = {
@@ -123,6 +125,7 @@ export class DeliveryReviewPage extends PageBase {
 			}
 
 			// this.totalPieChart.Title = 'Công nợ';
+			this.totalPieChart.ColorTemplate = [lib.getCssVariableValue('--ion-color-primary'), lib.getCssVariableValue('--ion-color-dark')];
 		}
 		// console.log(() => lib.getCssVariableValue('--ion-color-primary'));
 	}
