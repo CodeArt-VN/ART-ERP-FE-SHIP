@@ -84,7 +84,7 @@
                         <ion-range (click)="i.txtQtyShow = !i.txtQtyShow" *ngIf="i.Quantity" [disabled]="!pageConfig.canEdit || item.DA_GIAO_HANG || (i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" (ionChange)="changeSoLuong(i)" debounce="300" min="0" [max]="i.Quantity" [(ngModel)]="i.ShippedQuantity" color="success" pin="true" step="1" [snaps]="i.Quantity < 21">
                             <div slot="start">
                                 <ion-badge class="ion-text-lowercase" slot="start" [color]="i.ShippedQuantity == i.Quantity? 'success': 'warning' " *ngIf="i.Quantity"> {{i.ShippedQuantity}} {{i.UoMName}}</ion-badge>
-                                <input (focus)="$event.target.select()" [readonly]="!pageConfig.canEdit || item.DA_GIAO_HANG || (i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" class="txtQtyInput" type="number" [(ngModel)]="i.ShippedQuantity" (ionChange)="changeSoLuong(i, $event)" min="0.000000001" step="1" max="999999999999999999">
+                                <input (focus)="$event.target.select()" [readonly]="!pageConfig.canEdit || item.DA_GIAO_HANG || (i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" class="txtQtyInput" type="number" [(ngModel)]="i.ShippedQuantity" (ionChange)="changeSoLuong(i, $event)" min="0" step="1" max="999999999999999999">
                             </div>
                         </ion-range>
 

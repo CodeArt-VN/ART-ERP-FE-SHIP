@@ -11,7 +11,7 @@ import { concat, of, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { ApiSetting } from 'src/app/services/static/api-setting';
 import { lib } from 'src/app/services/static/global-functions';
-import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
     selector: 'app-delivery-detail',
@@ -88,8 +88,6 @@ export class DeliveryDetailPage extends PageBase {
         public cdr: ChangeDetectorRef,
         public loadingController: LoadingController,
         public commonService: CommonService,
-        private config: NgSelectConfig,
-        private geolocation: Geolocation
     ) {
         super();
         this.pageConfig.isDetailPage = true;
@@ -626,8 +624,7 @@ export class DeliveryDetailPage extends PageBase {
     UpdatePosition() {
         let apiPath = { method: "PUT", url: function () { return ApiSetting.apiDomain("SHIP/Shipment/DeliveryUpdatePosition") } };
 
-        this.geolocation.getCurrentPosition().then((resp) => {
-
+        Geolocation.getCurrentPosition().then((resp) => {
             this.item.position = 'lat: ' + resp.coords.latitude + ', long: ' + resp.coords.longitude;
 
             let c = {

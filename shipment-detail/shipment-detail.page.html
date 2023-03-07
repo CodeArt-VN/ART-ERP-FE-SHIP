@@ -42,8 +42,8 @@
 
                         <div class="c-control">
                             <label class="c-label">{{'erp.app.pages.shipping.shipment.delivery-date-part' | translate}} {{item.DeliveryDatePart}}</label>
-                            <input (change)="saveChange()" formControlName="DeliveryDatePart" [ngModel]="item.DeliveryDatePart | date:'yyyy-MM-dd'" class="c-input" type="date" style=" width: calc(100% - 110px); ">
-                            <input (change)="saveChange()" formControlName="DeliveryTimePart" class="c-input" type="time" style=" width: 100px; margin-left: 10px; ">
+                            <input (change)="saveChange()" formControlName="DeliveryDatePart" [ngModel]="item.DeliveryDatePart | date:'yyyy-MM-dd'" class="c-input" type="date" style=" width: calc(100% - 130px); display: inline-block;">
+                            <input (change)="saveChange()" formControlName="DeliveryTimePart" class="c-input" type="time" style=" width: 120px; margin-left: 10px; display: inline-block;">
                         </div>
 
                         <div class="c-control">
