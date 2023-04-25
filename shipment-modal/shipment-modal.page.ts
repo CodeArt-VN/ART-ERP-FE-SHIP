@@ -44,13 +44,21 @@ export class ShipmentModalPage extends PageBase {
         let OrderDateFrom = lib.dateFormat((new Date()).setDate((new Date()).getDate() - 14));
         let OrderDateTo = lib.dateFormat(new Date()) + ' 23:59:59';
 
-        this.pageProvider.apiPath.getList.url = function () { return ApiSetting.apiDomain("SALE/Order/ShippingList") };
         this.query.Take = 2000;
         this.query.OrderDateFrom = OrderDateFrom;
         this.query.OrderDateTo = OrderDateTo;
         //this.query.IgnoredBranch = true;
         this.query.IDStatus = '[104]';
-        super.loadData(event)
+
+        this.pageProvider.commonService.connect('GET','SALE/Order/ShippingList',this.query).toPromise().then((result: any) => {
+            if (result.length == 0) {
+                this.pageConfig.isEndOfData = true;
+            }
+            this.items = result;
+            this.loadedData(null);
+        });
+
+        
     }
 
     quickSelectChange(type) {

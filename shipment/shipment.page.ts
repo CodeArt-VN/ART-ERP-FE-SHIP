@@ -96,7 +96,7 @@ export class ShipmentPage extends PageBase {
         });
         super.loadedData(event);
 
-        this.loadOrders();
+        //this.loadOrders();
     }
 
     loadOrders() {
