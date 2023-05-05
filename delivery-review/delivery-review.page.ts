@@ -1,12 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { PageBase } from 'src/app/page-base';
-import { CustomService } from 'src/app/services/custom.service';
 import { EnvService } from 'src/app/services/core/env.service';
 import { NavController, AlertController, PopoverController } from '@ionic/angular';
 import { lib } from 'src/app/services/static/global-functions';
 import { PopoverPage } from '../../SYS/popover/popover.page';
 import { ApiSetting } from 'src/app/services/static/api-setting';
-import { SHIP_ShipmentProvider, SYS_StatusProvider } from 'src/app/services/static/services.service';
+import { SHIP_ShipmentProvider } from 'src/app/services/static/services.service';
 
 @Component({
 	selector: 'app-delivery-review',
@@ -33,7 +32,6 @@ export class DeliveryReviewPage extends PageBase {
 
 	constructor(
 		public pageProvider: SHIP_ShipmentProvider,
-		public statusProvider: SYS_StatusProvider,
 		public env: EnvService,
 		public popoverCtrl: PopoverController,
 		public alertCtrl: AlertController,
@@ -141,7 +139,7 @@ export class DeliveryReviewPage extends PageBase {
 		this.loadData();
 	}
 	interval = null;
-	preLoadData() {
+	preLoadData(event) {
 		if (this.env.user && this.env.user.UserName) {
 			if (!this.query.DeliveryDate) {
 				this.query.DeliveryDate = lib.dateFormat(new Date(), 'yyyy-mm-dd');
@@ -150,9 +148,9 @@ export class DeliveryReviewPage extends PageBase {
 			if (!this.pageConfig.canViewAllData) {
 				this.query.IDShipper = this.env.user.StaffID;
 			}
-			this.statusProvider.read({ IDParent: 31 }).then(response => {
-				this.statusList = response['data'];
-				super.preLoadData();
+			this.env.getStatus('ShipmentStatus').then(data=>{
+				this.statusList = data;
+				super.preLoadData(event);
 			});
 		}
 
@@ -172,7 +170,7 @@ export class DeliveryReviewPage extends PageBase {
 		if (this.needReload) {
 			this.item = {};
 			this.items = [];
-			this.preLoadData();
+			this.preLoadData(null);
 		}
 		if (!this.interval) {
 			this.interval = setInterval(() => {

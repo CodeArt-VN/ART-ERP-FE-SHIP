@@ -2,11 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, ModalController, AlertController, LoadingController, PopoverController } from '@ionic/angular';
 import { EnvService } from 'src/app/services/core/env.service';
 import { PageBase } from 'src/app/page-base';
-import { HRM_StaffProvider, SALE_OrderProvider, SHIP_ShipmentDetailProvider, SHIP_ShipmentProvider, SYS_StatusProvider } from 'src/app/services/static/services.service';
-import { Location } from '@angular/common';
+import { HRM_StaffProvider, SALE_OrderProvider, SHIP_ShipmentDetailProvider, SHIP_ShipmentProvider } from 'src/app/services/static/services.service';
 import { ApiSetting } from 'src/app/services/static/api-setting';
 import { lib } from 'src/app/services/static/global-functions';
-import { NgSelectConfig } from '@ng-select/ng-select';
 
 
 
@@ -28,7 +26,6 @@ export class ShipmentPage extends PageBase {
     constructor(
         public pageProvider: SHIP_ShipmentProvider,
         public staffProvider: HRM_StaffProvider,
-        public statusProvider: SYS_StatusProvider,
         public saleOrderProvider: SALE_OrderProvider,
         public shipmentDetailProvider: SHIP_ShipmentDetailProvider,
 
@@ -38,17 +35,12 @@ export class ShipmentPage extends PageBase {
         public loadingController: LoadingController,
         public env: EnvService,
         public navCtrl: NavController,
-        public location: Location,
-        private config: NgSelectConfig
     ) {
         super();
 
         this.pageConfig.isShowFeature = true;
         this.pageConfig.isShowSearch = true;
 
-        this.config.notFoundText = 'Không tìm thấy dữ liệu phù hợp...';
-        this.config.clearAllText = 'Xóa hết';
-        
         this.exportQuery.OrderDate = lib.dateFormat(new Date, 'yyyy-mm-dd');
         this.exportQuery.IsAllOrders = true;
     }
@@ -69,12 +61,11 @@ export class ShipmentPage extends PageBase {
         this.sort.Id = 'Id';
         this.sortToggle('Id', true);
         this.query.IDStatus = '[301,302,303,304,305,306,329]';
-
-        this.statusProvider.read({ IDParent: 31 }).then(response => {
-            this.statusList = response['data'];
+        this.env.getStatus('ShipmentStatus').then(data=>{
+            this.statusList = data;
             super.preLoadData(event);
-
         });
+       
     }
 
     loadData(event) {

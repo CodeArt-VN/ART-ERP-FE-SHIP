@@ -3,7 +3,7 @@ import { NavController, ModalController, LoadingController, AlertController } fr
 import { PageBase } from 'src/app/page-base';
 import { ActivatedRoute } from '@angular/router';
 import { EnvService } from 'src/app/services/core/env.service';
-import { SALE_OrderProvider, HRM_StaffProvider, SYS_StatusProvider, SHIP_ShipmentProvider, SHIP_VehicleProvider, BRA_BranchProvider } from 'src/app/services/static/services.service';
+import { SALE_OrderProvider, HRM_StaffProvider, SHIP_ShipmentProvider, SHIP_VehicleProvider, BRA_BranchProvider } from 'src/app/services/static/services.service';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CommonService } from 'src/app/services/core/common.service';
 import { NgSelectConfig } from '@ng-select/ng-select';
@@ -36,10 +36,7 @@ export class ShipmentDetailPage extends PageBase {
         public vehicleProvider: SHIP_VehicleProvider,
         public saleOrderProvider: SALE_OrderProvider,
         public branchProvider: BRA_BranchProvider,
-
         public staffProvider: HRM_StaffProvider,
-        public statusProvider: SYS_StatusProvider,
-
         public env: EnvService,
         public navCtrl: NavController,
         public route: ActivatedRoute,
@@ -48,8 +45,6 @@ export class ShipmentDetailPage extends PageBase {
         public formBuilder: FormBuilder,
         public cdr: ChangeDetectorRef,
         public loadingController: LoadingController,
-        public commonService: CommonService,
-        private config: NgSelectConfig
     ) {
         super();
         this.route.queryParams.subscribe(e => {
@@ -88,19 +83,16 @@ export class ShipmentDetailPage extends PageBase {
             //OrderLines: new FormArray([])
         });
 
-        //https://github.com/ng-select/ng-select
-        this.config.notFoundText = 'Không tìm thấy dữ liệu phù hợp...';
-        this.config.clearAllText = 'Xóa hết';
-        
     }
 
     preLoadData(event) {
         //Change to custome API
         this.pageProvider.apiPath.postItem.url = function () { return ApiSetting.apiDomain("SALE/Order/Add") };
         this.pageProvider.apiPath.putItem.url = function (id) { return ApiSetting.apiDomain("SALE/Order/Update/") + id };
-        this.statusProvider.read({ IDParent: 31 }).then(response => {
-            this.statusList = response['data'];
+        this.env.getStatus('ShipmentStatus').then(data=>{
+            this.statusList = data;
         });
+       
         this.vehicleProvider.read({ IgnoredBranch: true }).then(response => {
             this.vehicleList = response['data'];
             this.vehicleList.forEach(v => {
