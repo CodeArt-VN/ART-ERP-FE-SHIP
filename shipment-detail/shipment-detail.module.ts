@@ -6,9 +6,6 @@ import { IonicModule } from '@ionic/angular';
 import { ShareModule } from 'src/app/share.module';
 import { ShipmentDetailPage } from './shipment-detail.page';
 import { FileUploadModule } from 'ng2-file-upload';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { ShipmentModalPage } from '../shipment-modal/shipment-modal.page';
 import { ShipmentDebtPickerModalPage } from '../shipment-debt-picker-modal/shipment-debt-picker-modal.page';
 
@@ -26,10 +23,7 @@ const routes: Routes = [
     IonicModule,
     ReactiveFormsModule,
     FileUploadModule,
-    NgSelectModule,
-    NgOptionHighlightModule,
     ShareModule,
-    NgxMaskModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   declarations: [ShipmentDetailPage, ShipmentModalPage, ShipmentDebtPickerModalPage]

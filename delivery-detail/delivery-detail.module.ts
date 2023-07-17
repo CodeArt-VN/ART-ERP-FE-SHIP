@@ -6,8 +6,6 @@ import { IonicModule } from '@ionic/angular';
 import { ShareModule } from 'src/app/share.module';
 import { DeliveryDetailPage } from './delivery-detail.page';
 import { FileUploadModule } from 'ng2-file-upload';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 
 
 const routes: Routes = [
@@ -24,8 +22,6 @@ const routes: Routes = [
     IonicModule,
     ReactiveFormsModule,
     FileUploadModule,
-    NgSelectModule,
-    NgOptionHighlightModule,
     ShareModule,
     RouterModule.forChild(routes)
   ],
