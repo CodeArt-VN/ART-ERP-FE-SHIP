@@ -103,7 +103,7 @@ export class ShipmentDetailPage extends PageBase {
             });
             super.preLoadData(event);
         });
-        this.branchProvider.read({ IDType: 115 }).then(response => {
+        this.branchProvider.read({ Type: 'Warehouse' }).then(response => {
             this.wareHouseList = response['data'];
         });
         
