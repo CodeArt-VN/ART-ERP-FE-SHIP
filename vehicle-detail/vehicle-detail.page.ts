@@ -51,7 +51,7 @@ export class VehicleDetailPage extends PageBase {
             Name: ['', Validators.required],
             Remark: [''],
             Sort: [''],
-            IsDisabled: [''],
+            IsDisabled: new FormControl({ value: '', disabled: true }),
 
             DateOfPurchase: [''],
             DateOfRegistration: [''],
