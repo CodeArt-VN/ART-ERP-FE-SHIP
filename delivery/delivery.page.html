@@ -76,8 +76,8 @@
 
 
 
-	<ion-virtual-scroll [items]="items" approxItemHeight="290px" *ngIf="items.length">
-		<ion-card [ngClass]="{debt: i.Debt}" *virtualItem="let i; let itemBounds = bounds; let j = index;" class="booking ion-no-margin ion-margin-horizontal">
+	
+		<ion-card [ngClass]="{debt: i.Debt}" *ngFor="let i of items; let j = index;" class="booking ion-no-margin ion-margin-horizontal">
 			<div class="logo"></div>
 			<ion-card-header (click)="nav('delivery/'+i.SaleOrder.Id,'forward')">
 				<ion-card-title>
@@ -94,7 +94,7 @@
 							{{i.SaleOrder.OrderDateText}}
 							<small *ngIf="i.SaleOrder.OrderTimeText != '00:00'">{{i.SaleOrder.OrderTimeText}}</small>
 						</ion-text>
-						<!-- <ion-icon name="radio-button-on" [color]="i.Status.Color"></ion-icon> -->
+						
 					</div>
 				</ion-card-title>
 				<ion-card-subtitle>
@@ -157,7 +157,6 @@
 			</ion-item>
 
 		</ion-card>
-	</ion-virtual-scroll>
 
 	<div class="ion-padding"></div>
 

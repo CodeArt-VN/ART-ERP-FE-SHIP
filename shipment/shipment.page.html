@@ -1,6 +1,6 @@
 <ion-header>
 	<app-list-toolbar pageTitle="{{'erp.app.pages.shipping.shipment.page-title' | translate}}" [pageConfig]="pageConfig" [selectedItems]="selectedItems" [query]="query" (add)="add()" (refresh)="refresh()" (export)="export()" (import)="import($event)" (help)="help()" (unselect)="unselect()" (archiveItems)="archiveItems()" (deleteItems)="deleteItems()" (changeBranch)="changeBranch($event)"></app-list-toolbar>
-	<section class="table" [ngClass]="{withFeature: pageConfig.isShowFeature}">
+	<section style="margin-left: 0;" class="table" [ngClass]="{withFeature: pageConfig.isShowFeature}">
 		<header class="bold">
 			<div class="col-checkbox cell"></div>
 			<div class="col-id cell" (click)="sortToggle('Id')">
@@ -227,9 +227,7 @@
 
 	<div *ngIf="items.length && pageConfig.showSpinner==false">
 		<section class="table">
-			<ion-virtual-scroll [items]="items" approxItemHeight="27px">
-				<ng-container *virtualItem="let i; let itemBounds = bounds; let j = index;">
-					<div class="row" [ngClass]="{odd: j % 2 != 0}" [ngClass]="{selected: i.checked}">
+								<div *ngFor="let i of items; let j = index;"  class="row" [ngClass]="{odd: j % 2 != 0}" [ngClass]="{selected: i.checked}">
 						<div class="col-checkbox cell">
 							<input [disabled]="i.IDStatus != 301" (click)="changeSelection(i, $event)" class="c-checkbox" [(ngModel)]="i.checked" type="checkbox">
 						</div>
@@ -259,8 +257,7 @@
 						<div class="col-code cell money">{{i.ProductWeightText}} T</div>
 						<div class="col-code cell money">{{i.ProductDimensionsText}} m³</div>
 					</div>
-				</ng-container>
-			</ion-virtual-scroll>
+				
 		</section>
 	</div>
 
