@@ -34,10 +34,10 @@
 			<div class="col-1">
 				<div class="c-box">
 					<ng-container *ngIf="doanhThuChartData.length && chartView == 'doanhThu'">
-						<app-pie-chart [ChartInfo]="totalPieChart" [ChartData]="doanhThuChartData"></app-pie-chart>
+						<app-pie-chart-old [ChartInfo]="totalPieChart" [ChartData]="doanhThuChartData"></app-pie-chart-old>
 					</ng-container>
 					<ng-container *ngIf="congnoChartData.length && chartView == 'congno'">
-						<app-pie-chart [ChartInfo]="totalPieChart" [ChartData]="congnoChartData"></app-pie-chart>
+						<app-pie-chart-old [ChartInfo]="totalPieChart" [ChartData]="congnoChartData"></app-pie-chart-old>
 					</ng-container>
 				</div>
 
