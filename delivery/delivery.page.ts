@@ -117,7 +117,7 @@ export class DeliveryPage extends PageBase {
                     this.env.showMessage(err.message, 'danger');
                 }
                 else {
-                    this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.can-not-create-list','danger');
+                    this.env.showTranslateMessage('Cannote create list','danger');
                 }
                 this.loadedData(event)
             });
@@ -162,7 +162,7 @@ export class DeliveryPage extends PageBase {
                 this.env.showMessage(err.message, 'danger');
             }
             else {
-                this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.updating-order-error','danger');
+                this.env.showTranslateMessage('Order update error','danger');
             }
         });
 
@@ -258,7 +258,7 @@ export class DeliveryPage extends PageBase {
     scanning = false;
     scanQRCode() {
         if (!Capacitor.isPluginAvailable('BarcodeScanner') || Capacitor.platform == 'web') {
-            this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.mobile-only','warning');
+            this.env.showTranslateMessage('This function is only available on phone','warning');
             return;
         }
         BarcodeScanner.prepare().then(() => {
@@ -279,7 +279,7 @@ export class DeliveryPage extends PageBase {
                             this.navCtrl.navigateForward('/delivery/' + IDSaleOrder);
                             this.closeCamera();
                         } else {
-                            this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.scanning-with-value','', result.content);
+                            this.env.showTranslateMessage('You just scanned: {{value}}, please scanned QR code on paid delivery notes','', result.content);
                             setTimeout(() => this.scanQRCode(), 0);
                         }
                     })

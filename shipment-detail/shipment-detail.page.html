@@ -13,13 +13,13 @@
                 <ion-row class="hr-group">
                     <ion-col size="12" size-sm="12" size-md="12" size-xl="3">
                         <ion-list-header class="ion-no-padding">
-                            <ion-label color="primary">{{'erp.app.pages.shipping.shipment.delivery-trip' | translate}}</ion-label>
+                            <ion-label color="primary">{{'Shipments' | translate}}</ion-label>
                         </ion-list-header>
                     </ion-col>
                     <ion-col size="12" size-sm size-xl="4">
                         <div class="c-control">
-                            <label class="c-label" for="IDVehicle">{{'erp.app.pages.shipping.shipment.idvehicle' | translate}}</label>
-                            <ng-select (change)="changedVehicle()" class="c-input" #IDVehicle formControlName="IDVehicle" labelForId="IDVehicle" [items]="vehicleList" [loading]='shipperListLoading' bindLabel="Name" bindValue="Id" placeholder="{{'erp.app.pages.shipping.shipment.idvehicle-placeholder' | translate}}">
+                            <label class="c-label" for="IDVehicle">{{'License plate' | translate}}</label>
+                            <ng-select (change)="changedVehicle()" class="c-input" #IDVehicle formControlName="IDVehicle" labelForId="IDVehicle" [items]="vehicleList" [loading]='shipperListLoading' bindLabel="Name" bindValue="Id" placeholder="{{'Search for license plate' | translate}}">
                                 <ng-template ng-option-tmp let-i="item" let-search="searchTerm">
                                     <div *ngIf="i">
                                         <div><span [ngOptionHighlight]="search">{{i.Name}}</span></div>
@@ -29,8 +29,8 @@
                         </div>
 
                         <div class="c-control">
-                            <label class="c-label" for="IDShipper">{{'erp.app.pages.shipping.shipment.idshipper' | translate}}</label>
-                            <ng-select (change)="saveChange()" class="c-input" #IDShipper formControlName="IDShipper" labelForId="IDShipper" [items]="shipperList$ | async" [typeahead]="shipperListInput$" [loading]='shipperListLoading' [virtualScroll]="true" bindLabel="FullName" bindValue="Id" placeholder="{{'erp.app.pages.shipping.shipment.idshipper-placeholder' | translate}}">
+                            <label class="c-label" for="IDShipper">{{'Shipper' | translate}}</label>
+                            <ng-select (change)="saveChange()" class="c-input" #IDShipper formControlName="IDShipper" labelForId="IDShipper" [items]="shipperList$ | async" [typeahead]="shipperListInput$" [loading]='shipperListLoading' [virtualScroll]="true" bindLabel="FullName" bindValue="Id" placeholder="{{'Search for name, code or phone number' | translate}}">
                                 <ng-template ng-option-tmp let-i="item" let-search="searchTerm">
                                     <div *ngIf="i">
                                         <div><span [ngOptionHighlight]="search">{{i.FullName}}</span></div>
@@ -41,14 +41,14 @@
                         </div>
 
                         <div class="c-control">
-                            <label class="c-label">{{'erp.app.pages.shipping.shipment.delivery-date-part' | translate}} {{item.DeliveryDatePart}}</label>
+                            <label class="c-label">{{'Delivery date and time' | translate}} {{item.DeliveryDatePart}}</label>
                             <input (change)="saveChange()" formControlName="DeliveryDatePart" [ngModel]="item.DeliveryDatePart | date:'yyyy-MM-dd'" class="c-input" type="date" style=" width: calc(100% - 130px); display: inline-block;">
                             <input (change)="saveChange()" formControlName="DeliveryTimePart" class="c-input" type="time" style=" width: 120px; margin-left: 10px; display: inline-block;">
                         </div>
 
                         <div class="c-control">
-                            <label class="c-label" for="IDWarehouse">{{'erp.app.pages.shipping.shipment.idwarehouse' | translate}}</label>
-                            <ng-select class="c-input" (change)="saveChange()" #IDWarehouse formControlName="IDWarehouse" labelForId="IDWarehouse" [items]="wareHouseList" bindLabel="Name" bindValue="Id" placeholder="{{'erp.app.pages.shipping.shipment.idwarehouse-placeholder' | translate}}">
+                            <label class="c-label" for="IDWarehouse">{{'Warehouse' | translate}}</label>
+                            <ng-select class="c-input" (change)="saveChange()" #IDWarehouse formControlName="IDWarehouse" labelForId="IDWarehouse" [items]="wareHouseList" bindLabel="Name" bindValue="Id" placeholder="{{'Select warehouse' | translate}}">
                                 <ng-template ng-option-tmp let-i="item" let-search="searchTerm">
                                     <div *ngIf="i">
                                         <div><span [ngOptionHighlight]="search">{{i.Name}}</span></div>
@@ -67,16 +67,16 @@
                     </ion-col>
                     <ion-col size="12" size-sm size-xl="4">
                         <div class="c-control" *ngIf="item.Id">
-                            <label class="c-label" for="Id"># {{'erp.app.pages.shipping.shipment.id-detail' | translate}}</label>
+                            <label class="c-label" for="Id"># {{'Id' | translate}}</label>
                             <input class="c-input" id="Id" formControlName="Id" type="number">
                         </div>
 
                         <div class="c-control">
-                            <label class="c-label" for="IDStatus">{{'erp.app.pages.shipping.shipment.idstatus-detail' | translate}}
+                            <label class="c-label" for="IDStatus">{{'Delivery Status' | translate}}
 
                                 <ion-text color="primary">
-                                    <small class="clickable" title="{{'erp.app.pages.shipping.shipment.view-delivery-detail' | translate}}" (click)="nav('delivery-note/'+item.Id,'forward')">{{'erp.app.pages.shipping.shipment.delivery-note' | translate}}&nbsp;<ion-icon name="open-outline"></ion-icon></small>
-                                    <small class="clickable" title="{{'erp.app.pages.shipping.shipment.view-delivery-detail' | translate}}" (click)="nav('delivery-review/'+item.Id,'forward')">{{'erp.app.pages.shipping.shipment.delivery-review' | translate}}&nbsp;<ion-icon name="open-outline"></ion-icon></small>
+                                    <small class="clickable" title="{{'View Delivery details' | translate}}" (click)="nav('delivery-note/'+item.Id,'forward')">{{'Print delivery note' | translate}}&nbsp;<ion-icon name="open-outline"></ion-icon></small>
+                                    <small class="clickable" title="{{'View Delivery details' | translate}}" (click)="nav('delivery-review/'+item.Id,'forward')">{{'Delivery result' | translate}}&nbsp;<ion-icon name="open-outline"></ion-icon></small>
                                 </ion-text>
 
                                 <span *ngIf="!formGroup.controls.IDStatus.valid && !formGroup.controls.IDStatus.pending && (formGroup.controls.IDStatus.dirty || submitAttempt)" ion-text color="danger">(*)</span>
@@ -88,7 +88,7 @@
                         </div>
 
                         <div class="c-control">
-                            <label class="c-label" for="ProductWeight">{{'erp.app.pages.shipping.shipment.product-weight-detail' | translate}} <ion-text color="primary" *ngIf="item.ProductWeight">{{(item.ProductWeight/1000) | mask: 'separator.2':','}} {{'erp.app.pages.shipping.shipment.ton' | translate}} / {{item.WeightRecommend}} {{'erp.app.pages.shipping.shipment.ton' | translate}} (max: {{item.WeightMax}} {{'erp.app.pages.shipping.shipment.ton' | translate}})</ion-text>
+                            <label class="c-label" for="ProductWeight">{{'Weight' | translate}} <ion-text color="primary" *ngIf="item.ProductWeight">{{(item.ProductWeight/1000) | mask: 'separator.2':','}} {{'ton' | translate}} / {{item.WeightRecommend}} {{'ton' | translate}} (max: {{item.WeightMax}} {{'ton' | translate}})</ion-text>
                                 <span *ngIf="!formGroup.controls.ProductWeight.valid && !formGroup.controls.ProductWeight.pending && (formGroup.controls.ProductWeight.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                             </label>
                             <input readonly class="c-input" id="ProductWeight" formControlName="ProductWeight" type='text' mask="separator.2" thousandSeparator="," suffix=" kg">
@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="c-control">
-                            <label class="c-label" for="ProductDimensions">{{'erp.app.pages.shipping.shipment.product-dimensions-detail' | translate}} <ion-text color="primary" *ngIf="item.ProductDimensionsM">{{item.ProductDimensionsM | mask: 'separator.2':','}} m³ / {{item.VolumeRecommend}} m³ (max: {{item.VolumeMax}} m³)</ion-text>
+                            <label class="c-label" for="ProductDimensions">{{'Volume' | translate}} <ion-text color="primary" *ngIf="item.ProductDimensionsM">{{item.ProductDimensionsM | mask: 'separator.2':','}} m³ / {{item.VolumeRecommend}} m³ (max: {{item.VolumeMax}} m³)</ion-text>
                                 <span *ngIf="!formGroup.controls.ProductDimensions.valid && !formGroup.controls.ProductDimensions.pending && (formGroup.controls.ProductDimensions.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                             </label>
 
@@ -140,7 +140,7 @@
                 <ion-buttons slot="start" *ngIf="segmentView == 's1' && item.Id">
                     <ion-button color="primary" *ngIf="pageConfig.canEdit">
                         <ion-icon slot="start" name="truck"></ion-icon>
-                        {{'erp.app.pages.shipping.shipment.add-detail' | translate}}
+                        {{'Add order' | translate}}
                     </ion-button>
                     <ion-button color="primary">
                         <ion-icon slot="icon-only" name="search"></ion-icon>
@@ -149,36 +149,36 @@
                 <ion-buttons slot="start" *ngIf="segmentView == 's2' && item.Id">
                     <ion-button color="primary" *ngIf="pageConfig.canEdit">
                         <ion-icon slot="start" name="truck"></ion-icon>
-                        {{'erp.app.pages.shipping.shipment.add-debt-detail' | translate}}
+                        {{'Add debt note' | translate}}
                     </ion-button>
                 </ion-buttons>
 
                 <ion-segment scrollable="true" (ionChange)="segmentChanged($event)" [value]="segmentView">
 
                     <ion-segment-button value="s1">
-                        <ion-label>{{'erp.app.pages.shipping.shipment.order-to-delivery' | translate}} <span *ngIf="SelectedOrderList.length">({{SelectedOrderList.length}})</span> </ion-label>
+                        <ion-label>{{'Orders for delivery' | translate}} <span *ngIf="SelectedOrderList.length">({{SelectedOrderList.length}})</span> </ion-label>
                     </ion-segment-button>
                     <ion-segment-button value="s2">
-                        <ion-label>{{'erp.app.pages.shipping.shipment.debt-to-be-collected' | translate}} <span *ngIf="SelectedDebtOrderList.length">({{SelectedDebtOrderList.length}})</span></ion-label>
+                        <ion-label>{{'Debt to collect' | translate}} <span *ngIf="SelectedDebtOrderList.length">({{SelectedDebtOrderList.length}})</span></ion-label>
                     </ion-segment-button>
                     <ion-segment-button value="s3">
-                        <ion-label>{{'erp.app.pages.shipping.shipment.map' | translate}}</ion-label>
+                        <ion-label>{{'Map' | translate}}</ion-label>
                     </ion-segment-button>
                 </ion-segment>
 
                 <ion-buttons slot="end" *ngIf="segmentView == 's1' && item.Id">
                     <ion-button (click)="showShipmentModal()" *ngIf="pageConfig.canEdit">
                         <ion-icon slot="start" name="truck"></ion-icon>
-                        {{'erp.app.pages.shipping.shipment.add-detail' | translate}}
+                        {{'Add order' | translate}}
                     </ion-button>
-                    <ion-button title="{{'erp.app.pages.shipping.shipment.search' | translate}}" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch">
+                    <ion-button title="{{'Search' | translate}}" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch">
                         <ion-icon slot="icon-only" name="search"></ion-icon>
                     </ion-button>
                 </ion-buttons>
                 <ion-buttons slot="end" *ngIf="segmentView == 's2' && item.Id">
                     <ion-button (click)="showShipmentDebtModal()" *ngIf="pageConfig.canEdit">
                         <ion-icon slot="start" name="truck"></ion-icon>
-                        {{'erp.app.pages.shipping.shipment.add-debt-detail' | translate}}
+                        {{'Add debt note' | translate}}
                     </ion-button>
                 </ion-buttons>
             </ion-toolbar>
@@ -192,50 +192,50 @@
                                     <input (change)="toggleSelectAll()" [(ngModel)]="isAllChecked" class="c-checkbox" type="checkbox">
                                 </div>
                                 <div class="col-id cell" (click)="sortToggle('Id')">
-                                    #{{'erp.app.pages.shipping.shipment.id-sort' | translate}}
+                                    #{{'Order' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sort.Id" [name]="sort.Id == 'Id'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Id" name="search" color="primary"></ion-icon>
                                 </div>
 
                                 <div class="col-code cell" (click)="sortToggle('OrderDate')">
-                                    {{'erp.app.pages.shipping.shipment.order-date-sort' | translate}}
+                                    {{'Order created date' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sort.OrderDate" [name]="sort.OrderDate == 'OrderDate'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.OrderDate" name="search" color="primary"></ion-icon>
                                 </div>
 
                                 <div class="col-name cell" (click)="sortToggle('CustomerName')">
-                                    {{'erp.app.pages.shipping.shipment.customer-name-sort' | translate}}
+                                    {{'Customer' | translate}}
                                     <small>#Id</small>
 
                                     <ion-icon class="min-btn" *ngIf="sort.CustomerName" [name]="sort.CustomerName == 'CustomerName'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="localQuery.CustomerName" name="search" color="primary"></ion-icon>
 
                                     <small class="right">
-                                        <ion-text color="dark"> {{'erp.app.pages.shipping.shipment.address' | translate}}</ion-text>
+                                        <ion-text color="dark"> {{'Address' | translate}}</ion-text>
                                     </small>
                                 </div>
                                 <div class="col-code cell money" (click)="sortToggle('OriginalTotalAfterTax')">
-                                    {{'erp.app.pages.shipping.shipment.original-total-after-tax' | translate}}
+                                    {{'Value after discount' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sort.OriginalTotalAfterTax" [name]="sort.OriginalTotalAfterTax == 'OriginalTotalAfterTax'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.OriginalTotalAfterTax" name="search" color="primary"></ion-icon>
                                 </div>
                                 <div class="col-code cell money" (click)="sortToggle('ProductWeight')">
-                                    {{'erp.app.pages.shipping.shipment.product-weight-detail' | translate}}
+                                    {{'Weight' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sort.ProductWeight" [name]="sort.ProductWeight == 'ProductWeight'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.ProductWeight" name="search" color="primary"></ion-icon>
                                 </div>
                                 <div class="col-code cell money" (click)="sortToggle('ProductDimensions')">
-                                    {{'erp.app.pages.shipping.shipment.product-dimensions-detail' | translate}}
+                                    {{'Volume' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sort.ProductDimensions" [name]="sort.ProductDimensions == 'ProductDimensions'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.ProductDimensions" name="search" color="primary"></ion-icon>
                                 </div>
                                 <div class="col-code cell" (click)="sortToggle('Code')">
-                                    {{'erp.app.pages.shipping.shipment.vendor-code' | translate}}
+                                    {{'Vendor code' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sort.Code" [name]="sort.Code == 'Code'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Code" name="search" color="primary"></ion-icon>
                                 </div>
 
-                                <div class="col-checkbox cell clickable" *ngIf="pageConfig.canEdit" title="{{'erp.app.pages.shipping.shipment.remove-select-order' | translate}}" (click)="removeAlSelectedOrder()">
+                                <div class="col-checkbox cell clickable" *ngIf="pageConfig.canEdit" title="{{'Delete chosen orders' | translate}}" (click)="removeAlSelectedOrder()">
                                     <ion-icon color="danger" class="min-btn" name="trash-outline"></ion-icon>
                                 </div>
 
@@ -271,7 +271,7 @@
                                     <div class="col-checkbox cell" *ngIf="pageConfig.canEdit">
 
                                     </div>
-                                    <button mat-raised-button type="submit" style="display:none">{{'erp.app.pages.shipping.shipment.search' | translate}}</button>
+                                    <button mat-raised-button type="submit" style="display:none">{{'Search' | translate}}</button>
                                 </header>
                             </form>
 
@@ -287,8 +287,8 @@
                                     <small *ngIf="i.OrderTimeText ">{{i.OrderTimeText}}</small>
                                 </div>
                                 <div class="col-name cell">
-                                    <span title="{{'erp.app.pages.shipping.shipment.view-order-detail' | translate}}" (click)="nav('sale-order/'+i.Id,'forward')" [ngOptionHighlight]="localQuery.CustomerName">{{i.CustomerName}}</span>
-                                    <small title="{{'erp.app.pages.shipping.shipment.view-contact-detail' | translate}}" (click)="nav('business-partner/'+i.IDContact,'forward')">#{{i.IDContact}}</small>
+                                    <span title="{{'View order's details' | translate}}" (click)="nav('sale-order/'+i.Id,'forward')" [ngOptionHighlight]="localQuery.CustomerName">{{i.CustomerName}}</span>
+                                    <small title="{{'View customers' information' | translate}}" (click)="nav('business-partner/'+i.IDContact,'forward')">#{{i.IDContact}}</small>
                                     <small class="right">
                                         <ion-text color="dark"> <span>{{i.AddressLine1}}</span> <span *ngIf="i.AddressLine2"> &nbsp; {{i.AddressLine2}}</span> </ion-text>
                                     </small>
@@ -297,7 +297,7 @@
                                 <div class="col-code cell money">{{i.ProductWeightText}} kg</div>
                                 <div class="col-code cell money">{{i.ProductDimensionsText}} lít</div>
                                 <div class="col-code cell">{{i.Code}}</div>
-                                <div class="col-checkbox cell clickable" title="{{'erp.app.pages.shipping.shipment.remove-selected-order' | translate}}" (click)="removeSelectedOrder(i)" *ngIf="pageConfig.canEdit">
+                                <div class="col-checkbox cell clickable" title="{{'Delete this order' | translate}}" (click)="removeSelectedOrder(i)" *ngIf="pageConfig.canEdit">
                                     <ion-icon color="danger" class="min-btn" name="trash-outline"></ion-icon>
                                 </div>
                             </div>
@@ -312,13 +312,13 @@
 
                             <div class="detail">
                                 <div *ngIf="pageConfig.canEdit && item.Id">
-                                    <ion-button title="{{'erp.app.pages.shipping.shipment.search' | translate}}" (click)="showShipmentModal()">
+                                    <ion-button title="{{'Search' | translate}}" (click)="showShipmentModal()">
                                         <ion-icon slot="start" name="truck"></ion-icon>
-                                        {{'erp.app.pages.shipping.shipment.show-shipment-modal' | translate}}
+                                        {{'Add order' | translate}}
                                     </ion-button>
                                 </div>
                                 <ion-text>
-                                    {{'erp.app.pages.shipping.shipment.select-orders' | translate}}
+                                    {{'Select orders' | translate}}
                                 </ion-text>
                             </div>
                         </div>
@@ -333,46 +333,46 @@
                                     <input (change)="toggleDebtSelectAll()" [(ngModel)]="isAllDebtChecked" class="c-checkbox" type="checkbox">
                                 </div>
                                 <div class="col-id cell" (click)="sortToggleDebt('Id')">
-                                    #{{'erp.app.pages.shipping.shipment.id-sort' | translate}}
+                                    #{{'Order' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sortDebt.Id" [name]="sortDebt.Id == 'Id'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="debtQuery.Id" name="search" color="primary"></ion-icon>
                                 </div>
 
                                 <div class="col-code cell" (click)="sortToggleDebt('OrderDate')">
-                                    {{'erp.app.pages.shipping.shipment.order-date-sort' | translate}}
+                                    {{'Order created date' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sortDebt.OrderDate" [name]="sortDebt.OrderDate == 'OrderDate'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="debtQuery.OrderDate" name="search" color="primary"></ion-icon>
                                 </div>
 
                                 <div class="col-name cell" (click)="sortToggleDebt('CustomerName')">
-                                    {{'erp.app.pages.shipping.shipment.customer-name-sort' | translate}}
+                                    {{'Customer' | translate}}
                                     <small>#Id</small>
 
                                     <ion-icon class="min-btn" *ngIf="sortDebt.CustomerName" [name]="sortDebt.CustomerName == 'CustomerName'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="localQuery.CustomerName" name="search" color="primary"></ion-icon>
 
                                     <small class="right">
-                                        <ion-text color="dark"> {{'erp.app.pages.shipping.shipment.address' | translate}}</ion-text>
+                                        <ion-text color="dark"> {{'Address' | translate}}</ion-text>
                                     </small>
                                 </div>
                                 <div class="col-code cell money" (click)="sortToggleDebt('OriginalTotalAfterTax')">
-                                    {{'erp.app.pages.shipping.shipment.original-total-after-tax-sort' | translate}}
+                                    {{'Total amount' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sortDebt.OriginalTotalAfterTax" [name]="sortDebt.OriginalTotalAfterTax == 'OriginalTotalAfterTax'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="debtQuery.OriginalTotalAfterTax" name="search" color="primary"></ion-icon>
                                 </div>
                                 <div class="col-code cell money">
-                                    {{'erp.app.pages.shipping.shipment.debt-sort' | translate}}
+                                    {{'Remaining debt' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sortDebt.ProductWeight" [name]="sortDebt.ProductWeight == 'ProductWeight'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="debtQuery.ProductWeight" name="search" color="primary"></ion-icon>
                                 </div>
 
                                 <div class="col-code cell" (click)="sortToggleDebt('Code')">
-                                    {{'erp.app.pages.shipping.shipment.vendor-code' | translate}}
+                                    {{'Vendor code' | translate}}
                                     <ion-icon class="min-btn" *ngIf="sortDebt.Code" [name]="sortDebt.Code == 'Code'?'arrow-down': 'arrow-up'"></ion-icon>
                                     <ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="debtQuery.Code" name="search" color="primary"></ion-icon>
                                 </div>
 
-                                <div class="col-checkbox cell clickable" *ngIf="pageConfig.canEdit" title="{{'erp.app.pages.shipping.shipment.remove-all-selected-debt-order' | translate}}" (click)="removeAlSelectedDebtOrder()">
+                                <div class="col-checkbox cell clickable" *ngIf="pageConfig.canEdit" title="{{'Delete chosen debt notes' | translate}}" (click)="removeAlSelectedDebtOrder()">
                                     <ion-icon color="danger" class="min-btn" name="trash-outline"></ion-icon>
                                 </div>
 
@@ -424,8 +424,8 @@
                                     <small *ngIf="i.OrderTimeText ">{{i.OrderTimeText}}</small>
                                 </div>
                                 <div class="col-name cell">
-                                    <span title="{{'erp.app.pages.shipping.shipment.view-order-detail' | translate}}" (click)="nav('sale-order/'+i.Id,'forward')" [ngOptionHighlight]="localQuery.CustomerName">{{i.CustomerName}}</span>
-                                    <small title="{{'erp.app.pages.shipping.shipment.view-contact-detail' | translate}}" (click)="nav('business-partner/'+i.IDContact,'forward')">#{{i.IDContact}}</small>
+                                    <span title="{{'View order's details' | translate}}" (click)="nav('sale-order/'+i.Id,'forward')" [ngOptionHighlight]="localQuery.CustomerName">{{i.CustomerName}}</span>
+                                    <small title="{{'View customers' information' | translate}}" (click)="nav('business-partner/'+i.IDContact,'forward')">#{{i.IDContact}}</small>
                                     <small class="right">
                                         <ion-text color="dark"> <span>{{i.AddressLine1}}</span> <span *ngIf="i.AddressLine2"> &nbsp; {{i.AddressLine2}}</span> </ion-text>
                                     </small>
@@ -434,7 +434,7 @@
                                 <div class="col-code cell money">{{i.DebtText}}</div>
 
                                 <div class="col-code cell">{{i.Code}}</div>
-                                <div class="col-checkbox cell clickable" title="{{'erp.app.pages.shipping.shipment.remove-selected-debt-order' | translate}}" (click)="removeSelectedDebtOrder(i)" *ngIf="pageConfig.canEdit">
+                                <div class="col-checkbox cell clickable" title="{{'remove-selected-debt-order' | translate}}" (click)="removeSelectedDebtOrder(i)" *ngIf="pageConfig.canEdit">
                                     <ion-icon color="danger" class="min-btn" name="trash-outline"></ion-icon>
                                 </div>
                             </div>
@@ -449,13 +449,13 @@
 
                             <div class="detail">
                                 <div *ngIf="pageConfig.canEdit && item.Id">
-                                    <ion-button title="{{'erp.app.pages.shipping.shipment.search' | translate}}" (click)="showShipmentDebtModal()">
+                                    <ion-button title="{{'Search' | translate}}" (click)="showShipmentDebtModal()">
                                         <ion-icon slot="start" name="truck"></ion-icon>
-                                        {{'erp.app.pages.shipping.shipment.show-shipment-debt-modal' | translate}}
+                                        {{'Add debt note' | translate}}
                                     </ion-button>
                                 </div>
                                 <ion-text>
-                                    {{'erp.app.pages.shipping.shipment.select-debt-orders' | translate}}
+                                    {{'Select debt notes to collect' | translate}}
                                 </ion-text>
                             </div>
                         </div>

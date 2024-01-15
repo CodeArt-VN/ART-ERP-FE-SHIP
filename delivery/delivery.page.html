@@ -2,7 +2,7 @@
 	<ion-toolbar>
 		<ion-buttons slot="start" *ngIf="selectedShipmentID==0">
 			<ion-button color="dark">
-				{{'erp.app.pages.shipping.delivery.page-title' | translate}}
+				{{'Order' | translate}}
 			</ion-button>
 		</ion-buttons>
 		<ion-segment *ngIf="selectedShipmentID" scrollable="true" (ionChange)="segmentChanged($event)" [value]="selectedShipmentID">
@@ -16,11 +16,11 @@
 		</ion-segment>
 
 		<ion-buttons slot="end" *ngIf="!selectedItems.length">
-			<!-- <ion-button title="{{'erp.app.pages.shipping.shipment.search' | translate}}" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch">
+			<!-- <ion-button title="{{'Search' | translate}}" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch">
 				<ion-icon slot="icon-only" name="search-outline"></ion-icon>
 			</ion-button> -->
 			
-			<ion-button (click)="preLoadData(null)" title="{{'erp.app.pages.shipping.delivery.refresh' | translate}}">
+			<ion-button (click)="preLoadData(null)" title="{{'Refresh' | translate}}">
 				<ion-icon slot="icon-only" name="reload-outline"></ion-icon>
 			</ion-button>
 			
@@ -34,7 +34,7 @@
 		<span class="header-icon ">
 			<ion-icon name="qr-code-outline"></ion-icon>
 		</span>
-		<ion-searchbar (ionInput)="search($event)" placeholder="{{'erp.app.pages.shipping.delivery.search' | translate}}"></ion-searchbar>
+		<ion-searchbar (ionInput)="search($event)" placeholder="{{'Search order' | translate}}"></ion-searchbar>
 	</ion-toolbar>
 </ion-header>
 
@@ -56,11 +56,11 @@
 		<div *ngIf="changedItems.length" class="ion-padding ">
 			<ion-chip color="primary">
 				<ion-icon name="pin"></ion-icon>
-				<ion-label>{{changedItems.length}} {{'erp.app.pages.shipping.delivery.chip-label' | translate}}</ion-label>
+				<ion-label>{{changedItems.length}} {{'processed order - Click to send back' | translate}}</ion-label>
 			</ion-chip>
 			<br>
 			<ion-button size="small" fill="outline" color="danger" (click)="clearStateOrders()">
-				{{'erp.app.pages.shipping.delivery.clear-state-orders' | translate}}
+				{{'Cancel to process again' | translate}}
 			</ion-button>
 		</div>
 
@@ -105,7 +105,7 @@
 						{{i.Status.Name}} {{i._state}}
 					</small>
 					<small *ngIf="i._state">
-						<ion-text color="primary"> {{'erp.app.pages.shipping.delivery._state' | translate}} </ion-text>
+						<ion-text color="primary"> {{'processed' | translate}} </ion-text>
 					</small>
 
 				</ion-card-subtitle>
@@ -152,7 +152,7 @@
 					<ion-icon slot="start" name="call" color="danger"></ion-icon>
 					{{i.SaleOrder.Customer.WorkPhone}}
 				</ion-button>
-				<ion-button (click)="nav('delivery/'+i.SaleOrder.Id,'forward')" color="secondary" fill="clear" slot="end">{{'erp.app.pages.shipping.delivery.view-detail' | translate}}
+				<ion-button (click)="nav('delivery/'+i.SaleOrder.Id,'forward')" color="secondary" fill="clear" slot="end">{{'View details' | translate}}
 				</ion-button>
 			</ion-item>
 

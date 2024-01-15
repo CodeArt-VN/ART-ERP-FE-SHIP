@@ -384,7 +384,7 @@ export class DeliveryReviewPage extends PageBase {
 				console.log(resp);
 			}
 			this.submitAttempt = false;
-			this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.money-received-complete','success');
+			this.env.showTranslateMessage('Cash received','success');
 			i.Status.Id = 328;
 			this.item.NumberOfDoneVehicle = this.items.filter(i => i.Status.Id == 328).length;
 		});

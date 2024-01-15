@@ -153,7 +153,7 @@ export class DeliveryNotePage extends PageBase {
                         this.env.showMessage(err.message, 'danger');
                     }
                     else {
-                        this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.can-not-create-picking-list','danger');
+                        this.env.showTranslateMessage('Cannot create pick - up list','danger');
                     }
                     this.submitAttempt = false;
                     if (loading) loading.dismiss();

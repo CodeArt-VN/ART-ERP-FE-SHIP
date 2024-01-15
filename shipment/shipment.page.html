@@ -1,48 +1,48 @@
 <ion-header>
-	<app-list-toolbar pageTitle="{{'erp.app.pages.shipping.shipment.page-title' | translate}}" [pageConfig]="pageConfig" [selectedItems]="selectedItems" [query]="query" (add)="add()" (refresh)="refresh()" (export)="export()" (import)="import($event)" (help)="help()" (unselect)="unselect()" (archiveItems)="archiveItems()" (deleteItems)="deleteItems()" (changeBranch)="changeBranch($event)"></app-list-toolbar>
+	<app-list-toolbar pageTitle="{{'Maintenance schedule' | translate}}" [pageConfig]="pageConfig" [selectedItems]="selectedItems" [query]="query" (add)="add()" (refresh)="refresh()" (export)="export()" (import)="import($event)" (help)="help()" (unselect)="unselect()" (archiveItems)="archiveItems()" (deleteItems)="deleteItems()" (changeBranch)="changeBranch($event)"></app-list-toolbar>
 	<section style="margin-left: 0;" class="table" [ngClass]="{withFeature: pageConfig.isShowFeature}">
 		<header class="bold">
 			<div class="col-checkbox cell"></div>
 			<div class="col-id cell" (click)="sortToggle('Id')">
-				#{{'erp.app.pages.shipping.shipment.id' | translate}}
+				#{{'Trip' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.Id" [name]="sort.Id == 'Id'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Id" name="search" color="primary"></ion-icon>
 			</div>
 			<div class="col-status cell" (click)="sortToggle('IDStatus')">
-				{{'erp.app.pages.shipping.shipment.idstatus' | translate}}
+				{{'Status' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.IDStatus" [name]="sort.IDStatus == 'IDStatus'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.IDStatus" name="search" color="primary"></ion-icon>
 			</div>
 			<div class="col-code cell" (click)="sortToggle('DeliveryDate')">
-				{{'erp.app.pages.shipping.shipment.delivery-date' | translate}}
+				{{'Delivery date' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.DeliveryDate" [name]="sort.DeliveryDate == 'DeliveryDate'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.DeliveryDate" name="search" color="primary"></ion-icon>
 			</div>
 
 			<div class="col-name cell" (click)="sortToggle('IDVehicle')">
-				{{'erp.app.pages.shipping.shipment.vehicle' | translate}}
-				<small>{{'erp.app.pages.shipping.shipment.shipper' | translate}}</small>
+				{{'Truck' | translate}}
+				<small>{{'shipper' | translate}}</small>
 
 				<ion-icon class="min-btn" *ngIf="sort.IDVehicle" [name]="sort.IDVehicle == 'IDVehicle'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.ShipmentTerm" name="search" color="primary"></ion-icon>
 
 				<small class="right">
-					<ion-text color="dark">{{'erp.app.pages.shipping.shipment.order-quantity' | translate}}</ion-text>
+					<ion-text color="dark">{{'Number of order/Debt' | translate}}</ion-text>
 				</small>
 			</div>
 
 			<div class="col-code cell money" >
-				{{'erp.app.pages.shipping.shipment.original-total-after-tax' | translate}}
+				{{'Value after discount' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.OriginalTotalAfterTax" [name]="sort.OriginalTotalAfterTax == 'OriginalTotalAfterTax'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.OriginalTotalAfterTax" name="search" color="primary"></ion-icon>
 			</div>
 			<div class="col-code cell money" >
-				{{'erp.app.pages.shipping.shipment.product-weight' | translate}}
+				{{'Tons' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.Code" [name]="sort.Code == 'Code'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Code" name="search" color="primary"></ion-icon>
 			</div>
 			<div class="col-code cell money" >
-				{{'erp.app.pages.shipping.shipment.product-dimensions' | translate}}
+				{{'Number of cube' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.Code" [name]="sort.Code == 'Code'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Code" name="search" color="primary"></ion-icon>
 			</div>
@@ -58,9 +58,9 @@
 				</div>
 				<div class="col-status cell">
 					<select (change)="refresh()" class="c-input c-dropdown" [ngModelOptions]="{standalone: true}" [(ngModel)]="query.IDStatus" [ngClass]="{active: query.IDStatus}">
-						<option value="">{{'erp.app.pages.shipping.shipment.all-option' | translate}}</option>
-						<option value="[301,302,303,304,305]">{{'erp.app.pages.shipping.shipment.not-shipping' | translate}}</option>
-						<option value="[301,302,303,304,305,306,329]">{{'erp.app.pages.shipping.shipment.not-done' | translate}}</option>
+						<option value="">{{'All' | translate}}</option>
+						<option value="[301,302,303,304,305]">{{'Not yet delivered' | translate}}</option>
+						<option value="[301,302,303,304,305,306,329]">{{'Not yet finished' | translate}}</option>
 
 						<option disabled value="">----------</option>
 						<option *ngFor="let t of statusList" [value]="t.Id">{{t.Name}}</option>
@@ -72,7 +72,7 @@
 					<ion-icon class="min-btn" (click)="query.DeliveryDate=''; refresh()" *ngIf="query.DeliveryDate" name="close-circle-outline"></ion-icon>
 				</div>
 				<div class="col-name cell">
-					<input placeholder="{{'erp.app.pages.shipping.shipment.shipment-term' | translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="query.ShipmentTerm" class="c-input" [ngClass]="{active: query.ShipmentTerm}" type="text">
+					<input placeholder="{{'Search by customers, license plate or sales staff' | translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="query.ShipmentTerm" class="c-input" [ngClass]="{active: query.ShipmentTerm}" type="text">
 					<ion-icon class="min-btn" (click)="query.ShipmentTerm=''; refresh()" *ngIf="query.ShipmentTerm" name="close-circle-outline"></ion-icon>
 				</div>
 
@@ -140,9 +140,9 @@
 		<div>
 
 			<ion-list-header lines="inset">
-				<ion-label color="dark">{{'erp.app.pages.shipping.shipment.driver-allocation' | translate}}</ion-label>
-				<ion-button size="small" (click)="toggleDateFilter()" title="{{'erp.app.pages.shipping.shipment.toggle-date-filter' | translate}}">
-					<ion-icon slot="icon-only" [name]="exportQuery.OrderDate=='' ? 'funnel-outline' : 'funnel'"></ion-icon>
+				<ion-label color="dark">{{'driver allocation' | translate}}</ion-label>
+				<ion-button size="small" (click)="toggleDateFilter()" title="{{'Add filter condition to export excel file of orders to be allocated for delivery' | translate}}">
+					<ion-icon slot="icon-only" [name]="exportQuery.ExpectedDeliveryDate=='' ? 'funnel-outline' : 'funnel'"></ion-icon>
 				</ion-button>
 			</ion-list-header>
 
@@ -151,16 +151,16 @@
 			<div class="ion-padding">
 
 
-				<div class="c-control" *ngIf="exportQuery.OrderDate!=''">
-					<label class="c-label" for="OrderDate">{{'erp.app.pages.shipping.shipment.order-date' | translate}}</label>
-					<input class="c-input" [(ngModel)]="exportQuery.OrderDate" id="OrderDate" type="date">
+				<div class="c-control" *ngIf="exportQuery.ExpectedDeliveryDate!=''">
+					<label class="c-label" for="OrderDate">{{'Expected delivery date' | translate}}</label>
+					<input class="c-input" [(ngModel)]="exportQuery.ExpectedDeliveryDate" id="OrderDate" type="date">
 
 					<br>
 
 					<input [(ngModel)]="exportQuery.IsAllOrders" class="c-checkbox" id="IsAllOrders" type="checkbox">
 
 					<label class="c-label checkbox" for="IsAllOrders">
-						{{'erp.app.pages.shipping.shipment.is-all-orders' | translate}}
+						{{'Export orders allocated for delivery' | translate}}
 					</label>
 				</div>
 
@@ -168,8 +168,8 @@
 				<div class="c-control">
 
 
-					<ion-button (click)="exportAvailbleOrders()" [disabled]="submitAttempt" color="primary" fill="outline" expand="block" title="{{'erp.app.pages.shipping.shipment.export-availble-orders-title' | translate}}">{{'erp.app.pages.shipping.shipment.export-availble-orders' | translate}}</ion-button>
-					<ion-button (click)="importManualShipment()" [disabled]="submitAttempt" color="primary" fill="outline" expand="block">{{'erp.app.pages.shipping.shipment.import-manual-shipment' | translate}}</ion-button>
+					<ion-button (click)="exportAvailbleOrders()" [disabled]="submitAttempt" color="primary" fill="outline" expand="block" title="{{'Export tp excel for manual driver allocation, then import back to system' | translate}}">{{'1. Export to excel' | translate}}</ion-button>
+					<ion-button (click)="importManualShipment()" [disabled]="submitAttempt" color="primary" fill="outline" expand="block">{{'2. Import excel' | translate}}</ion-button>
 
 					<input class="hide-all" #importfile2 type="file" accept=".xlsx" (change)="import2($event)" />
 				</div>
@@ -181,18 +181,18 @@
 					
 					
 				</div> -->
-				<ion-button (click)="autoCreateShipment()" [disabled]="submitAttempt" color="primary" expand="block" title="{{'erp.app.pages.shipping.shipment.auto-create-shipment-title' | translate}}">{{'erp.app.pages.shipping.shipment.auto-create-shipment' | translate}}</ion-button>
+				<ion-button (click)="autoCreateShipment()" [disabled]="submitAttempt" color="primary" expand="block" title="{{'Driver allocation based on MCP' | translate}}">{{'Automatic driver allocation' | translate}}</ion-button>
 
 			</div>
 
 			<ion-list *ngIf="orderList.length">
 				<ion-list-header lines="inset">
-					<ion-label color="dark">{{'erp.app.pages.shipping.shipment.not-allocated' | translate}}</ion-label>
+					<ion-label color="dark">{{'Not yet assigned' | translate}}</ion-label>
 					<ion-button size="small" (click)="segmentView = 's2'" *ngIf="segmentView == 's1'">
-						{{'erp.app.pages.shipping.shipment.sale-segment' | translate}}
+						{{'Sort by sale' | translate}}
 					</ion-button>
 					<ion-button size="small" (click)="segmentView = 's1'" *ngIf="segmentView == 's2'">
-						{{'erp.app.pages.shipping.shipment.route-segment' | translate}}
+						{{'Sort by route' | translate}}
 					</ion-button>
 				</ion-list-header>
 			</ion-list>
@@ -202,7 +202,7 @@
 						<h3>{{i.Name}}</h3>
 					</ion-label>
 					<ion-button>
-						{{i.Count}} {{'erp.app.pages.shipping.shipment.order' | translate}}
+						{{i.Count}} {{'Order' | translate}}
 					</ion-button>
 				</ion-item>
 			</ion-list>
@@ -212,7 +212,7 @@
 						<h3>{{i.Name}}</h3>
 					</ion-label>
 					<ion-button>
-						{{i.Count}} {{'erp.app.pages.shipping.shipment.order' | translate}}
+						{{i.Count}} {{'Order' | translate}}
 					</ion-button>
 				</ion-item>
 			</ion-list>
@@ -245,11 +245,11 @@
 							<small *ngIf="i.DeliveryTimeText ">{{i.DeliveryTimeText}}</small>
 						</div>
 						<div class="col-name cell">
-							<span title="{{'erp.app.pages.shipping.shipment.view-shipment-detail' | translate}}" (click)="nav('shipment/'+i.Id,'forward')" [ngOptionHighlight]="query.ShipmentTerm">{{i.VehicleName}}</span>
-							<small title="{{'erp.app.pages.shipping.shipment.view-staff-detail' | translate}}" (click)="nav('staff/'+i.IDShipper,'forward')">{{i.ShipperName}}</small>
+							<span title="{{'View details' | translate}}" (click)="nav('shipment/'+i.Id,'forward')" [ngOptionHighlight]="query.ShipmentTerm">{{i.VehicleName}}</span>
+							<small title="{{'View shipper information' | translate}}" (click)="nav('staff/'+i.IDShipper,'forward')">{{i.ShipperName}}</small>
 
 							<small class="right">
-								<ion-text color="dark"> {{i.OrderCount}}{{'erp.app.pages.shipping.shipment.order' | translate}} / {{i.DebtCount}}{{'erp.app.pages.shipping.shipment.debt' | translate}}</ion-text>
+								<ion-text color="dark"> {{i.OrderCount}}{{'Order' | translate}} / {{i.DebtCount}}{{'Debt' | translate}}</ion-text>
 							</small>
 						</div>
 

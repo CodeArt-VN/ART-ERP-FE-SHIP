@@ -298,7 +298,7 @@ export class ShipmentDetailPage extends PageBase {
             this.formGroup.updateValueAndValidity();
 
             if (!this.formGroup.valid) {
-                this.env.showTranslateMessage('erp.app.pages.shipping.shipment.message.check-red-above','warning');
+                this.env.showTranslateMessage('Please recheck information highlighted in red above','warning');
             }
             else if (this.submitAttempt == false) {
                 this.submitAttempt = true;
@@ -347,7 +347,7 @@ export class ShipmentDetailPage extends PageBase {
                     }
 
                     // if (loading) loading.dismiss();
-                    this.env.showTranslateMessage('erp.app.pages.shipping.shipment.message.save-complete','success');
+                    this.env.showTranslateMessage('Saving completed!','success');
                     this.formGroup.markAsPristine();
                     this.cdr.detectChanges();
                     resolve(savedItem.Id);
@@ -355,7 +355,7 @@ export class ShipmentDetailPage extends PageBase {
                     this.savedChange(savedItem);
                 }).catch(err => {
                     // if (loading) loading.dismiss();
-                    this.env.showTranslateMessage('erp.app.pages.shipping.shipment.message.can-not-save','danger');
+                    this.env.showTranslateMessage('Cannot save, please try again','danger');
                     this.cdr.detectChanges();
                     this.submitAttempt = false;
                     reject(err);

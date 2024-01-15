@@ -2,21 +2,21 @@
 	<ion-toolbar>
 		<ion-buttons slot="start" class="ion-hide-sm-down_">
 			<ion-button color="dark" class="ion-hide-sm-down">
-				{{'erp.app.pages.shipping.delivery-note.page-detail' | translate}}
+				{{'Print delivery note' | translate}}
 			</ion-button>
 		</ion-buttons>
 		<ion-buttons slot="end">
-			<ion-button (click)="changePrintMode()" title="{{'erp.app.pages.shipping.delivery-note.print-mode' | translate}}">
+			<ion-button (click)="changePrintMode()" title="{{'Printing option' | translate}}">
 				<ion-icon slot="icon-only" [name]="printMode == 'A4' ? 'cut-outline':'file-tray-full-outline'"></ion-icon>
 			</ion-button>
 			<span class="split ion-hide-sm-down">|</span>
-			<ion-button (click)="print()" title="{{'erp.app.pages.shipping.delivery-note.print' | translate}}">
+			<ion-button (click)="print()" title="{{'Form printing' | translate}}">
 				<ion-icon slot="icon-only" name="print"></ion-icon>
 			</ion-button>
-			<ion-button (click)="refresh()" title="{{'erp.app.pages.shipping.delivery-note.refresh' | translate}}">
+			<ion-button (click)="refresh()" title="{{'Refresh' | translate}}">
 				<ion-icon slot="icon-only" name="reload-outline"></ion-icon>
 			</ion-button>
-			<ion-button title="{{'erp.app.pages.shipping.delivery-note.show-feature' | translate}}" (click)="pageConfig.isShowFeature = !pageConfig.isShowFeature;">
+			<ion-button title="{{'Expanded function' | translate}}" (click)="pageConfig.isShowFeature = !pageConfig.isShowFeature;">
 				<ion-icon slot="icon-only" [name]="pageConfig.isShowFeature? 'close-outline':'list-circle-outline'">
 				</ion-icon>
 			</ion-button>
@@ -29,7 +29,7 @@
 	<ion-fab *ngIf="pageConfig.isShowFeature" [ngClass]="{withSearch: pageConfig.isShowSearch}" class="feature no-print " vertical="top" horizontal="start" slot="fixed">
 		<ion-list>
 			<ion-list-header lines="full">
-				<ion-label color="dark">{{'erp.app.pages.shipping.delivery-note.toggle-date-filter' | translate}}</ion-label>
+				<ion-label color="dark">{{'Maintenance schedule' | translate}}</ion-label>
 
 				<ion-button size="small" (click)="toggleDateFilter()">
 					<ion-icon slot="icon-only" [name]="query.IDStatus=='[301]' ? 'calendar-outline' : 'calendar'"></ion-icon>
@@ -41,7 +41,7 @@
 		<ion-list>
 			<ion-item lines="full" *ngIf="query.IDStatus!='[301]'">
 				<div class="c-control">
-					<label class="c-label" for="DeliveryDate">{{'erp.app.pages.shipping.delivery-note.delivery-date' | translate}}</label>
+					<label class="c-label" for="DeliveryDate">{{'Delivery date' | translate}}</label>
 					<input class="c-input" (change)="refresh()" id="DeliveryDate" type="date" [(ngModel)]="query.DeliveryDate">
 				</div>
 			</ion-item>
@@ -54,7 +54,7 @@
 					<p>
 						<b>
 							<small>
-								<ion-text [color]="i.Id == selectedShipmentID? '': 'primary' ">{{'erp.app.pages.shipping.delivery-note.id' | translate}}:{{i.Id}}</ion-text>
+								<ion-text [color]="i.Id == selectedShipmentID? '': 'primary' ">{{'SH' | translate}}:{{i.Id}}</ion-text>
 							</small>
 							<ion-text [color]="i.Id == selectedShipmentID? '': 'dark' "> - {{i.DeliveryDateText}}</ion-text>
 						</b>
@@ -84,15 +84,15 @@
 								<table class="rpt-header" cellpadding="0" cellspacing="0">
 									<tbody>
 										<tr>
-											<td class="head-c1">{{'erp.app.pages.shipping.delivery-note.warehouse' | translate}}:</td>
+											<td class="head-c1">{{'Pick - up warehouse' | translate}}:</td>
 											<td class="bol">{{s.WarehouseName}} ({{s.WarehousePhone}})</td>
 											<td class="num"></td>
 											<td class="bol"></td>
-											<td class="num">{{'erp.app.pages.shipping.delivery-note.delivery-date' | translate}}: </td>
+											<td class="num">{{'Delivery date' | translate}}: </td>
 											<td class="num bol ngay-hd"> {{s.DeliveryDateText}}</td>
 										</tr>
 										<tr>
-											<td colspan="6" class="bol title">{{'erp.app.pages.shipping.delivery-note.delivery-detail' | translate}}</td>
+											<td colspan="6" class="bol title">{{'Goods delivery note for customer' | translate}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -100,12 +100,12 @@
 								<table class="rpt-header" cellpadding="0" cellspacing="0">
 									<tbody>
 										<tr>
-											<td class="head-c1">{{'erp.app.pages.shipping.delivery-note.shipper-name' | translate}}:</td>
-											<td class="bol">{{s.ShipperName}} <span *ngIf="s.ShipperPhone"> - {{s.ShipperPhone}}</span> - {{s.Vehicle}} - {{'erp.app.pages.shipping.delivery-note.id' | translate}}: {{s.Id}} </td>
+											<td class="head-c1">{{'shipper' | translate}}:</td>
+											<td class="bol">{{s.ShipperName}} <span *ngIf="s.ShipperPhone"> - {{s.ShipperPhone}}</span> - {{s.Vehicle}} - {{'SH' | translate}}: {{s.Id}} </td>
 										</tr>
 										<tr>
-											<td class="head-c1">{{'erp.app.pages.shipping.delivery-note.number-of-orders' | translate}}:</td>
-											<td class="bol">{{s.NumberOfOrders}} {{'erp.app.pages.shipping.delivery-note.order' | translate}} - {{'erp.app.pages.shipping.delivery-note.total-orders' | translate}}: {{s.TotalOrdersText}}</td>
+											<td class="head-c1">{{'Including' | translate}}:</td>
+											<td class="bol">{{s.NumberOfOrders}} {{'Order' | translate}} - {{'Value' | translate}}: {{s.TotalOrdersText}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -114,14 +114,14 @@
 									<table cellpadding="0" cellspacing="0">
 										<tbody>
 											<tr class="head">
-												<td>{{'erp.app.pages.shipping.delivery-note.customer' | translate}}</td>
-												<td class="cen">{{'erp.app.pages.shipping.delivery-note.stt' | translate}}</td>
+												<td>{{'Customer' | translate}}</td>
+												<td class="cen">{{'No.' | translate}}</td>
 												<td>
-													<div class="ma-hd">{{'erp.app.pages.shipping.delivery-note.order-title' | translate}}</div>
+													<div class="ma-hd">{{'Order' | translate}}</div>
 												</td>
-												<td class="num tien">{{'erp.app.pages.shipping.delivery-note.total' | translate}}</td>
+												<td class="num tien">{{'Amount' | translate}}</td>
 												<!-- <td class="num tien">Bù giá</td> -->
-												<td class="num tien">{{'erp.app.pages.shipping.delivery-note.received' | translate}}</td>
+												<td class="num tien">{{'Cash collected' | translate}}</td>
 											</tr>
 
 
@@ -147,7 +147,7 @@
 
 													<td class="num ">
 														{{o.OriginalTotalAfterTaxText}}
-														<span *ngIf="o.OriginalDiscountFromSalesman"><br> <b> {{'erp.app.pages.shipping.delivery-note.discount-from-salemans' | translate}}: {{o.OriginalDiscountFromSalesmanText}}</b></span>
+														<span *ngIf="o.OriginalDiscountFromSalesman"><br> <b> {{'Discount from sales staff' | translate}}: {{o.OriginalDiscountFromSalesmanText}}</b></span>
 													</td>
 													<!-- <td class="num "> <span *ngIf="o.OriginalDiscountFromSalesman">{{o.OriginalDiscountFromSalesmanText}}</span></td>
 													 -->
@@ -170,8 +170,8 @@
 											<tr>
 												<td class="">
 													<div class="line2">
-														{{'erp.app.pages.shipping.delivery-note.line-note' | translate}} &amp; {{'erp.app.pages.shipping.delivery-note.line-note-1' | translate}} <b>{{'erp.app.pages.shipping.delivery-note.line-note-2' | translate}}</b> trước khi bàn giao. <br>
-														{{'erp.app.pages.shipping.delivery-note.line-2-note' | translate}}
+														{{'All parties please carefully check the doccuments' | translate}} &amp; {{'and total goods value' | translate}} <b>{{'Total amount collected' | translate}}</b> trước khi bàn giao. <br>
+														{{'Distributor will be held accountable for addressing further complaints' | translate}}
 													</div>
 
 												</td>
@@ -183,27 +183,27 @@
 										<tbody>
 											<tr>
 												<td>
-													{{'erp.app.pages.shipping.delivery-note.stocker' | translate}}
+													{{'Warehouse keeper' | translate}}
 													<div class="line2">
-														{{'erp.app.pages.shipping.delivery-note.sign-full-name' | translate}}
+														{{'Sign and write full name' | translate}}
 													</div>
 												</td>
 												<td>
-													{{'erp.app.pages.shipping.delivery-note.saleman' | translate}}
+													{{'Sales staff' | translate}}
 													<div class="line2">
-														{{'erp.app.pages.shipping.delivery-note.sign-full-name' | translate}}
+														{{'Sign and write full name' | translate}}
 													</div>
 												</td>
 												<td>
-													{{'erp.app.pages.shipping.delivery-note.shipper' | translate}} {{s.Vehicle}} - {{'erp.app.pages.shipping.delivery-note.id' | translate}}: {{s.Id}}
+													{{'Giao hàng xe' | translate}} {{s.Vehicle}} - {{'SH' | translate}}: {{s.Id}}
 													<div class="line2">
-														{{'erp.app.pages.shipping.delivery-note.sign-full-name' | translate}}
+														{{'Sign and write full name' | translate}}
 													</div>
 												</td>
 												<td>
-													{{'erp.app.pages.shipping.delivery-note.accountant' | translate}}
+													{{'Accountant' | translate}}
 													<div class="line2">
-														{{'erp.app.pages.shipping.delivery-note.sign-full-name' | translate}}
+														{{'Sign and write full name' | translate}}
 													</div>
 												</td>
 											</tr>
@@ -253,11 +253,11 @@
 															<img [src]="o.CompanyLogoURL" (error)="$event.src='assets/RPT-Logo-ART.png'">
 															<!-- <ion-img #img [src]="o.CompanyLogoURL" (ionError)="img.src = 'assets/RPT-Logo-ART.png'"></ion-img> -->
 														</td>
-														<td colspan="2" class="bol title">{{'erp.app.pages.shipping.delivery-note.payment-detail-title' | translate}}</td>
+														<td colspan="2" class="bol title">{{'Delivery - payment slip' | translate}}</td>
 
 														<td class="bol num" colspan="2">{{o.Code? o.Code : '#'+o.Id}}</td>
 														<td rowspan="5" class="topQR">
-															<div *ngIf="o.Code">{{'erp.app.pages.shipping.delivery-note.id-2' | translate}}:{{o.Id}}</div>
+															<div *ngIf="o.Code">{{'O' | translate}}:{{o.Id}}</div>
 															<a [href]="'#/'+'sale-order/'+o.Id" (click)="nav('sale-order/'+o.Id,'forward')">
 																<img class="qrc" [src]="o.QRC">
 															</a>
@@ -265,20 +265,20 @@
 													</tr>
 
 													<tr>
-														<td class="head-c1">{{'erp.app.pages.shipping.delivery-note.template-header' | translate}}:</td>
+														<td class="head-c1">{{'Company' | translate}}:</td>
 														<td class="bol">{{o.TemplateHeader}}</td>
 														<td class="bol num" colspan="2">{{o.OrderDateText}}</td>
 
 													</tr>
 													<tr>
-														<td>{{'erp.app.pages.shipping.delivery-note.company-name' | translate}}:</td>
+														<td>{{'Outlet' | translate}}:</td>
 														<td><span class="bol">{{o.CompanyName}} </span></td>
 														<td class="bol num" colspan="2">SA: {{o.SellerCode ? o.SellerCode : o.IDSeller }} </td>
 
 													</tr>
 
 													<tr>
-														<td>{{'erp.app.pages.shipping.delivery-note.customer-name' | translate}}:</td>
+														<td>{{'Customer name' | translate}}:</td>
 														<td class="bol">{{c.Code? c.Code: c.Id}} - {{c.Name}} <span *ngIf="c.WorkPhone"> - {{c.WorkPhone}} </span></td>
 														<td class="bol num" colspan="2">SH: {{s.Id}}-{{s.Vehicle}} </td>
 													</tr>
@@ -298,13 +298,13 @@
 													<tbody>
 														<tr class="head">
 															<td>
-																<div class="ten-sp ck">{{'erp.app.pages.shipping.delivery-note.item-service' | translate}}</div>
+																<div class="ten-sp ck">{{'Product / Service name' | translate}}</div>
 															</td>
-															<td class="cen">{{'erp.app.pages.shipping.delivery-note.box' | translate}}</td>
-															<td class="cen">{{'erp.app.pages.shipping.delivery-note.odd' | translate}}</td>
-															<td class="num">{{'erp.app.pages.shipping.delivery-note.price' | translate}}</td>
+															<td class="cen">{{'Box' | translate}}</td>
+															<td class="cen">{{'LCL' | translate}}</td>
+															<td class="num">{{'Unit price' | translate}}</td>
 															<!-- <td class="num">CK</td> -->
-															<td class="num">{{'erp.app.pages.shipping.delivery-note.sum-up' | translate}}</td>
+															<td class="num">{{'Amount' | translate}}</td>
 														</tr>
 
 														<!-- <tr *ngFor="let l of o.OrderLines">
@@ -364,12 +364,12 @@
 													<tbody>
 														<tr class="head">
 															<td>
-																<div class="ten-sp">{{'erp.app.pages.shipping.delivery-note.item-type' | translate}}</div>
+																<div class="ten-sp">{{'Promotion scheme/ Samples/ Rewards' | translate}}</div>
 															</td>
 
-															<td class="cen">{{'erp.app.pages.shipping.delivery-note.box' | translate}}</td>
-															<td class="cen">{{'erp.app.pages.shipping.delivery-note.odd' | translate}}</td>
-															<td class="num">{{'erp.app.pages.shipping.delivery-note.ck' | translate}}</td>
+															<td class="cen">{{'Box' | translate}}</td>
+															<td class="cen">{{'LCL' | translate}}</td>
+															<td class="num">{{'Discount' | translate}}</td>
 														</tr>
 
 														<tr *ngFor="let t of o.PromotionTracking">
@@ -393,12 +393,12 @@
 													<tbody>
 														<tr class="head">
 															<td>
-																<div class="ten-sp">{{'erp.app.pages.shipping.delivery-note.item-type' | translate}}</div>
+																<div class="ten-sp">{{'Promotion scheme/ Samples/ Rewards' | translate}}</div>
 															</td>
 
-															<td class="cen">{{'erp.app.pages.shipping.delivery-note.unit' | translate}}</td>
-															<td class="cen">{{'erp.app.pages.shipping.delivery-note.quantity' | translate}}</td>
-															<td class="num">{{'erp.app.pages.shipping.delivery-note.ck' | translate}}</td>
+															<td class="cen">{{'Unit' | translate}}</td>
+															<td class="cen">{{'Quantity' | translate}}</td>
+															<td class="num">{{'Discount' | translate}}</td>
 														</tr>
 														<ng-container *ngFor="let l of o.OrderLines">
 															<tr *ngIf="l.OriginalTotalDiscount || l.UoMPrice==0">
@@ -406,10 +406,10 @@
 																	<div class="ten-sp">
 																		<!-- <span>{{l.OriginalTotalDiscount? erp.app.pages.shipping.delivery-note.discount-for : erp.app.pages.shipping.delivery-note.promotion-item}}</span> -->
 																		<span *ngIf="l.OriginalTotalDiscount">
-																			{{'erp.app.pages.shipping.delivery-note.discount-for' | translate}}
+																			{{'discount for' | translate}}
 																		</span>
 																		<span *ngIf="!l.OriginalTotalDiscount">
-																			{{'erp.app.pages.shipping.delivery-note.promotion-item' | translate}}
+																			{{'Goods promotion' | translate}}
 																		</span>
 																		<b *ngIf="l.Item.Code">{{l.Item.Code}}</b><b *ngIf="!l.Item.Code">{{l.Item.Id}}</b> - {{l.Item.Name}}</div>
 																</td>
@@ -426,11 +426,11 @@
 											<table class="thanh-tien" cellpadding="0" cellspacing="0">
 												<tbody>
 													<tr>
-														<td class="c1">{{'erp.app.pages.shipping.delivery-note.total-before-discount' | translate}}:</td>
+														<td class="c1">{{'Total amount' | translate}}:</td>
 														<td class="bol">{{o.OriginalTotalBeforeDiscountText}}</td>
-														<td class="num">{{'erp.app.pages.shipping.delivery-note.total-discount' | translate}}:</td>
+														<td class="num">{{'Total discount' | translate}}:</td>
 														<td class="bol"> {{o.OriginalTotalDiscountText}}</td>
-														<td class="num">{{'erp.app.pages.shipping.delivery-note.total-after-tax' | translate}}:</td>
+														<td class="num">{{'Total payables' | translate}}:</td>
 														<td class="num bol">{{o.OriginalTotalAfterTaxText}}</td>
 													</tr>
 													<tr>
@@ -444,12 +444,12 @@
 													<tbody>
 														<tr class="head">
 															<td>
-																<div class="ten-sp ck">{{'erp.app.pages.shipping.delivery-note.discount-from-salemans' | translate}}</div>
+																<div class="ten-sp ck">{{'Discount from sales staff' | translate}}</div>
 															</td>
-															<td class="cen">{{'erp.app.pages.shipping.delivery-note.unit' | translate}}</td>
-															<td class="num">{{'erp.app.pages.shipping.delivery-note.qty' | translate}}</td>
-															<td class="num">{{'erp.app.pages.shipping.delivery-note.price' | translate}}</td>
-															<td class="num">{{'erp.app.pages.shipping.delivery-note.sum-up' | translate}}</td>
+															<td class="cen">{{'Unit' | translate}}</td>
+															<td class="num">{{'Quanity' | translate}}</td>
+															<td class="num">{{'Unit price' | translate}}</td>
+															<td class="num">{{'Amount' | translate}}</td>
 														</tr>
 
 														<tr *ngFor="let l of o.BuGiaItems">
@@ -464,7 +464,7 @@
 
 														<tr style="border-top: dashed 1px;">
 															<td colspan="4" class="num">
-																{{'erp.app.pages.shipping.delivery-note.discount-from-salemans' | translate}}: <b>{{o.OriginalDiscountFromSalesmanText}}</b>
+																{{'Discount from sales staff' | translate}}: <b>{{o.OriginalDiscountFromSalesmanText}}</b>
 															</td>
 															<td class="num"><b>{{o.OriginalTotalAfterDiscountFromSalesmanText}}</b></td>
 														</tr>
@@ -477,28 +477,28 @@
 													<tr>
 
 														<td>
-															{{'erp.app.pages.shipping.delivery-note.customer' | translate}}
+															{{'Customer' | translate}}
 															<div class="line2">
-																{{'erp.app.pages.shipping.delivery-note.sign-full-name' | translate}}
+																{{'Sign and write full name' | translate}}
 															</div>
 														</td>
 
 														<td>
-															{{'erp.app.pages.shipping.delivery-note.accountant' | translate}}
+															{{'Accountant' | translate}}
 															<div class="line2">
-																{{'erp.app.pages.shipping.delivery-note.sign-full-name' | translate}}
+																{{'Sign and write full name' | translate}}
 															</div>
 														</td>
 														<td>
-															{{'erp.app.pages.shipping.delivery-note.shipper-title' | translate}}
+															{{'Shipper' | translate}}
 															<div class="line2">
-																{{'erp.app.pages.shipping.delivery-note.sign-full-name' | translate}}
+																{{'Sign and write full name' | translate}}
 															</div>
 														</td>
 														<td>
-															{{'erp.app.pages.shipping.delivery-note.saleman' | translate}}
+															{{'Sales staff' | translate}}
 															<div class="line2">
-																{{'erp.app.pages.shipping.delivery-note.sign-full-name' | translate}}
+																{{'Sign and write full name' | translate}}
 															</div>
 														</td>
 													</tr>
@@ -524,10 +524,10 @@
 											<tbody>
 												<tr>
 													<td class="cen">
-														{{'erp.app.pages.shipping.delivery-note.line-3-note' | translate}} &amp; {{'erp.app.pages.shipping.delivery-note.line-3-note-2' | translate}} <br>
+														{{'Please check the invoice carefully.' | translate}} &amp; {{'goods before receipt and payment.' | translate}} <br>
 
-														<span *ngIf="o.CompanyPhone">{{'erp.app.pages.shipping.delivery-note.line-4-note' | translate}}<b>{{ o.CompanyPhone }}</b></span>
-														<span *ngIf="o.CompanyPhone2">{{'erp.app.pages.shipping.delivery-note.line-5-note' | translate}}<b>{{ o.CompanyPhone2 }}</b></span>.
+														<span *ngIf="o.CompanyPhone">{{'Customers can contact for products and service information' | translate}}<b>{{ o.CompanyPhone }}</b></span>
+														<span *ngIf="o.CompanyPhone2">{{'or contact shipping department through hotline' | translate}}<b>{{ o.CompanyPhone2 }}</b></span>.
 
 
 													</td>

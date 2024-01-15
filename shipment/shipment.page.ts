@@ -41,16 +41,16 @@ export class ShipmentPage extends PageBase {
         this.pageConfig.isShowFeature = true;
         this.pageConfig.isShowSearch = true;
 
-        this.exportQuery.OrderDate = lib.dateFormat(new Date, 'yyyy-mm-dd');
+        this.exportQuery.ExpectedDeliveryDate = lib.dateFormat(new Date, 'yyyy-mm-dd');
         this.exportQuery.IsAllOrders = true;
     }
 
     toggleDateFilter() {
-        if (this.exportQuery.OrderDate == '') {
-            this.exportQuery.OrderDate = lib.dateFormat(new Date, 'yyyy-mm-dd');
+        if (this.exportQuery.ExpectedDeliveryDate == '') {
+            this.exportQuery.ExpectedDeliveryDate = lib.dateFormat(new Date, 'yyyy-mm-dd');
         }
         else {
-            this.exportQuery.OrderDate = '';
+            this.exportQuery.ExpectedDeliveryDate = '';
         }
 
     }
@@ -140,27 +140,29 @@ export class ShipmentPage extends PageBase {
 
     autoCreateShipment() {
         this.submitAttempt = true;
-        //update(item, apiPath) {
-        let apiPath = {
-            method: "PUT",
-            url: function () { return ApiSetting.apiDomain("SHIP/Shipment/AutoCreateShipment/") }
+        let dto = {
+            IDBranch : this.env.selectedBranch,
+            IDBranchs: JSON.parse(this.env.selectedBranchAndChildren),
+            DeliveryDate: this.exportQuery.ExpectedDeliveryDate
         };
 
-        this.pageProvider.commonService.connect(apiPath.method, apiPath.url() + this.env.selectedBranch, null).toPromise()
+        this.env.showLoading('Đang phân tài, xin vui lòng chờ giây lát...',this.pageProvider.commonService.connect('PUT', 'SHIP/Shipment/AutoCreateShipment' , dto).toPromise())
+        
+        
             .then(() => {
                 this.submitAttempt = false;
-                this.env.showTranslateMessage('erp.app.pages.shipping.shipment.message.distribute-complete-check-condition','warning');
+                this.env.showTranslateMessage('Delivery assigned. Please check and adjust if necessary','warning');
                 this.refresh();
             }).catch(err => {
                if (err.message != null) {
                     this.env.showMessage(err.message, 'danger');
                 }
                 else {
-                    this.env.showTranslateMessage('erp.app.pages.shipping.shipment.message.can-not-assign','danger');
+                    this.env.showTranslateMessage('Cannot assign for delivery','danger');
                 }
                 this.submitAttempt = false;
                 this.refresh();
-            })
+            });
 
     }
 
@@ -172,7 +174,7 @@ export class ShipmentPage extends PageBase {
 
     async import2(event) {
         if (this.submitAttempt) {
-            this.env.showTranslateMessage('erp.app.pages.shipping.shipment.message.importing','primary');
+            this.env.showTranslateMessage('Importing driver allocation. Please wait for completion','primary');
             return;
         }
         this.submitAttempt = true;
@@ -195,7 +197,7 @@ export class ShipmentPage extends PageBase {
                 this.submitAttempt = false;
                 this.env.publishEvent({ Code: 'app:ShowAppMessage', IsShow: false, Id: 'FileImportShipment' });
                 this.refresh();
-                this.env.showTranslateMessage('erp.app.pages.shipping.shipment.message.importing-error','danger');
+                this.env.showTranslateMessage('Import error, please check again','danger');
             })
 
 

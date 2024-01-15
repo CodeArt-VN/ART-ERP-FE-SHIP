@@ -15,7 +15,7 @@
             <ion-button (click)="isShowAllDiscount = !isShowAllDiscount">
                 <ion-icon slot="icon-only" [name]="isShowAllDiscount?'eye':'eye-off-outline'"></ion-icon>
             </ion-button>
-            <ion-button (click)="reopenOrder()" title="{{'erp.app.pages.shipping.delivery.reopen-order' | translate}}" *ngIf="item && !item.IsDebt && item.DA_GIAO_HANG && pageConfig.canEdit">
+            <ion-button (click)="reopenOrder()" title="{{'Change order' | translate}}" *ngIf="item && !item.IsDebt && item.DA_GIAO_HANG && pageConfig.canEdit">
                 <ion-icon slot="icon-only" name="pencil"></ion-icon>
             </ion-button>
         </ion-buttons>
@@ -32,7 +32,7 @@
         </div>
         <div class="message">
             <div class="title">
-                {{'erp.app.pages.shipping.delivery.not-found' | translate}}
+                {{'Cannot find order' | translate}}
             </div>
             <div class="detail">
             </div>
@@ -53,7 +53,7 @@
             <div>
                 <ion-button *ngIf="pageConfig.canEdit" size="small" (click)="UpdatePosition()" fill="outline" shape="round">
                     <span *ngIf="item.position">{{item.position}}</span>
-                    <span *ngIf="!item.position">{{'erp.app.pages.shipping.delivery.update-position' | translate}}</span>
+                    <span *ngIf="!item.position">{{'Update coordinates' | translate}}</span>
                 </ion-button>
             </div>
             <div class="date">{{item.SaleOrder.Customer.AddressLine1}}</div>
@@ -90,7 +90,7 @@
 
                         <ng-container *ngIf="i.ShippedQuantity &&  !(i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" >
                             <div class="c-control" *ngIf="!i.IsPromotionItem && (i.OriginalDiscount1 && i.ShippedQuantity != i.Quantity || isShowAllDiscount)">
-                                <label class="c-label" for="OriginalDiscount1">{{'erp.app.pages.shipping.delivery.original-discount1' | translate}}:  </label>
+                                <label class="c-label" for="OriginalDiscount1">{{'Vendor Discount' | translate}}:  </label>
                                 <input id="OriginalDiscount1"
                                 [disabled]="!pageConfig.canEdit || item.DA_GIAO_HANG || (i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" 
                                 *ngIf="!item.DA_GIAO_HANG && (i.OriginalDiscount1 && i.ShippedQuantity != i.Quantity || isShowAllDiscount)" 
@@ -102,7 +102,7 @@
                             </div>
 
                             <div class="c-control" *ngIf="!i.IsPromotionItem && (i.OriginalDiscount2 && i.ShippedQuantity != i.Quantity || isShowAllDiscount)">
-                                <label class="c-label" for="OriginalDiscount2">{{'erp.app.pages.shipping.delivery.original-discount2' | translate}}:  </label>
+                                <label class="c-label" for="OriginalDiscount2">{{'Distributor Discount' | translate}}:  </label>
                                 <input id="OriginalDiscount2"
                                 [disabled]="!pageConfig.canEdit || item.DA_GIAO_HANG || (i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" 
                                 *ngIf="!item.DA_GIAO_HANG && (i.OriginalDiscount2 && i.ShippedQuantity != i.Quantity || isShowAllDiscount)" 
@@ -114,7 +114,7 @@
                             </div>
 
                             <div class="c-control" *ngIf="(i.DiscountFromSalesman && i.ShippedQuantity != i.Quantity || isShowAllDiscount)">
-                                <label class="c-label" for="DiscountFromSalesman">{{'erp.app.pages.shipping.delivery.discount-from-salesman' | translate}}:  </label>
+                                <label class="c-label" for="DiscountFromSalesman">{{'Discount from sales staff' | translate}}:  </label>
                                 <input id="DiscountFromSalesman" 
                                 [disabled]="!pageConfig.canEdit || item.DA_GIAO_HANG || (i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" 
                                 *ngIf="!item.DA_GIAO_HANG && (i.DiscountFromSalesman && i.ShippedQuantity != i.Quantity || isShowAllDiscount)" 
@@ -172,37 +172,37 @@
 
                         <div>
                             <ion-badge class="ion-float-right">{{item.SaleOrder.TotalAfterTaxText}}</ion-badge>
-                            <ion-badge color="secondary">{{'erp.app.pages.shipping.delivery.total-after-tax' | translate}}</ion-badge>
+                            <ion-badge color="secondary">{{'Total amount after tax' | translate}}</ion-badge>
                         </div>
 
                         <div *ngIf="item.IsDebt">
                             <ion-badge class="ion-float-right">
                                 {{item.SaleOrder.ReceivedText}}</ion-badge>
-                            <ion-badge color="secondary">{{'erp.app.pages.shipping.delivery.received' | translate}}</ion-badge>
+                            <ion-badge color="secondary">{{'Payment completed' | translate}}</ion-badge>
                         </div>
 
                         <div *ngIf="item.SaleOrder.DiscountFromSalesman">
                             <ion-badge class="ion-float-right">
                                 {{item.SaleOrder.DiscountFromSalesmanText}}</ion-badge>
-                            <ion-badge color="secondary">{{'erp.app.pages.shipping.delivery.discount-from-salesman' | translate}}</ion-badge>
+                            <ion-badge color="secondary">{{'Discount from sales staff' | translate}}</ion-badge>
                         </div>
 
                         <div *ngIf="!item.IsDebt">
                             <ion-badge class="ion-float-right">
                                 {{item.SaleOrder.CustomerDebtText}}</ion-badge>
-                            <ion-badge color="secondary">{{'erp.app.pages.shipping.delivery.customer-debt' | translate}}</ion-badge>
+                            <ion-badge color="secondary">{{'Debt' | translate}}</ion-badge>
                         </div>
 
                         <div *ngIf="item.IsDebt">
                             <ion-badge class="ion-float-right">
                                 {{item.CustomerDebtText}}</ion-badge>
-                            <ion-badge color="secondary">{{'erp.app.pages.shipping.delivery.customer-debt' | translate}}</ion-badge>
+                            <ion-badge color="secondary">{{'Debt' | translate}}</ion-badge>
                         </div>
 
                         <div>
                             <ion-badge class="ion-float-right">
                                 {{item.ReceivedText}}</ion-badge>
-                            <ion-badge color="secondary">{{'erp.app.pages.shipping.delivery.received-percent' | translate}} {{item.ReceivedPercent}}%</ion-badge>
+                            <ion-badge color="secondary">{{'Received' | translate}} {{item.ReceivedPercent}}%</ion-badge>
 
                         </div>
 
@@ -241,7 +241,7 @@
                         <div [ngClass]="{'ion-hide': item.TongSoLuongLe}">
                             <ion-radio-group [value]="307">
                                 <ion-list-header>
-                                    <ion-label color="dark">{{'erp.app.pages.shipping.delivery.reason' | translate}}</ion-label>
+                                    <ion-label color="dark">{{'Reasons for undelivered goods' | translate}}</ion-label>
                                 </ion-list-header>
 
                                 <ion-item *ngFor="let i of statusList" (click)="item.IDStatus = i.Id;">
@@ -254,12 +254,12 @@
                         <div class="ion-padding" *ngIf="item.TongSoLuongLe"></div>
 
                         <ion-item>
-                            <ion-label position="stacked">{{'erp.app.pages.shipping.delivery.remark' | translate}}</ion-label>
-                            <ion-textarea [readonly]="item.DA_GIAO_HANG" [(ngModel)]="item.Remark" placeholder="{{'erp.app.pages.shipping.delivery.remark-placeholder' | translate}}"></ion-textarea>
+                            <ion-label position="stacked">{{'Remark' | translate}}</ion-label>
+                            <ion-textarea [readonly]="item.DA_GIAO_HANG" [(ngModel)]="item.Remark" placeholder="{{'More description' | translate}}"></ion-textarea>
                         </ion-item>
 
                         <div class="ion-padding" *ngIf="item.TongSoLuongLe==0 && !item.DA_GIAO_HANG && pageConfig.canEdit">
-                            <ion-button expand="block" (click)="saveDonHang()" color="secondary">{{'erp.app.pages.shipping.delivery.save-don-hang' | translate}}</ion-button>
+                            <ion-button expand="block" (click)="saveDonHang()" color="secondary">{{'Status update' | translate}}</ion-button>
                         </div>
 
                     </ion-card-content>
@@ -268,7 +268,7 @@
                         <div>
                             <ion-radio-group [value]="324">
                                 <ion-list-header>
-                                    <ion-label color="dark">{{'erp.app.pages.shipping.delivery.receive-reason' | translate}}</ion-label>
+                                    <ion-label color="dark">{{'Failed to collect reasons' | translate}}</ion-label>
                                 </ion-list-header>
 
                                 <ion-item *ngFor="let i of statusDebtList" (click)="item.IDStatus = i.Id;">
@@ -278,12 +278,12 @@
                             </ion-radio-group>
                         </div>
                         <ion-item>
-                            <ion-label position="stacked">{{'erp.app.pages.shipping.delivery.remark' | translate}}</ion-label>
-                            <ion-textarea [(ngModel)]="item.Remark" placeholder="{{'erp.app.pages.shipping.delivery.remark-placeholder' | translate}}"></ion-textarea>
+                            <ion-label position="stacked">{{'Remark' | translate}}</ion-label>
+                            <ion-textarea [(ngModel)]="item.Remark" placeholder="{{'More description' | translate}}"></ion-textarea>
                         </ion-item>
 
                         <div class="ion-padding" *ngIf="pageConfig.canEdit">
-                            <ion-button expand="block" (click)="saveDonHang()" color="secondary">{{'erp.app.pages.shipping.delivery.save-don-hang' | translate}}</ion-button>
+                            <ion-button expand="block" (click)="saveDonHang()" color="secondary">{{'Status update' | translate}}</ion-button>
                         </div>
 
                     </ion-card-content>
@@ -291,10 +291,10 @@
                     <!-- Hoàn tất btn -->
                     <ion-card-content *ngIf="(item.IsDebt && item.Received) || (!item.DA_GIAO_HANG && item.TongSoLuongLe >0  ) && pageConfig.canEdit">
                         <div class="ion-padding">
-                            <ion-button expand="block" (click)="saveDonHang()" color="secondary">{{'erp.app.pages.shipping.delivery.save' | translate}}
+                            <ion-button expand="block" (click)="saveDonHang()" color="secondary">{{'Complete' | translate}}
                             </ion-button>
 
-                            <ion-button *ngIf="!item.DA_GIAO_HANG" expand="block" fill="outline" (click)="dropAll()" color="secondary">{{'erp.app.pages.shipping.delivery.drop-all' | translate}}
+                            <ion-button *ngIf="!item.DA_GIAO_HANG" expand="block" fill="outline" (click)="dropAll()" color="secondary">{{'100% returned' | translate}}
                             </ion-button>
                         </div>
                     </ion-card-content>

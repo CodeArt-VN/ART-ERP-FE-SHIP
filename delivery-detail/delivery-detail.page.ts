@@ -577,7 +577,7 @@ export class DeliveryDetailPage extends PageBase {
             this.env.getStorage('deliveryData').then(data => {
 
                 if (!data || !data.length) {
-                    this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.check-not-found-with-value','', this.item.SaleOrder.Id);
+                    this.env.showTranslateMessage('Please recheck. Cannot find Order {{value}} within the saved list.','', this.item.SaleOrder.Id);
                 }
                 else {
                     let found = false;
@@ -608,7 +608,7 @@ export class DeliveryDetailPage extends PageBase {
                     }
 
                     if (found == false) {
-                        this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.check-not-found-with-value','', this.item.SaleOrder.Id);
+                        this.env.showTranslateMessage('Please recheck. Cannot find Order {{value}} within the saved list.','', this.item.SaleOrder.Id);
                         reject(false);
                     }
                     else {
@@ -633,7 +633,7 @@ export class DeliveryDetailPage extends PageBase {
                 Long: resp.coords.longitude
             }
             this.pageProvider.commonService.connect(apiPath.method, apiPath.url(), c).toPromise().then(res => {
-                this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.save-coordinate-complete');
+                this.env.showTranslateMessage('Coordinates updated');
             });
 
             //console.log(resp.coords);

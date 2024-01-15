@@ -41,7 +41,7 @@ export class DeliveryReviewDetailPage extends PageBase {
     sheets = [];
     loadShipmentDocument() {
         if (this.submitAttempt) {
-            this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.checking-data');
+            this.env.showTranslateMessage('Data checking');
             return;
         }
         this.submitAttempt = true;
@@ -179,7 +179,7 @@ export class DeliveryReviewDetailPage extends PageBase {
                         this.env.showMessage(err.message, 'danger');
                     }
                     else {
-                        this.env.showTranslateMessage('erp.app.pages.shipping.delivery.message.can-not-create-picking-list','danger');
+                        this.env.showTranslateMessage('Cannot create pick - up list','danger');
                     }
                     if (loading) loading.dismiss();
                 });

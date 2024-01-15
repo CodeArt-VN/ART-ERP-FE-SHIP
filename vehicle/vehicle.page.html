@@ -1,5 +1,5 @@
 <ion-header>
-	<app-list-toolbar pageTitle="{{'erp.app.pages.shipping.vehicle.page-title' | translate}}" [pageConfig]="pageConfig" [selectedItems]="selectedItems" [query]="query" (add)="add()" (refresh)="refresh()" (export)="export()" (import)="import($event)" (help)="help()" (unselect)="unselect()" (archiveItems)="archiveItems()" (deleteItems)="deleteItems()" (changeBranch)="changeBranch($event)"></app-list-toolbar>
+	<app-list-toolbar pageTitle="{{'Truck list' | translate}}" [pageConfig]="pageConfig" [selectedItems]="selectedItems" [query]="query" (add)="add()" (refresh)="refresh()" (export)="export()" (import)="import($event)" (help)="help()" (unselect)="unselect()" (archiveItems)="archiveItems()" (deleteItems)="deleteItems()" (changeBranch)="changeBranch($event)"></app-list-toolbar>
 
 	<section class="table">
 		<header class="bold">
@@ -7,26 +7,26 @@
 
 			</div>
 			<div class="col-id cell" (click)="sortToggle('Id')">
-				{{'erp.app.pages.shipping.vehicle.id-sort' | translate}}
+				{{'Id' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.Id" [name]="sort.Id == 'Id'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Id" name="search" color="primary"></ion-icon>
 			</div>
 			<div class="col-code cell" (click)="sortToggle('Name')">
-				{{'erp.app.pages.shipping.vehicle.name-sort' | translate}}
+				{{'License plate' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.Name" [name]="sort.Name == 'Name'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Name" name="search" color="primary"></ion-icon>
 			</div>
 			<div class="col-name cell">
-				{{'erp.app.pages.shipping.vehicle.shipper-name-sort' | translate}}
+				{{'Shippers' | translate}}
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.ShipperName" name="search" color="primary"></ion-icon>
 			</div>
 			<div class="col-weight cell" (click)="sortToggle('WeightMax')">
-				{{'erp.app.pages.shipping.vehicle.weight-max-sort' | translate}}
+				{{'Tons' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.WeightMax" [name]="sort.WeightMax == 'WeightMax'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.WeightMax" name="search" color="primary"></ion-icon>
 			</div>
 			
-			<div class="col-remark cell">{{'erp.app.pages.shipping.vehicle.ref-shipper-sort' | translate}}</div>
+			<div class="col-remark cell">{{'Reference' | translate}}</div>
 
 			<!-- <div class="col-code cell" (click)="sortToggle('Code')">Đơn vị
 				<ion-icon class="min-btn" *ngIf="sort.Code" [name]="sort.Code == 'Code'?'arrow-down': 'arrow-up'"></ion-icon>
