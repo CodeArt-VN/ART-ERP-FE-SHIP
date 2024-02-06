@@ -1,11 +1,16 @@
 <ion-header>
 	<ion-toolbar>
 		<ion-buttons slot="start" class="ion-hide-sm-down_">
-			<ion-button color="dark" class="ion-hide-sm-down">
+			<ion-button color="dark" [ngClass]="{titleSubPageActive: !pageConfig.mainPageActive, titleMainPageActive: pageConfig.mainPageActive}" >
 				{{'Print delivery note' | translate}}
 			</ion-button>
+			<ion-button class="toggle" *ngIf="!pageConfig.mainPageActive" [ngClass]="{backSubPageActive: !pageConfig.mainPageActive}"  (click)="backSubPage()">
+				<ion-icon slot="icon-only" name="chevron-back-outline">
+				</ion-icon>
+				<ion-label color="dark" class="label-back">{{'Back' | translate}}</ion-label>
+			</ion-button>
 		</ion-buttons>
-		<ion-buttons slot="end">
+		<ion-buttons slot="end" [ngClass]="{featureSubPageActive: !pageConfig.mainPageActive, featureMainPageActive: pageConfig.mainPageActive}">
 			<ion-button (click)="changePrintMode()" title="{{'Printing option' | translate}}">
 				<ion-icon slot="icon-only" [name]="printMode == 'A4' ? 'cut-outline':'file-tray-full-outline'"></ion-icon>
 			</ion-button>
@@ -24,9 +29,9 @@
 	</ion-toolbar>
 </ion-header>
 
-
-<ion-content appScrollbarTheme appPrintFix class="A4 left" [ngClass]="{withFeature: pageConfig.isShowFeature}">
-	<ion-fab *ngIf="pageConfig.isShowFeature" [ngClass]="{withSearch: pageConfig.isShowSearch}" class="feature no-print " vertical="top" horizontal="start" slot="fixed">
+ 
+<ion-content appScrollbarTheme appPrintFix class="A4 left" [ngClass]="{withFeature: pageConfig.isShowFeature, childViewActive: !pageConfig.mainPageActive}">
+	<ion-fab *ngIf="pageConfig.isShowFeature" [ngClass]="{withSearch: pageConfig.isShowSearch }" class="feature no-print " vertical="top" horizontal="start" slot="fixed">
 		<ion-list>
 			<ion-list-header lines="full">
 				<ion-label color="dark">{{'Maintenance schedule' | translate}}</ion-label>

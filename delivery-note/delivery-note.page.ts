@@ -576,6 +576,8 @@ export class DeliveryNotePage extends PageBase {
 
         this.refresh();
     }
-
+    backSubPage() {
+        this.pageConfig.mainPageActive =  true;
+    }
 
 }
