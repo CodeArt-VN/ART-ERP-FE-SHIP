@@ -58,6 +58,7 @@ export class DeliveryNotePage extends PageBase {
     sheets: any = [];
     loadDeliveryNote(i) {
 
+        this.pageConfig.mainPageActive = false;
         this.selectedShipmentID = i.Id;
         this.id = this.selectedShipmentID;
 
