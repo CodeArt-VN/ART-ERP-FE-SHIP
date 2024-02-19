@@ -90,7 +90,7 @@
 
                         <ng-container *ngIf="i.ShippedQuantity &&  !(i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" >
                             <div class="c-control" *ngIf="!i.IsPromotionItem && (i.OriginalDiscount1 && i.ShippedQuantity != i.Quantity || isShowAllDiscount)">
-                                <label class="c-label" for="OriginalDiscount1">{{'Vendor Discount' | translate}}:  </label>
+                                <label class="c-label" for="OriginalDiscount1">{{'Vendor discount' | translate}}:  </label>
                                 <input id="OriginalDiscount1"
                                 [disabled]="!pageConfig.canEdit || item.DA_GIAO_HANG || (i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" 
                                 *ngIf="!item.DA_GIAO_HANG && (i.OriginalDiscount1 && i.ShippedQuantity != i.Quantity || isShowAllDiscount)" 
@@ -102,7 +102,7 @@
                             </div>
 
                             <div class="c-control" *ngIf="!i.IsPromotionItem && (i.OriginalDiscount2 && i.ShippedQuantity != i.Quantity || isShowAllDiscount)">
-                                <label class="c-label" for="OriginalDiscount2">{{'Distributor Discount' | translate}}:  </label>
+                                <label class="c-label" for="OriginalDiscount2">{{'Distributor discount' | translate}}:  </label>
                                 <input id="OriginalDiscount2"
                                 [disabled]="!pageConfig.canEdit || item.DA_GIAO_HANG || (i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" 
                                 *ngIf="!item.DA_GIAO_HANG && (i.OriginalDiscount2 && i.ShippedQuantity != i.Quantity || isShowAllDiscount)" 
@@ -114,7 +114,7 @@
                             </div>
 
                             <div class="c-control" *ngIf="(i.DiscountFromSalesman && i.ShippedQuantity != i.Quantity || isShowAllDiscount)">
-                                <label class="c-label" for="DiscountFromSalesman">{{'Discount from sales staff' | translate}}:  </label>
+                                <label class="c-label" for="DiscountFromSalesman">{{'Discount from saleman' | translate}}:  </label>
                                 <input id="DiscountFromSalesman" 
                                 [disabled]="!pageConfig.canEdit || item.DA_GIAO_HANG || (i.DiscountFromSalesman && !pageConfig.canEditDiscountFromSalesman)" 
                                 *ngIf="!item.DA_GIAO_HANG && (i.DiscountFromSalesman && i.ShippedQuantity != i.Quantity || isShowAllDiscount)" 
@@ -184,7 +184,7 @@
                         <div *ngIf="item.SaleOrder.DiscountFromSalesman">
                             <ion-badge class="ion-float-right">
                                 {{item.SaleOrder.DiscountFromSalesmanText}}</ion-badge>
-                            <ion-badge color="secondary">{{'Discount from sales staff' | translate}}</ion-badge>
+                            <ion-badge color="secondary">{{'Discount from saleman' | translate}}</ion-badge>
                         </div>
 
                         <div *ngIf="!item.IsDebt">

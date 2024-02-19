@@ -274,11 +274,23 @@ export class DeliveryPage extends PageBase {
                             close.click();
                         }
 
-                        if (result.content.indexOf('O:') == 0) {
-                            let IDSaleOrder = result.content.replace('O:', '');
+                        let IDSaleOrder = '';
+                        if (result.content.indexOf('O:') == 0 || result.content.indexOf('000201') == 0) {
+                            if (result.content.indexOf('O:') == 0) {
+                                IDSaleOrder = result.content.replace('O:', '');
+                                
+                            }
+                            else{
+                                let qrContent = lib.readVietQRCode(result.content);
+                                IDSaleOrder = qrContent.message.replace('SO', '');
+                            }   
+                            
+                        }
+                        if (IDSaleOrder) {
                             this.navCtrl.navigateForward('/delivery/' + IDSaleOrder);
                             this.closeCamera();
-                        } else {
+                        }
+                        else {
                             this.env.showTranslateMessage('You just scanned: {{value}}, please scanned QR code on paid delivery notes','', result.content);
                             setTimeout(() => this.scanQRCode(), 0);
                         }
