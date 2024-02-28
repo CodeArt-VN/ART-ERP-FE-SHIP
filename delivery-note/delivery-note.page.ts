@@ -124,9 +124,18 @@ export class DeliveryNotePage extends PageBase {
                                 o.HasDiscountFromSalesman = false;
                                 o.ShowCalcPromotion = false;
 
-                                QRCode.toDataURL('O:' + o.Id, { errorCorrectionLevel: 'H', version: 2, width: 500, scale: 20, type: 'image/webp' }, function (err, url) {
-                                    o.QRC = url;
-                                })
+                                if(o.VietQR){
+                                    QRCode.toDataURL(o.VietQR, { errorCorrectionLevel: 'M', version: 6, width: 500, scale: 20, type: 'image/webp' }, function (err, url) {
+                                        o.QRC = url;
+                                    })
+                                }
+                                else{
+                                    QRCode.toDataURL('O:' + o.Id, { errorCorrectionLevel: 'H', version: 2, width: 500, scale: 20, type: 'image/webp' }, function (err, url) {
+                                        o.QRC = url;
+                                    })
+                                }
+
+                                
 
                                 o.Items = this.calcSheet1(o);
                                 o.BuGiaItems = this.calcSheetBuGia(o);
