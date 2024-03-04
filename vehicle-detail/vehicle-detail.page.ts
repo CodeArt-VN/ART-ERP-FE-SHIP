@@ -39,11 +39,11 @@ export class VehicleDetailPage extends PageBase {
         this.id = this.route.snapshot.paramMap.get('id');
         this.config.notFoundText = 'Không tìm thấy dữ liệu phù hợp...';
         this.config.clearAllText = 'Xóa hết';
-        
+
 
         this.formGroup = formBuilder.group({
 
-            IDBranch: [''],
+            IDBranch: [this.env.selectedBranch],
             IDVehicleGroup: [{ value: '' }],
             IDShipper: [{ value: '' }],
             Id: new FormControl({ value: '', disabled: true }),
@@ -60,16 +60,16 @@ export class VehicleDetailPage extends PageBase {
 
 
             Length: ['', Validators.required],
-            Width	: ['', Validators.required],
-            Height	: ['', Validators.required],
-            VolumeMin	: ['', Validators.required],
-            VolumeRecommend	: ['', Validators.required],
-            VolumeMax	: ['', Validators.required],
-            WeightMin	: ['', Validators.required],
-            WeightRecommend	: ['', Validators.required],
-            WeightMax	: ['', Validators.required],
+            Width: ['', Validators.required],
+            Height: ['', Validators.required],
+            VolumeMin: ['', Validators.required],
+            VolumeRecommend: ['', Validators.required],
+            VolumeMax: ['', Validators.required],
+            WeightMin: ['', Validators.required],
+            WeightRecommend: ['', Validators.required],
+            WeightMax: ['', Validators.required],
 
-            RefShipper	: [''],
+            RefShipper: [''],
 
         });
     }
@@ -78,7 +78,7 @@ export class VehicleDetailPage extends PageBase {
         if (this.item?.IDShipper) {
             this.loadSelectedShipper(this.item.IDShipper);
         }
-        else{
+        else {
             this.shipperSearch();
         }
         super.loadedData(event);
@@ -120,5 +120,7 @@ export class VehicleDetailPage extends PageBase {
             }
         });
     }
+
+    async saveChange() { super.saveChange2(); }
 
 }
