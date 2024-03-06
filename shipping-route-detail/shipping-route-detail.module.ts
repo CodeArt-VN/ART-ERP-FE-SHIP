@@ -5,14 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ShareModule } from 'src/app/share.module';
 import { ShippingRouteDetailPage } from './shipping-route-detail.page';
-import { FileUploadModule } from 'ng2-file-upload';
 import { MapCompsModule } from '../../../components/map-comps/map-comps.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: ShippingRouteDetailPage
-  }
+    component: ShippingRouteDetailPage,
+  },
 ];
 
 @NgModule({
@@ -21,11 +20,10 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    FileUploadModule,
     MapCompsModule,
     ShareModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [ShippingRouteDetailPage]
+  declarations: [ShippingRouteDetailPage],
 })
-export class ShippingRouteDetailPageModule { }
+export class ShippingRouteDetailPageModule {}

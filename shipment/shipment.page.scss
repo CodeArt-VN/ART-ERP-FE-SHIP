@@ -1,31 +1,28 @@
-
 .col-code {
-    max-width: 150px !important;
-    min-width: 150px !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  max-width: 150px !important;
+  min-width: 150px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.cell small{
-    
-    /* border-left: solid 2px; */
-    margin-left: 5px;
-    padding: 2px 4px;
-    background-color: rgba(var(--ion-color-primary-rgb, 0, 0, 0), .1);
-    border-radius: 2px;
+.cell small {
+  /* border-left: solid 2px; */
+  margin-left: 5px;
+  padding: 2px 4px;
+  background-color: rgba(var(--ion-color-primary-rgb, 0, 0, 0), 0.1);
+  border-radius: 2px;
 
-    &.right{
-        margin-left: auto;
-        order: 2;
-    }
+  &.right {
+    margin-left: auto;
+    order: 2;
+  }
 }
 
-.money{
-    font-weight: bold;
-    color: var(--ion-color-primary) !important;
+.money {
+  font-weight: bold;
+  color: var(--ion-color-primary) !important;
 }
-
 
 // .feature {
 //     border-left: none;

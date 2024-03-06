@@ -1,203 +1,196 @@
 <ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start" *ngIf="selectedShipmentID==0">
-			<ion-button color="dark">
-				{{'Order' | translate}}
-			</ion-button>
-		</ion-buttons>
-		<ion-segment *ngIf="selectedShipmentID" scrollable="true" (ionChange)="segmentChanged($event)" [value]="selectedShipmentID">
-			<ion-segment-button [value]="s.Id" *ngFor="let s of sheets">
-				<ion-label>
-					<span *ngIf="pageConfig.canViewAllData">
-						{{s.Vehicle}}
-					</span>
-					{{s.DeliveryDateText}}</ion-label>
-			</ion-segment-button>
-		</ion-segment>
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="selectedShipmentID==0">
+      <ion-button color="dark"> {{'Order' | translate}} </ion-button>
+    </ion-buttons>
+    <ion-segment
+      *ngIf="selectedShipmentID"
+      scrollable="true"
+      (ionChange)="segmentChanged($event)"
+      [value]="selectedShipmentID"
+    >
+      <ion-segment-button [value]="s.Id" *ngFor="let s of sheets">
+        <ion-label>
+          <span *ngIf="pageConfig.canViewAllData"> {{s.Vehicle}} </span>
+          {{s.DeliveryDateText}}</ion-label
+        >
+      </ion-segment-button>
+    </ion-segment>
 
-		<ion-buttons slot="end" *ngIf="!selectedItems.length">
-			<!-- <ion-button title="{{'Search' | translate}}" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch">
+    <ion-buttons slot="end" *ngIf="!selectedItems.length">
+      <!-- <ion-button title="{{'Search' | translate}}" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch">
 				<ion-icon slot="icon-only" name="search-outline"></ion-icon>
 			</ion-button> -->
-			
-			<ion-button (click)="preLoadData(null)" title="{{'Refresh' | translate}}">
-				<ion-icon slot="icon-only" name="reload-outline"></ion-icon>
-			</ion-button>
-			
-			<ion-button (click)="isShowAll = !isShowAll; loadShipment(null);">
-				<ion-icon slot="icon-only" [name]="!isShowAll?'funnel':'funnel-outline'"></ion-icon>
-			</ion-button>
-		</ion-buttons>
 
-	</ion-toolbar>
-	<ion-toolbar *ngIf="pageConfig.isShowSearch">
-		<span class="header-icon ">
-			<ion-icon name="qr-code-outline"></ion-icon>
-		</span>
-		<ion-searchbar (ionInput)="search($event)" placeholder="{{'Search order' | translate}}"></ion-searchbar>
-	</ion-toolbar>
+      <ion-button (click)="preLoadData(null)" title="{{'Refresh' | translate}}">
+        <ion-icon slot="icon-only" name="reload-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="isShowAll = !isShowAll; loadShipment(null);">
+        <ion-icon slot="icon-only" [name]="!isShowAll?'funnel':'funnel-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="pageConfig.isShowSearch">
+    <span class="header-icon">
+      <ion-icon name="qr-code-outline"></ion-icon>
+    </span>
+    <ion-searchbar (ionInput)="search($event)" placeholder="{{'Search order' | translate}}"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="!scanning" appScrollbarTheme class="header-table">
-	<!-- <ion-refresher [disabled]="!pageConfig.refresher" [disabled]="!pageConfig.refresher" slot="fixed" (ionRefresh)="refresh($event)">
+  <!-- <ion-refresher [disabled]="!pageConfig.refresher" [disabled]="!pageConfig.refresher" slot="fixed" (ionRefresh)="refresh($event)">
 		<ion-refresher-content></ion-refresher-content>
 	</ion-refresher> -->
 
-	<app-page-message [itemsLength]="items.length" [showSpinner]="pageConfig.showSpinner"></app-page-message>
+  <app-page-message [itemsLength]="items.length" [showSpinner]="pageConfig.showSpinner"></app-page-message>
 
-	<div class="ion-text-center">
-		<div *ngIf="changedItems.length==0 && items.length && status && status.Id != 301" class="ion-padding">
-			<ion-chip [color]="status.Color" (click)="isShowAll = !isShowAll; loadShipment(null);">
-				<ion-icon [name]="!isShowAll?'funnel':'funnel-outline'"></ion-icon>
-				<ion-label> #{{status.IDShipment}} - {{status.Name}}</ion-label>
-			</ion-chip>
-		</div>
+  <div class="ion-text-center">
+    <div *ngIf="changedItems.length==0 && items.length && status && status.Id != 301" class="ion-padding">
+      <ion-chip [color]="status.Color" (click)="isShowAll = !isShowAll; loadShipment(null);">
+        <ion-icon [name]="!isShowAll?'funnel':'funnel-outline'"></ion-icon>
+        <ion-label> #{{status.IDShipment}} - {{status.Name}}</ion-label>
+      </ion-chip>
+    </div>
 
-		<div *ngIf="changedItems.length" class="ion-padding ">
-			<ion-chip color="primary">
-				<ion-icon name="pin"></ion-icon>
-				<ion-label>{{changedItems.length}} {{'processed order - Click to send back' | translate}}</ion-label>
-			</ion-chip>
-			<br>
-			<ion-button size="small" fill="outline" color="danger" (click)="clearStateOrders()">
-				{{'Cancel to process again' | translate}}
-			</ion-button>
-		</div>
+    <div *ngIf="changedItems.length" class="ion-padding">
+      <ion-chip color="primary">
+        <ion-icon name="pin"></ion-icon>
+        <ion-label>{{changedItems.length}} {{'processed order - Click to send back' | translate}}</ion-label>
+      </ion-chip>
+      <br />
+      <ion-button size="small" fill="outline" color="danger" (click)="clearStateOrders()">
+        {{'Cancel to process again' | translate}}
+      </ion-button>
+    </div>
 
-		<!-- <div class="ion-padding" *ngIf="points.length">
+    <!-- <div class="ion-padding" *ngIf="points.length">
 			<ion-chip color="primary">
 				<ion-icon name="navigate"></ion-icon>
 				<ion-label><a [href]="maplink" target="_blank"> Xem bản đồ <span *ngIf="1 || points.length != items.length">({{points.length}}/{{items.length}})</span></a></ion-label>
 			</ion-chip>
 		</div> -->
+  </div>
 
-	</div>
+  <ion-card
+    [ngClass]="{debt: i.Debt}"
+    *ngFor="let i of items; let j = index;"
+    class="booking ion-no-margin ion-margin-horizontal"
+  >
+    <div class="logo"></div>
+    <ion-card-header (click)="nav('delivery/'+i.SaleOrder.Id,'forward')">
+      <ion-card-title>
+        <ion-text *ngIf="!i.Debt" [color]="i.Status.Color"> {{i.SaleOrder.OriginalTotalText}} </ion-text>
 
+        <ion-text [color]="i.Status.Color" *ngIf="i.Debt"> {{i.DebtText}} </ion-text>
 
+        <div class="ion-float-end">
+          <ion-text color="medium" class="ngay-hd">
+            {{i.SaleOrder.OrderDateText}}
+            <small *ngIf="i.SaleOrder.OrderTimeText != '00:00'">{{i.SaleOrder.OrderTimeText}}</small>
+          </ion-text>
+        </div>
+      </ion-card-title>
+      <ion-card-subtitle>
+        <ion-text [color]="i.Status.Color"> #{{i.SaleOrder.Id}} </ion-text>
+        <small *ngIf="!i._state"> {{i.Status.Name}} {{i._state}} </small>
+        <small *ngIf="i._state">
+          <ion-text color="primary"> {{'processed' | translate}} </ion-text>
+        </small>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content no-padding padding-horizontal>
+      <div>
+        <table class="card">
+          <tr>
+            <td>
+              <ion-icon color="primary" name="people-circle-outline"></ion-icon>
+            </td>
+            <td style="text-transform: uppercase">
+              <ion-text> {{i.SaleOrder.Customer.Name}} </ion-text>
+              <ion-text color="primary">
+                <small>#{{i.SaleOrder.Customer.Id}}</small>
+              </ion-text>
+            </td>
+          </tr>
+          <tr *ngIf="i.SaleOrder.Customer.AddressLine1">
+            <td>
+              <ion-icon
+                color="primary"
+                [name]="(i.SaleOrder.Customer.Lat&&i.SaleOrder.Customer.Long)? 'navigate' : 'navigate-outline'"
+              ></ion-icon>
+            </td>
+            <td>
+              <ion-text class="td-address">
+                <a
+                  *ngIf="(i.SaleOrder.Customer.Lat&&i.SaleOrder.Customer.Long)"
+                  (click)="openMap(i.SaleOrder.Customer.Lat+','+i.SaleOrder.Customer.Long, i.SaleOrder.Customer.Name)"
+                >
+                  <ion-text color="medium"><small>{{i.SaleOrder.Customer.AddressLine1}}</small></ion-text>
+                </a>
+                <a *ngIf="!(i.SaleOrder.Customer.Lat&&i.SaleOrder.Customer.Long)">
+                  <ion-text color="medium"><small>{{i.SaleOrder.Customer.AddressLine1}}</small></ion-text>
+                </a>
+              </ion-text>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </ion-card-content>
 
+    <ion-item class="card-footer" detail lines="none">
+      <ion-button
+        *ngIf="i.SaleOrder.Customer.WorkPhone"
+        [href]="'tel:'+i.SaleOrder.Customer.WorkPhone"
+        fill="clear"
+        slot="start"
+        (click)="$event.stopPropagation()"
+      >
+        <ion-icon slot="start" name="call" color="danger"></ion-icon>
+        {{i.SaleOrder.Customer.WorkPhone}}
+      </ion-button>
+      <ion-button (click)="nav('delivery/'+i.SaleOrder.Id,'forward')" color="secondary" fill="clear" slot="end"
+        >{{'View details' | translate}}
+      </ion-button>
+    </ion-item>
+  </ion-card>
 
-	
-		<ion-card [ngClass]="{debt: i.Debt}" *ngFor="let i of items; let j = index;" class="booking ion-no-margin ion-margin-horizontal">
-			<div class="logo"></div>
-			<ion-card-header (click)="nav('delivery/'+i.SaleOrder.Id,'forward')">
-				<ion-card-title>
-					<ion-text *ngIf="!i.Debt" [color]="i.Status.Color">
-						{{i.SaleOrder.OriginalTotalText}}
-					</ion-text>
+  <div class="ion-padding"></div>
 
-					<ion-text [color]="i.Status.Color" *ngIf="i.Debt">
-						{{i.DebtText}}
-					</ion-text>
-
-					<div class="ion-float-end">
-						<ion-text color="medium" class="ngay-hd">
-							{{i.SaleOrder.OrderDateText}}
-							<small *ngIf="i.SaleOrder.OrderTimeText != '00:00'">{{i.SaleOrder.OrderTimeText}}</small>
-						</ion-text>
-						
-					</div>
-				</ion-card-title>
-				<ion-card-subtitle>
-					<ion-text [color]="i.Status.Color">
-						#{{i.SaleOrder.Id}}
-					</ion-text>
-					<small *ngIf="!i._state">
-						{{i.Status.Name}} {{i._state}}
-					</small>
-					<small *ngIf="i._state">
-						<ion-text color="primary"> {{'processed' | translate}} </ion-text>
-					</small>
-
-				</ion-card-subtitle>
-			</ion-card-header>
-			<ion-card-content no-padding padding-horizontal>
-				<div>
-					<table class="card">
-						<tr>
-							<td>
-								<ion-icon color="primary" name="people-circle-outline"></ion-icon>
-							</td>
-							<td style="text-transform: uppercase">
-
-								<ion-text>
-									{{i.SaleOrder.Customer.Name}}
-								</ion-text>
-								<ion-text color="primary">
-									<small>#{{i.SaleOrder.Customer.Id}}</small>
-								</ion-text>
-
-							</td>
-						</tr>
-						<tr *ngIf="i.SaleOrder.Customer.AddressLine1">
-							<td>
-								<ion-icon color="primary" [name]="(i.SaleOrder.Customer.Lat&&i.SaleOrder.Customer.Long)? 'navigate' : 'navigate-outline'"></ion-icon>
-							</td>
-							<td>
-								<ion-text class="td-address"> 
-									<a *ngIf="(i.SaleOrder.Customer.Lat&&i.SaleOrder.Customer.Long)" (click)="openMap(i.SaleOrder.Customer.Lat+','+i.SaleOrder.Customer.Long, i.SaleOrder.Customer.Name)" >
-										<ion-text color="medium"><small>{{i.SaleOrder.Customer.AddressLine1}}</small></ion-text>
-									</a>
-									<a *ngIf="!(i.SaleOrder.Customer.Lat&&i.SaleOrder.Customer.Long)"> 
-										<ion-text color="medium"><small>{{i.SaleOrder.Customer.AddressLine1}}</small></ion-text>
-									</a>
-								</ion-text>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</ion-card-content>
-
-			<ion-item class="card-footer" detail lines="none">
-				<ion-button *ngIf="i.SaleOrder.Customer.WorkPhone" [href]="'tel:'+i.SaleOrder.Customer.WorkPhone" fill="clear" slot="start" (click)="$event.stopPropagation()">
-					<ion-icon slot="start" name="call" color="danger"></ion-icon>
-					{{i.SaleOrder.Customer.WorkPhone}}
-				</ion-button>
-				<ion-button (click)="nav('delivery/'+i.SaleOrder.Id,'forward')" color="secondary" fill="clear" slot="end">{{'View details' | translate}}
-				</ion-button>
-			</ion-item>
-
-		</ion-card>
-
-	<div class="ion-padding"></div>
-
-	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
-		<ion-fab-button color="secondary" (click)="scanQRCode()">
-			<ion-icon name="qr-code-outline"></ion-icon>
-		</ion-fab-button>
-	</ion-fab>
-
-
-
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" (click)="scanQRCode()">
+      <ion-icon name="qr-code-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 
 <ion-content *ngIf="scanning" no-scroll class="cameraFrame">
-	<div class="frame">
-		<div class="blink-line">
-		</div>
-	</div>
-	<ion-fab vertical="bottom" horizontal="center" slot="fixed">
-		<ion-fab-button color="secondary" (click)="closeCamera()">
-			<ion-icon name="close"></ion-icon>
-		</ion-fab-button>
-	</ion-fab>
-	<!-- <ion-fab *ngIf="isScanPhieuNo" vertical="top" horizontal="start" slot="fixed">
+  <div class="frame">
+    <div class="blink-line"></div>
+  </div>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button color="secondary" (click)="closeCamera()">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- <ion-fab *ngIf="isScanPhieuNo" vertical="top" horizontal="start" slot="fixed">
 	  <ion-fab-button color="success" title="{{''+items.length+' phiếu nợ'}}">
 		<ion-icon name="pricetags"></ion-icon>
 	  </ion-fab-button>
 	</ion-fab> -->
 
-	<!-- <ion-checkbox color="danger"></ion-checkbox> -->
+  <!-- <ion-checkbox color="danger"></ion-checkbox> -->
 
-	<!-- <ion-fab *ngIf="isScanPhieuNo" vertical="top" horizontal="start" slot="fixed" (click)="isRemovePhieuNo = !isRemovePhieuNo;">
+  <!-- <ion-fab *ngIf="isScanPhieuNo" vertical="top" horizontal="start" slot="fixed" (click)="isRemovePhieuNo = !isRemovePhieuNo;">
 	  <ion-fab-button title="{{isRemovePhieuNo?'Đang quét để bỏ phiếu nợ':'Đang quét để thêm phiếu nợ'}}">
 		<ion-icon [color]="isRemovePhieuNo?'danger':'success'" [name]="isRemovePhieuNo? 'trash': 'add' "></ion-icon>
 	  </ion-fab-button>
 	</ion-fab> -->
 
-	<!-- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+  <!-- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
 		<ion-fab-button color="warning" (click)="lightCamera()">
 			<ion-icon name="flashlight"></ion-icon>
 		</ion-fab-button>
 	</ion-fab> -->
-
 </ion-content>

@@ -5,27 +5,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ShareModule } from 'src/app/share.module';
 import { ShipmentDetailPage } from './shipment-detail.page';
-import { FileUploadModule } from 'ng2-file-upload';
 import { ShipmentModalPage } from '../shipment-modal/shipment-modal.page';
 import { ShipmentDebtPickerModalPage } from '../shipment-debt-picker-modal/shipment-debt-picker-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ShipmentDetailPage
-  }
+    component: ShipmentDetailPage,
+  },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ReactiveFormsModule,
-    FileUploadModule,
-    ShareModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [ShipmentDetailPage, ShipmentModalPage, ShipmentDebtPickerModalPage]
+  imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule, ShareModule, RouterModule.forChild(routes)],
+  declarations: [ShipmentDetailPage, ShipmentModalPage, ShipmentDebtPickerModalPage],
 })
-export class ShipmentDetailPageModule { }
+export class ShipmentDetailPageModule {}

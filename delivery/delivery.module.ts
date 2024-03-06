@@ -15,8 +15,8 @@ import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 
     NgOptionHighlightModule,
     ShareModule,
-    RouterModule.forChild([{ path: '', component: DeliveryPage }])
+    RouterModule.forChild([{ path: '', component: DeliveryPage }]),
   ],
-  declarations: [DeliveryPage]
+  declarations: [DeliveryPage],
 })
 export class DeliveryPageModule {}

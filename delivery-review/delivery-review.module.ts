@@ -8,14 +8,7 @@ import { ShareModule } from 'src/app/share.module';
 import { ShareChartsModule } from 'src/app/components/charts/share-charts.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ShareModule,
-    IonicModule,
-    DeliveryReviewPageRoutingModule,
-    ShareChartsModule
-  ],
-  declarations: [DeliveryReviewPage]
+  imports: [CommonModule, FormsModule, ShareModule, IonicModule, DeliveryReviewPageRoutingModule, ShareChartsModule],
+  declarations: [DeliveryReviewPage],
 })
 export class DeliveryReviewPageModule {}

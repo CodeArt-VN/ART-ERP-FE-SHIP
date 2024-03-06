@@ -9,10 +9,9 @@ describe('ShipmentDebtPickerModalPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShipmentDebtPickerModalPage ],
+      declarations: [ShipmentDebtPickerModalPage],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
