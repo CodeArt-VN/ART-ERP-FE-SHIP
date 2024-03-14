@@ -251,7 +251,7 @@ export class ShipmentPage extends PageBase {
           .export(apiPath, this.exportQuery)
           .then((response: any) => {
             if (loading) loading.dismiss();
-            this.downloadURLContent(ApiSetting.mainService.base + response);
+            this.downloadURLContent(response);
           })
           .catch((err) => {
             console.log(err);
