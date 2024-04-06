@@ -40,7 +40,7 @@ export class VehicleDetailPage extends PageBase {
     this.config.clearAllText = 'Xóa hết';
 
     this.formGroup = formBuilder.group({
-      IDBranch: [this.env.selectedBranch],
+      IDBranch: new FormControl({ value: null, disabled: false }),
       IDVehicleGroup: [{ value: '' }],
       IDShipper: [{ value: '' }],
       Id: new FormControl({ value: '', disabled: true }),
