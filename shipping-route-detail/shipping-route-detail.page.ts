@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { NavController, ModalController, LoadingController, AlertController } from '@ionic/angular';
+import { NavController, ModalController, LoadingController, AlertController, PopoverController } from '@ionic/angular';
 import { PageBase } from 'src/app/page-base';
 import { ActivatedRoute } from '@angular/router';
 import { EnvService } from 'src/app/services/core/env.service';
@@ -13,7 +13,6 @@ import {
 } from 'src/app/services/static/services.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CommonService } from 'src/app/services/core/common.service';
-import { ApiSetting } from 'src/app/services/static/api-setting';
 import { lib } from 'src/app/services/static/global-functions';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { concat, of, Subject } from 'rxjs';
@@ -43,7 +42,8 @@ export class ShippingRouteDetailPage extends PageBase {
     public vehicleProvider: SHIP_VehicleProvider,
     public staffProvider: HRM_StaffProvider,
     public branchProvider: BRA_BranchProvider,
-
+    
+    public popoverCtrl: PopoverController,
     public env: EnvService,
     public navCtrl: NavController,
     public route: ActivatedRoute,
