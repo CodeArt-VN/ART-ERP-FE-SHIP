@@ -199,7 +199,7 @@
                         <img class="card-background-image" src="/assets/undraw_discount_d4bd.svg">
                         <div class="field">
                             <ion-badge class="ion-float-right"> {{item.SaleOrder.TotalDiscountText}}</ion-badge>
-                            <ion-badge color="warning">Chiết khấu {{ ( item.viewCK_THUC) }}%</ion-badge>
+                            <ion-badge color="warning">{{'Discount' | translate}} {{ ( item.viewCK_THUC) }}%</ion-badge>
                         </div>
                         <ion-input class="txtTienInput" slot="start" type="number" [(ngModel)]="item.SaleOrder.TotalDiscount" (ionBlur)="changeChietKhau($event)" min="0"></ion-input>
                         <div style=" margin: 10px 0;">
