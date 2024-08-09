@@ -157,7 +157,7 @@ export class ShipmentPage extends PageBase {
     };
 
     this.env
-      .showLoading(
+      .showLoading2(
         'Đang phân tài, xin vui lòng chờ giây lát...',
         this.pageProvider.commonService.connect('PUT', 'SHIP/Shipment/AutoCreateShipment', dto).toPromise(),
       )
