@@ -157,7 +157,7 @@ export class ShipmentPage extends PageBase {
     };
 
     this.env
-      .showLoading(
+      .showLoading2(
         'Đang phân tài, xin vui lòng chờ giây lát...',
         this.pageProvider.commonService.connect('PUT', 'SHIP/Shipment/AutoCreateShipment', dto).toPromise(),
       )
@@ -169,7 +169,7 @@ export class ShipmentPage extends PageBase {
       })
       .catch((err) => {
         if (err.message != null) {
-          this.env.showMessage(err.message, 'danger');
+          this.env.showTranslateMessage(err.message, 'danger');
         } else {
           this.env.showTranslateMessage('Cannot assign for delivery', 'danger');
         }

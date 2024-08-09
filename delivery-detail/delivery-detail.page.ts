@@ -395,7 +395,7 @@ export class DeliveryDetailPage extends PageBase {
     if (sumCK3 < 0) {
       i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
       e.target.value = i.DiscountFromSalesman;
-      this.env.showAlert('Tổng bù giá phải lớn hơn hoặc bằng 0. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
+      this.env.showAlert2('Tổng bù giá phải lớn hơn hoặc bằng 0. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
       // setTimeout(() => {
       //     i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
       // }, 0);
@@ -403,7 +403,7 @@ export class DeliveryDetailPage extends PageBase {
     if (sumCK3 > this.item.SaleOrder.TotalAfterDiscount) {
       i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
       e.target.value = i.DiscountFromSalesman;
-      this.env.showAlert('Tổng bù giá phải nhỏ hơn trị giá đơn hàng. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
+      this.env.showAlert2('Tổng bù giá phải nhỏ hơn trị giá đơn hàng. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
       // setTimeout(() => {
       //     i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
       // }, 0);
