@@ -395,7 +395,7 @@ export class DeliveryDetailPage extends PageBase {
     if (sumCK3 < 0) {
       i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
       e.target.value = i.DiscountFromSalesman;
-      this.env.showAlert2('Tổng bù giá phải lớn hơn hoặc bằng 0. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
+      this.env.showAlert('Tổng bù giá phải lớn hơn hoặc bằng 0. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
       // setTimeout(() => {
       //     i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
       // }, 0);
@@ -403,7 +403,7 @@ export class DeliveryDetailPage extends PageBase {
     if (sumCK3 > this.item.SaleOrder.TotalAfterDiscount) {
       i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
       e.target.value = i.DiscountFromSalesman;
-      this.env.showAlert2('Tổng bù giá phải nhỏ hơn trị giá đơn hàng. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
+      this.env.showAlert('Tổng bù giá phải nhỏ hơn trị giá đơn hàng. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
       // setTimeout(() => {
       //     i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
       // }, 0);
@@ -599,7 +599,7 @@ export class DeliveryDetailPage extends PageBase {
     return new Promise((resolve, reject) => {
       this.env.getStorage('deliveryData').then((data) => {
         if (!data || !data.length) {
-          this.env.showTranslateMessage(
+          this.env.showMessage(
             'Please recheck. Cannot find Order {{value}} within the saved list.',
             '',
             this.item.SaleOrder.Id,
@@ -633,7 +633,7 @@ export class DeliveryDetailPage extends PageBase {
           }
 
           if (found == false) {
-            this.env.showTranslateMessage(
+            this.env.showMessage(
               'Please recheck. Cannot find Order {{value}} within the saved list.',
               '',
               this.item.SaleOrder.Id,
@@ -670,7 +670,7 @@ export class DeliveryDetailPage extends PageBase {
           .connect(apiPath.method, apiPath.url(), c)
           .toPromise()
           .then((res) => {
-            this.env.showTranslateMessage('Coordinates updated');
+            this.env.showMessage('Coordinates updated');
           });
 
         //console.log(resp.coords);

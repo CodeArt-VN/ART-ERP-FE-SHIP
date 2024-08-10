@@ -150,13 +150,13 @@ export class ShippingRouteDetailPage extends PageBase {
       if (i.Id == 0) {
         i.Id = result['Id'];
       }
-      this.env.showTranslateMessage('Update completed', 'success');
+      this.env.showMessage('Update completed', 'success');
     });
   }
 
   deleteRouteDetail(i) {
     this.routeDetailProvider.delete(i).then((result) => {
-      this.env.showTranslateMessage('Update completed', 'success');
+      this.env.showMessage('Update completed', 'success');
       const index = this.routeDetail.indexOf(i);
       if (index > -1) {
         this.routeDetail.splice(index, 1);
@@ -332,11 +332,11 @@ export class ShippingRouteDetailPage extends PageBase {
         };
 
         this.partnerAddressProvider.save(submitItem).then((resp) => {
-          this.env.showTranslateMessage('Location updated', 'success');
+          this.env.showMessage('Location updated', 'success');
         });
       });
     } else {
-      this.env.showTranslateMessage('Bạn không có quyền chỉnh sửa, vui lòng kiểm tra lại', 'warning');
+      this.env.showMessage('Bạn không có quyền chỉnh sửa, vui lòng kiểm tra lại', 'warning');
       return;
     }
   }

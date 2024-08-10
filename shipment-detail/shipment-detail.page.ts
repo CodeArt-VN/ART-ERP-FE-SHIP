@@ -300,7 +300,7 @@ export class ShipmentDetailPage extends PageBase {
       this.formGroup.updateValueAndValidity();
 
       if (!this.formGroup.valid) {
-        this.env.showTranslateMessage('Please recheck information highlighted in red above', 'warning');
+        this.env.showMessage('Please recheck information highlighted in red above', 'warning');
       } else if (this.submitAttempt == false) {
         this.submitAttempt = true;
         //lib.copyPropertiesValue(this.formGroup.value, this.item);
@@ -345,7 +345,7 @@ export class ShipmentDetailPage extends PageBase {
             }
 
             // if (loading) loading.dismiss();
-            this.env.showTranslateMessage('Saving completed!', 'success');
+            this.env.showMessage('Saving completed!', 'success');
             this.formGroup.markAsPristine();
             this.cdr.detectChanges();
             resolve(savedItem.Id);
@@ -354,7 +354,7 @@ export class ShipmentDetailPage extends PageBase {
           })
           .catch((err) => {
             // if (loading) loading.dismiss();
-            this.env.showTranslateMessage('Cannot save, please try again', 'danger');
+            this.env.showMessage('Cannot save, please try again', 'danger');
             this.cdr.detectChanges();
             this.submitAttempt = false;
             reject(err);

@@ -185,9 +185,9 @@ export class DeliveryNotePage extends PageBase {
           .catch((err) => {
             console.log(err);
             if (err.message != null) {
-              this.env.showTranslateMessage(err.message, 'danger');
+              this.env.showMessage(err.message, 'danger');
             } else {
-              this.env.showTranslateMessage('Cannot create pick - up list', 'danger');
+              this.env.showMessage('Cannot create pick - up list', 'danger');
             }
             this.submitAttempt = false;
             if (loading) loading.dismiss();

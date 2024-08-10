@@ -157,21 +157,21 @@ export class ShipmentPage extends PageBase {
     };
 
     this.env
-      .showLoading2(
-        'Đang phân tài, xin vui lòng chờ giây lát...',
+      .showLoading(
+        'Please wait for a few moments',
         this.pageProvider.commonService.connect('PUT', 'SHIP/Shipment/AutoCreateShipment', dto).toPromise(),
       )
 
       .then(() => {
         this.submitAttempt = false;
-        this.env.showTranslateMessage('Delivery assigned. Please check and adjust if necessary', 'warning');
+        this.env.showMessage('Delivery assigned. Please check and adjust if necessary', 'warning');
         this.refresh();
       })
       .catch((err) => {
         if (err.message != null) {
-          this.env.showTranslateMessage(err.message, 'danger');
+          this.env.showMessage(err.message, 'danger');
         } else {
-          this.env.showTranslateMessage('Cannot assign for delivery', 'danger');
+          this.env.showMessage('Cannot assign for delivery', 'danger');
         }
         this.submitAttempt = false;
         this.refresh();
@@ -186,7 +186,7 @@ export class ShipmentPage extends PageBase {
 
   async import2(event) {
     if (this.submitAttempt) {
-      this.env.showTranslateMessage('Importing driver allocation. Please wait for completion', 'primary');
+      this.env.showMessage('Importing driver allocation. Please wait for completion', 'primary');
       return;
     }
     this.submitAttempt = true;
@@ -226,7 +226,7 @@ export class ShipmentPage extends PageBase {
           Id: 'FileImportShipment',
         });
         this.refresh();
-        this.env.showTranslateMessage('Import error, please check again', 'danger');
+        this.env.showMessage('Import error, please check again', 'danger');
       });
   }
 

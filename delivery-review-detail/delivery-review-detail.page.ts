@@ -40,7 +40,7 @@ export class DeliveryReviewDetailPage extends PageBase {
   sheets = [];
   loadShipmentDocument() {
     if (this.submitAttempt) {
-      this.env.showTranslateMessage('Data checking');
+      this.env.showMessage('Data checking');
       return;
     }
     this.submitAttempt = true;
@@ -179,9 +179,9 @@ export class DeliveryReviewDetailPage extends PageBase {
           .catch((err) => {
             this.submitAttempt = false;
             if (err.message != null) {
-              this.env.showTranslateMessage(err.message, 'danger');
+              this.env.showMessage(err.message, 'danger');
             } else {
-              this.env.showTranslateMessage('Cannot create pick - up list', 'danger');
+              this.env.showMessage('Cannot create pick - up list', 'danger');
             }
             if (loading) loading.dismiss();
           });

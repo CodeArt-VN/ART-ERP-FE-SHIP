@@ -405,7 +405,7 @@ export class DeliveryReviewPage extends PageBase {
           console.log(resp);
         }
         this.submitAttempt = false;
-        this.env.showTranslateMessage('Cash received', 'success');
+        this.env.showMessage('Cash received', 'success');
         i.Status.Id = 328;
         this.item.NumberOfDoneVehicle = this.items.filter((i) => i.Status.Id == 328).length;
       });
