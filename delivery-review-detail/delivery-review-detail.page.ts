@@ -179,7 +179,7 @@ export class DeliveryReviewDetailPage extends PageBase {
           .catch((err) => {
             this.submitAttempt = false;
             if (err.message != null) {
-              this.env.showMessage(err.message, 'danger');
+              this.env.showTranslateMessage(err.message, 'danger');
             } else {
               this.env.showTranslateMessage('Cannot create pick - up list', 'danger');
             }
