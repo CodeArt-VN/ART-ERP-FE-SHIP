@@ -8,9 +8,10 @@ import { ApiSetting } from 'src/app/services/static/api-setting';
 import { SHIP_ShipmentProvider } from 'src/app/services/static/services.service';
 
 @Component({
-  selector: 'app-delivery-review',
-  templateUrl: './delivery-review.page.html',
-  styleUrls: ['./delivery-review.page.scss'],
+    selector: 'app-delivery-review',
+    templateUrl: './delivery-review.page.html',
+    styleUrls: ['./delivery-review.page.scss'],
+    standalone: false
 })
 export class DeliveryReviewPage extends PageBase {
   statusList = [];

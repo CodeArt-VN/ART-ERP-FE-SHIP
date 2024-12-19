@@ -10,9 +10,10 @@ import QRCode from 'qrcode';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-delivery-note',
-  templateUrl: 'delivery-note.page.html',
-  styleUrls: ['delivery-note.page.scss'],
+    selector: 'app-delivery-note',
+    templateUrl: 'delivery-note.page.html',
+    styleUrls: ['delivery-note.page.scss'],
+    standalone: false
 })
 export class DeliveryNotePage extends PageBase {
   branchList = [];

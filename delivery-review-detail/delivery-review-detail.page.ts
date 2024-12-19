@@ -10,9 +10,10 @@ import QRCode from 'qrcode';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-delivery-review-detail',
-  templateUrl: 'delivery-review-detail.page.html',
-  styleUrls: ['delivery-review-detail.page.scss'],
+    selector: 'app-delivery-review-detail',
+    templateUrl: 'delivery-review-detail.page.html',
+    styleUrls: ['delivery-review-detail.page.scss'],
+    standalone: false
 })
 export class DeliveryReviewDetailPage extends PageBase {
   constructor(

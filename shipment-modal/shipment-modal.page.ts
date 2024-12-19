@@ -9,9 +9,10 @@ import { lib } from 'src/app/services/static/global-functions';
 import { ApiSetting } from 'src/app/services/static/api-setting';
 
 @Component({
-  selector: 'app-shipment-modal',
-  templateUrl: './shipment-modal.page.html',
-  styleUrls: ['./shipment-modal.page.scss'],
+    selector: 'app-shipment-modal',
+    templateUrl: './shipment-modal.page.html',
+    styleUrls: ['./shipment-modal.page.scss'],
+    standalone: false
 })
 export class ShipmentModalPage extends PageBase {
   constructor(

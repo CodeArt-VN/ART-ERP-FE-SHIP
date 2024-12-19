@@ -5,10 +5,9 @@ import { IonicModule } from '@ionic/angular';
 import { DeliveryReviewPageRoutingModule } from './delivery-review-routing.module';
 import { DeliveryReviewPage } from './delivery-review.page';
 import { ShareModule } from 'src/app/share.module';
-import { ShareChartsModule } from 'src/app/components/charts/share-charts.module';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ShareModule, IonicModule, DeliveryReviewPageRoutingModule, ShareChartsModule],
+  imports: [CommonModule, FormsModule, ShareModule, IonicModule, DeliveryReviewPageRoutingModule],
   declarations: [DeliveryReviewPage],
 })
 export class DeliveryReviewPageModule {}

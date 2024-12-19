@@ -22,9 +22,10 @@ import { lib } from 'src/app/services/static/global-functions';
 import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
-  selector: 'app-delivery-detail',
-  templateUrl: './delivery-detail.page.html',
-  styleUrls: ['./delivery-detail.page.scss'],
+    selector: 'app-delivery-detail',
+    templateUrl: './delivery-detail.page.html',
+    styleUrls: ['./delivery-detail.page.scss'],
+    standalone: false
 })
 export class DeliveryDetailPage extends PageBase {
   public maskSigned: any = {

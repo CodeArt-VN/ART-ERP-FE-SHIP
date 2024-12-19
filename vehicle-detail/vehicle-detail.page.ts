@@ -11,9 +11,10 @@ import { concat, of, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-vehicle-detail',
-  templateUrl: './vehicle-detail.page.html',
-  styleUrls: ['./vehicle-detail.page.scss'],
+    selector: 'app-vehicle-detail',
+    templateUrl: './vehicle-detail.page.html',
+    styleUrls: ['./vehicle-detail.page.scss'],
+    standalone: false
 })
 export class VehicleDetailPage extends PageBase {
   constructor(

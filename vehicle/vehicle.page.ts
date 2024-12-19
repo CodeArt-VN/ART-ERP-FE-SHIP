@@ -6,9 +6,10 @@ import { BRA_BranchProvider, SHIP_VehicleProvider } from 'src/app/services/stati
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-vehicle',
-  templateUrl: 'vehicle.page.html',
-  styleUrls: ['vehicle.page.scss'],
+    selector: 'app-vehicle',
+    templateUrl: 'vehicle.page.html',
+    styleUrls: ['vehicle.page.scss'],
+    standalone: false
 })
 export class VehiclePage extends PageBase {
   constructor(

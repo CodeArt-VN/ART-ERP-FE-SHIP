@@ -9,9 +9,10 @@ import { lib } from 'src/app/services/static/global-functions';
 import { ApiSetting } from 'src/app/services/static/api-setting';
 
 @Component({
-  selector: 'app-shipment-debt-picker-modal',
-  templateUrl: './shipment-debt-picker-modal.page.html',
-  styleUrls: ['./shipment-debt-picker-modal.page.scss'],
+    selector: 'app-shipment-debt-picker-modal',
+    templateUrl: './shipment-debt-picker-modal.page.html',
+    styleUrls: ['./shipment-debt-picker-modal.page.scss'],
+    standalone: false
 })
 export class ShipmentDebtPickerModalPage extends PageBase {
   constructor(

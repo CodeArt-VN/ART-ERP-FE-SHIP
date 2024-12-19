@@ -7,9 +7,10 @@ import { Location } from '@angular/common';
 import { ApiSetting } from 'src/app/services/static/api-setting';
 
 @Component({
-  selector: 'app-shipping-route',
-  templateUrl: 'shipping-route.page.html',
-  styleUrls: ['shipping-route.page.scss'],
+    selector: 'app-shipping-route',
+    templateUrl: 'shipping-route.page.html',
+    styleUrls: ['shipping-route.page.scss'],
+    standalone: false
 })
 export class ShippingRoutePage extends PageBase {
   branchList = [];

@@ -12,9 +12,10 @@ import { ApiSetting } from 'src/app/services/static/api-setting';
 import { lib } from 'src/app/services/static/global-functions';
 
 @Component({
-  selector: 'app-shipment',
-  templateUrl: 'shipment.page.html',
-  styleUrls: ['shipment.page.scss'],
+    selector: 'app-shipment',
+    templateUrl: 'shipment.page.html',
+    styleUrls: ['shipment.page.scss'],
+    standalone: false
 })
 export class ShipmentPage extends PageBase {
   branchList = [];

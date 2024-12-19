@@ -21,9 +21,10 @@ import { ShipmentModalPage } from '../shipment-modal/shipment-modal.page';
 import { ShipmentDebtPickerModalPage } from '../shipment-debt-picker-modal/shipment-debt-picker-modal.page';
 
 @Component({
-  selector: 'app-shipment-detail',
-  templateUrl: './shipment-detail.page.html',
-  styleUrls: ['./shipment-detail.page.scss'],
+    selector: 'app-shipment-detail',
+    templateUrl: './shipment-detail.page.html',
+    styleUrls: ['./shipment-detail.page.scss'],
+    standalone: false
 })
 export class ShipmentDetailPage extends PageBase {
   //m3Mask = ['PPP-PPP', this.pattern];
