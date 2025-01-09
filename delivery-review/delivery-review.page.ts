@@ -8,27 +8,29 @@ import { ApiSetting } from 'src/app/services/static/api-setting';
 import { SHIP_ShipmentProvider } from 'src/app/services/static/services.service';
 
 @Component({
-    selector: 'app-delivery-review',
-    templateUrl: './delivery-review.page.html',
-    styleUrls: ['./delivery-review.page.scss'],
-    standalone: false
+  selector: 'app-delivery-review',
+  templateUrl: './delivery-review.page.html',
+  styleUrls: ['./delivery-review.page.scss'],
+  standalone: false,
 })
 export class DeliveryReviewPage extends PageBase {
   statusList = [];
-  canvasChart: any;
 
-  chartData = {};
-  centerText = '';
-  chartView = 'doanhThu';
-  countLoad = 0;
-
-  doanhThuChartData = [];
-  congnoChartData = [];
-
-  ChartStyle = {
-    width: '100%',
-    'min-height': '200px',
+  chartOption = {
+    tooltip: { trigger: 'item' },
+    series: [
+      {
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        label: { show: false },
+        color: ['#6b75ca', '#9197c4', '#ffffff'],
+        data: [],
+      },
+    ],
   };
+
+ 
 
   constructor(
     public pageProvider: SHIP_ShipmentProvider,
@@ -40,96 +42,57 @@ export class DeliveryReviewPage extends PageBase {
     super();
   }
 
-  totalPieChart = {
-    Id: 'totalPieChart',
-    Title: '',
-    Subtext: '',
-    SeriesName: '',
-
-    Legend: false,
-    ItemLabel: false,
-    Data: [],
-    ColorTemplate: [],
-    Type: 'Doughnut',
-    Style: this.ChartStyle,
-  };
-
   needReload = false;
-  chartViews = 'doanhThu';
+  chartView = 'doanhThu';
+  lastView = 'doanhThu';
   public buildChart() {
+    if(!this.chartView) return;
+
     let IsNeedDestroy = false;
     if (this.tongTienMat != this.item.TotalOfCash || this.tongPhieuNo != this.item.TongPhieuNoMoi) {
       this.tongTienMat = this.item.TotalOfCash;
       this.tongPhieuNo = this.item.TongPhieuNoMoi;
       IsNeedDestroy = true;
     }
-    if (this.chartViews != this.chartView) {
-      this.chartView = this.chartViews;
+    if (this.chartView != this.lastView) {
+      this.lastView = this.chartView;
       IsNeedDestroy = true;
     }
 
-    if (this.canvasChart && IsNeedDestroy) {
-      this.canvasChart.destroy();
-    } else if (this.canvasChart && !IsNeedDestroy) {
+    if ( !IsNeedDestroy) {
       return;
     }
 
-    this.doanhThuChartData = [];
-    this.congnoChartData = [];
+    this.chartOption.series[0].data = [];
+
     if (this.chartView == 'doanhThu') {
-      // this.chartData = {
-      // 	datasets: [{
-      // 		data: [this.item.TotalOfDoneOrder, this.item.TotalOfReturnProduct, this.item.TotalOfUndoneOrder],
-      // 		backgroundColor: () => { return [lib.getCssVariableValue('--ion-color-primary'), lib.getCssVariableValue('--ion-color-medium'), lib.getCssVariableValue('--ion-color-dark')] },
-      // 		label: 'Doanh thu'
-      // 	}],
-      // 	// TotalOfDoneOrder = (i.TotalOfCashOrder + i.TotalOfDebtOrder)
-      // 	// i.TotalOfOrder = (i.TotalOfCashOrder + i.TotalOfDebtOrder) + i.TotalOfUndoneOrder + i.TotalOfReturnProduct;
-
-      // 	labels: ['Đã giao', 'Hàng rớt', 'Chưa giao']
-      // };
-      // this.centerText = this.item.NumberOfDoneOrder + '/' + this.item.NumberOfOrder;
-
-      let tempLabel = ['Đã giao', 'Hàng rớt', 'Chưa giao'];
-      let tempData = [this.item.TotalOfDoneOrder, this.item.TotalOfReturnProduct, this.item.TotalOfUndoneOrder];
-
-      for (let idx = 0; idx < tempData.length; idx++) {
-        let tempObj = { value: tempData[idx], name: tempLabel[idx] };
-        this.doanhThuChartData.push(tempObj);
-      }
-
-      // this.totalPieChart.Title = 'Doanh thu';
-      this.totalPieChart.ColorTemplate = [
+      this.chartOption.series[0].data = [
+        { value: this.item.TotalOfDoneOrder, name: 'Đã giao' },
+        { value: this.item.TotalOfReturnProduct, name: 'Hàng rớt' },
+        { value: this.item.TotalOfUndoneOrder, name: 'Chưa giao' },
+      ];
+      this.chartOption.series[0].color = [
         lib.getCssVariableValue('--ion-color-primary'),
         lib.getCssVariableValue('--ion-color-medium'),
         lib.getCssVariableValue('--ion-color-dark'),
       ];
     } else {
-      // this.chartData = {
-      // 	datasets: [{
-      // 		data: [this.item.TotalOfReceivedDebt, this.item.TotalRemainingDebt],
-      // 		backgroundColor: () => { return [lib.getCssVariableValue('--ion-color-primary'), lib.getCssVariableValue('--ion-color-dark')] },
-      // 		label: 'Công nợ'
-      // 	}],
-      // 	labels: ['Đã thu được', 'Còn lại']
-      // };
-      // this.centerText = this.item.NumberOfReceivedDebt + '/' + this.item.NumberOfDebt;
-
-      let tempLabel = ['Đã thu được', 'Còn lại'];
-      let tempData = [this.item.TotalOfReceivedDebt, this.item.TotalRemainingDebt];
-
-      for (let idx = 0; idx < tempData.length; idx++) {
-        let tempObj = { value: tempData[idx], name: tempLabel[idx] };
-        this.congnoChartData.push(tempObj);
-      }
-
-      // this.totalPieChart.Title = 'Công nợ';
-      this.totalPieChart.ColorTemplate = [
+      this.chartOption.series[0].data = [
+        { value: this.item.TotalOfReceivedDebt, name: 'Đã thu được' },
+        { value: this.item.TotalRemainingDebt, name: 'Còn lại' },
+      ];
+      this.chartOption.series[0].color = [
         lib.getCssVariableValue('--ion-color-primary'),
         lib.getCssVariableValue('--ion-color-dark'),
       ];
     }
-    // console.log(() => lib.getCssVariableValue('--ion-color-primary'));
+
+    this.chartView = '';
+    setTimeout(() => {
+      this.chartView = this.lastView;
+      console.log('reload chart');
+      
+    }, 100);
   }
 
   events(e) {
@@ -139,7 +102,6 @@ export class DeliveryReviewPage extends PageBase {
   }
 
   refresh() {
-    this.chartView = '';
     this.loadData();
   }
   interval = null;
@@ -289,7 +251,7 @@ export class DeliveryReviewPage extends PageBase {
       this.item.TotalOfReturnProduct;
     this.item.TongGiaTriText = lib.currencyFormat(this.item.TongGiaTri);
 
-    this.countLoad++;
+    
     if (this.item) {
       this.buildChart();
     }

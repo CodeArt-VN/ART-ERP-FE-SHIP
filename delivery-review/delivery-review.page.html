@@ -25,19 +25,15 @@
   <app-page-message [itemsLength]="items.length" [showSpinner]="pageConfig.showSpinner"></app-page-message>
 
   <div class="main-view">
-    <div class="row-1" [hidden]="!items.length">
+    <div class="row-1" *ngIf="items.length">
       <div class="col-1">
         <div class="c-box">
-          <ng-container *ngIf="doanhThuChartData.length && chartView == 'doanhThu'">
-            <app-pie-chart-old [ChartInfo]="totalPieChart" [ChartData]="doanhThuChartData"></app-pie-chart-old>
-          </ng-container>
-          <ng-container *ngIf="congnoChartData.length && chartView == 'congno'">
-            <app-pie-chart-old [ChartInfo]="totalPieChart" [ChartData]="congnoChartData"></app-pie-chart-old>
-          </ng-container>
+          <app-e-chart *ngIf="chartView=='doanhThu'" [chartOption]="chartOption" chartType="manual"></app-e-chart>
+          <app-e-chart *ngIf="chartView=='congno'" [chartOption]="chartOption" chartType="manual"></app-e-chart>
         </div>
 
         <div class="btn-change-chart">
-          <ion-segment [(ngModel)]="chartViews" (ionChange)="buildChart();">
+          <ion-segment [(ngModel)]="chartView" (ionChange)="buildChart();">
             <ion-segment-button value="doanhThu">
               <ion-label>{{'Delivery' | translate}}</ion-label>
             </ion-segment-button>
