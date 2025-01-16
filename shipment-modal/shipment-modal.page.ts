@@ -47,7 +47,7 @@ export class ShipmentModalPage extends PageBase {
     this.query.OrderDateFrom = OrderDateFrom;
     this.query.OrderDateTo = OrderDateTo;
     //this.query.IgnoredBranch = true;
-    this.query.IDStatus = '[104]';
+    this.query.Status = 'Approved';
 
     this.pageProvider.commonService
       .connect('GET', 'SALE/Order/ShippingList', this.query)
