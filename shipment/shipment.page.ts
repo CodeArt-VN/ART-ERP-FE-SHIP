@@ -101,7 +101,7 @@ export class ShipmentPage extends PageBase {
       return ApiSetting.apiDomain('SALE/Order/ShippingList');
     };
     //this.saleOrderProvider.read({ IDStatus: '[101,102,103,104,110]', Take: 20000 }).then(resp => {
-    this.saleOrderProvider.read({ IDStatus: '[104,110]', Take: 20000 }).then((resp) => {
+    this.saleOrderProvider.read({ Status: "['Approved','Redelivery']", Take: 20000 }).then((resp) => {
       this.orderList = resp['data'];
       this.routeList = [];
       this.sellerList = [];
