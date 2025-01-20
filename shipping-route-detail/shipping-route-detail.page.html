@@ -15,17 +15,7 @@
             </ion-list-header>
           </ion-col>
           <ion-col size="12" size-sm size-xl="4">
-            <!-- <div class="c-control" *ngIf="item.Id">
-                            <label class="c-label" for="Id">{{'Id' | translate}}</label>
-                            <input class="c-input" id="Id" formControlName="Id" type="number">
-                        </div> -->
-
-            <!-- <div class="c-control">
-                            <label class="c-label" for="Code">{{'Code' | translate}} <small *ngIf="item.Id">Id: {{item.Id}}</small>
-                                <span *ngIf="!formGroup.controls.Code.valid && !formGroup.controls.Code.pending && (formGroup.controls.Code.dirty || submitAttempt)" ion-text color="danger">(*)</span>
-                            </label>
-                            <input (change)="saveChange()" class="c-input" id="Code" formControlName="Code" type="text">
-                        </div> -->
+       
 
             <div class="c-control">
               <label class="c-label" for="Name"
@@ -156,27 +146,6 @@
               </ng-select>
             </div>
 
-            <!-- <div class="c-control">
-                            <label class="c-label" for="IDShipper">{{'id-shipper' | translate}}
-                                <span *ngIf="!formGroup.controls.IDShipper.valid && !formGroup.controls.IDShipper.pending && (formGroup.controls.IDShipper.dirty || submitAttempt)" ion-text color="danger">(*)</span>
-                            </label>
-                            <ng-select (change)="saveChange()" class="c-input" #IDShipper formControlName="IDShipper" labelForId="IDShipper" [items]="shipperList$ | async" [typeahead]="shipperListInput$" [loading]='shipperListLoading' [virtualScroll]="true" bindLabel="FullName" bindValue="Id" placeholder="{{'shipper-list-placeholder' | translate}}">
-                                <ng-template ng-option-tmp let-i="item" let-search="searchTerm">
-                                    <div *ngIf="i">
-                                        <div><span [ngOptionHighlight]="search">{{i.FullName}}</span></div>
-                                        <small>#<b><span class="important" [ngOptionHighlight]="search">{{i.Id}} - {{i.Code}}</span></b> <span *ngIf="i.Phone"> | {{'Telephone' | translate}}: <b [ngOptionHighlight]="search">{{i.Phone}}</b></span></small>
-                                    </div>
-                                </ng-template>
-                            </ng-select>
-                        </div>
-
-                        <div class="c-control">
-                            <label class="c-label" for="StartDate">{{'start-date' | translate}} <small>Start date</small>
-                                <span *ngIf="!formGroup.controls.StartDate.valid && !formGroup.controls.StartDate.pending && (formGroup.controls.StartDate.dirty || submitAttempt)" ion-text color="danger">(*)</span>
-                            </label>
-                            <input (change)="saveChange()" class="c-input" id="StartDate" formControlName="StartDate" [ngModel]="item.StartDate | date:'yyyy-MM-dd'" type="date" [min]="minDOB" [max]="maxDOB">
-                        </div> -->
-
             <div class="c-control">
               <label class="c-label" for=""></label>
               <ion-button
@@ -189,20 +158,6 @@
             </div>
           </ion-col>
         </ion-row>
-
-        <!-- <ion-row class="hr-group">
-                    <ion-col size="12" size-sm="12" size-md="12" size-xl="3">
-                        <ion-list-header class="ion-no-padding">
-                            <ion-label color="primary">{{'item-information-title' | translate}}</ion-label>
-                        </ion-list-header>
-                    </ion-col>
-                    <ion-col size="12" size-sm size-xl="4">
-                        
-                    </ion-col>
-                    <ion-col size="12" size-sm size-xl="4">
-                        
-                    </ion-col>
-                </ion-row> -->
       </form>
     </ion-grid>
 
@@ -330,20 +285,7 @@
                 />
               </div>
 
-              <!-- <div class="col-checkbox cell week"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Week1" type="checkbox"></div>
-                            <div class="col-checkbox cell week"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Week2" type="checkbox"></div>
-                            <div class="col-checkbox cell week"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Week3" type="checkbox"></div>
-                            <div class="col-checkbox cell week"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Week4" type="checkbox"></div>
-
-                            <div class="col-checkbox cell"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Monday" type="checkbox"></div>
-                            <div class="col-checkbox cell"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Tuesday" type="checkbox"></div>
-                            <div class="col-checkbox cell"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Wednesday" type="checkbox"></div>
-                            <div class="col-checkbox cell"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Thursday" type="checkbox"></div>
-                            <div class="col-checkbox cell"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Friday" type="checkbox"></div>
-                            <div class="col-checkbox cell"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Saturday" type="checkbox"></div>
-                            <div class="col-checkbox cell"><input [disabled]="!pageConfig.canEdit" (change)="saveRouteDetail(i)" class="c-checkbox" [(ngModel)]="i.Sunday" type="checkbox"></div> -->
-
-              <!-- <div class="col-checkbox cell">{{i.Frequency}}</div> -->
+           
               <div class="col-checkbox cell" *ngIf="pageConfig.canEdit" (click)="deleteRouteDetail(i)">
                 <ion-icon color="danger" class="min-btn" name="trash-outline"></ion-icon>
               </div>
