@@ -148,6 +148,7 @@ export class ShipmentDetailPage extends PageBase {
 
       this.item.ProductDimensionsM = this.item.ProductDimensions / 10.0 ** 6;
 
+      //this.item.CoordinateList = [{Coordinate :[ {Lat:"10.7353276", Long:"106.9811484"}]}];
       // this.fo.get('birthDate').setValue({
       //     year: parseInt(birthDate.format('YYYY'), 10),
       //     month: parseInt(birthDate.format('M'), 10),
@@ -173,11 +174,13 @@ export class ShipmentDetailPage extends PageBase {
     }
 
     super.loadedData(event);
+    this.item.CoordinateList = [...this.item.Orders];
   }
 
   segmentView = 's1';
   segmentChanged(ev: any) {
     this.segmentView = ev.detail.value;
+    
   }
 
   loadSelectedShipper(IDShipper, isSaveChange = false) {
@@ -191,7 +194,6 @@ export class ShipmentDetailPage extends PageBase {
       }
     });
   }
-
   shipperList$;
   shipperListLoading = false;
   shipperListInput$ = new Subject<string>();
@@ -537,4 +539,7 @@ export class ShipmentDetailPage extends PageBase {
     };
     super.delete();
   }
+
+
+
 }

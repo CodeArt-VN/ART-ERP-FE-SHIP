@@ -7,6 +7,7 @@ import { ShareModule } from 'src/app/share.module';
 import { ShipmentDetailPage } from './shipment-detail.page';
 import { ShipmentModalPage } from '../shipment-modal/shipment-modal.page';
 import { ShipmentDebtPickerModalPage } from '../shipment-debt-picker-modal/shipment-debt-picker-modal.page';
+import { MapCompsModule } from 'src/app/components/map-comps/map-comps.module';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule, ShareModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, FormsModule,MapCompsModule ,IonicModule, ReactiveFormsModule, ShareModule, RouterModule.forChild(routes)],
   declarations: [ShipmentDetailPage, ShipmentModalPage, ShipmentDebtPickerModalPage],
 })
 export class ShipmentDetailPageModule {}
