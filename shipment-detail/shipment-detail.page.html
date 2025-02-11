@@ -764,7 +764,12 @@
           </div>
         </div>
 
-        <div *ngIf="segmentView == 's3'"></div>
+        <div *ngIf="segmentView == 's3'" style="height: calc(100vh - 140px)"> 
+            <app-map-view
+            *ngIf="item.CoordinateList"
+            [CoordinateList]="item.CoordinateList"
+          ></app-map-view>
+         </div>
 
         <div *ngIf="segmentView == 's4'"></div>
 
