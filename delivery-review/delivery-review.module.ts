@@ -7,7 +7,7 @@ import { DeliveryReviewPage } from './delivery-review.page';
 import { ShareModule } from 'src/app/share.module';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ShareModule, IonicModule, DeliveryReviewPageRoutingModule],
-  declarations: [DeliveryReviewPage],
+	imports: [CommonModule, FormsModule, ShareModule, IonicModule, DeliveryReviewPageRoutingModule],
+	declarations: [DeliveryReviewPage],
 })
 export class DeliveryReviewPageModule {}

@@ -7,14 +7,7 @@ import { DeliveryNotePage } from './delivery-note.page';
 import { ShareModule } from 'src/app/share.module';
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ShareModule,
-    RouterModule.forChild([{ path: '', component: DeliveryNotePage }]),
-  ],
-  declarations: [DeliveryNotePage],
+	imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, ShareModule, RouterModule.forChild([{ path: '', component: DeliveryNotePage }])],
+	declarations: [DeliveryNotePage],
 })
 export class DeliveryNotePageModule {}

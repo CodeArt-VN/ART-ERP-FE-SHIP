@@ -8,22 +8,14 @@ import { ShippingRouteDetailPage } from './shipping-route-detail.page';
 import { MapCompsModule } from '../../../components/map-comps/map-comps.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ShippingRouteDetailPage,
-  },
+	{
+		path: '',
+		component: ShippingRouteDetailPage,
+	},
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ReactiveFormsModule,
-    MapCompsModule,
-    ShareModule,
-    RouterModule.forChild(routes),
-  ],
-  declarations: [ShippingRouteDetailPage],
+	imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule, MapCompsModule, ShareModule, RouterModule.forChild(routes)],
+	declarations: [ShippingRouteDetailPage],
 })
 export class ShippingRouteDetailPageModule {}

@@ -1,173 +1,171 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start" class="ion-hide-sm-down_">
-      <ion-back-button defaultHref="delivery-review"></ion-back-button>
-      <ion-button color="dark" class="ion-hide-sm-down"> {{'Delivery result' | translate}} </ion-button>
-    </ion-buttons>
+	<ion-toolbar>
+		<ion-buttons slot="start" class="ion-hide-sm-down_">
+			<ion-back-button defaultHref="delivery-review"></ion-back-button>
+			<ion-button color="dark" class="ion-hide-sm-down"> {{'Delivery result' | translate}} </ion-button>
+		</ion-buttons>
 
-    <ion-buttons slot="end">
-      <ion-button (click)="print()" title="{{'Form printing' | translate}}">
-        <ion-icon slot="icon-only" name="print"></ion-icon>
-      </ion-button>
+		<ion-buttons slot="end">
+			<ion-button (click)="print()" title="{{'Form printing' | translate}}">
+				<ion-icon slot="icon-only" name="print"></ion-icon>
+			</ion-button>
 
-      <ion-button (click)="refresh()" title="{{'Refresh' | translate}}">
-        <ion-icon slot="icon-only" name="reload-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+			<ion-button (click)="refresh()" title="{{'Refresh' | translate}}">
+				<ion-icon slot="icon-only" name="reload-outline"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content appScrollbarTheme appPrintFix class="A4 left" [ngClass]="{withFeature: pageConfig.isShowFeature}">
-  <div style="overflow: auto">
-    <section class="sheet rpt" *ngFor="let s of sheets">
-      <table>
-        <thead>
-          <tr>
-            <td>
-              <div class="page-header-space"></div>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="top-zone">
-                <table class="rpt-header" cellpadding="0" cellspacing="0">
-                  <tbody>
-                    <tr>
-                      <td class="head-c1">{{'Pick - up warehouse' | translate}}:</td>
-                      <td class="bol">{{s.WarehouseName}} ({{s.WarehousePhone}})</td>
-                      <td class="num"></td>
-                      <td class="bol"></td>
-                      <td class="num">{{'Delivery date' | translate}}:</td>
-                      <td class="num bol ngay-hd">{{s.DeliveryDateText}}</td>
-                    </tr>
-                    <tr>
-                      <td colspan="6" class="bol title">{{'Delivery Status Reconciliation' | translate}}</td>
-                    </tr>
-                  </tbody>
-                </table>
+	<div style="overflow: auto">
+		<section class="sheet rpt" *ngFor="let s of sheets">
+			<table>
+				<thead>
+					<tr>
+						<td>
+							<div class="page-header-space"></div>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<div class="top-zone">
+								<table class="rpt-header" cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td class="head-c1">{{'Pick - up warehouse' | translate}}:</td>
+											<td class="bol">{{s.WarehouseName}} ({{s.WarehousePhone}})</td>
+											<td class="num"></td>
+											<td class="bol"></td>
+											<td class="num">{{'Delivery date' | translate}}:</td>
+											<td class="num bol ngay-hd">{{s.DeliveryDateText}}</td>
+										</tr>
+										<tr>
+											<td colspan="6" class="bol title">{{'Delivery Status Reconciliation' | translate}}</td>
+										</tr>
+									</tbody>
+								</table>
 
-                <table class="rpt-header rpt-nvgh-header" cellpadding="0" cellspacing="0">
-                  <tbody>
-                    <tr>
-                      <td class="head-c1">{{'shipper' | translate}}:</td>
-                      <td class="bol">
-                        {{s.ShipperName}}
-                        <span *ngIf="s.ShipperPhone"> - {{s.ShipperPhone}}</span>
-                        - {{s.Vehicle}} - {{'SH' | translate}}: {{s.Id}}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="head-c1">{{'Delivery order' | translate}}:</td>
-                      <td class="bol">
-                        {{s.ShipmentOrder.length}} {{'Order' | translate}} =>
+								<table class="rpt-header rpt-nvgh-header" cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td class="head-c1">{{'shipper' | translate}}:</td>
+											<td class="bol">
+												{{s.ShipperName}}
+												<span *ngIf="s.ShipperPhone"> - {{s.ShipperPhone}}</span>
+												- {{s.Vehicle}} - {{'SH' | translate}}: {{s.Id}}
+											</td>
+										</tr>
+										<tr>
+											<td class="head-c1">{{'Delivery order' | translate}}:</td>
+											<td class="bol">
+												{{s.ShipmentOrder.length}} {{'Order' | translate}} =>
 
-                        <span *ngIf="s.NumberOfUndoneOrder">
-                          {{s.NumberOfUndoneOrder}} {{'undelivered order' | translate}} ({{s.TotalOfUndoneOrderText}})
-                        </span>
-                        <span *ngIf="s.NumberOfDoneOrder">
-                          {{s.NumberOfDoneOrder}} {{'Delivered order' | translate}} ({{s.TotalOfCashOrderText}} {{'Cash
-                          on hand' | translate}}<span *ngIf="s.TotalOfNewDebtOrder">
-                            {{s.TotalOfNewDebtOrderText}} {{'Debts' | translate}}</span
-                          >)
-                        </span>
-                      </td>
-                    </tr>
-                    <tr *ngIf="s.ShipmentDebt.length">
-                      <td class="head-c1">{{'Debt note' | translate}}:</td>
-                      <td class="bol">
-                        {{s.NumberOfReceivedDebt}}/{{s.NumberOfDebt}} {{'Debt note' | translate}}
-                        ({{s.TotalOfReceivedDebtText}} / {{s.TotalOfDebtText}})
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+												<span *ngIf="s.NumberOfUndoneOrder">
+													{{s.NumberOfUndoneOrder}} {{'undelivered order' | translate}} ({{s.TotalOfUndoneOrderText}})
+												</span>
+												<span *ngIf="s.NumberOfDoneOrder">
+													{{s.NumberOfDoneOrder}} {{'Delivered order' | translate}} ({{s.TotalOfCashOrderText}} {{'Cash on hand' | translate}}<span
+														*ngIf="s.TotalOfNewDebtOrder"
+													>
+														{{s.TotalOfNewDebtOrderText}} {{'Debts' | translate}}</span
+													>)
+												</span>
+											</td>
+										</tr>
+										<tr *ngIf="s.ShipmentDebt.length">
+											<td class="head-c1">{{'Debt note' | translate}}:</td>
+											<td class="bol">
+												{{s.NumberOfReceivedDebt}}/{{s.NumberOfDebt}} {{'Debt note' | translate}} ({{s.TotalOfReceivedDebtText}} / {{s.TotalOfDebtText}})
+											</td>
+										</tr>
+									</tbody>
+								</table>
 
-                <div class="ds-san-pham">
-                  <table cellpadding="0" cellspacing="0">
-                    <tbody>
-                      <tr class="head">
-                        <td rowspan="2">
-                          <div class="ma-hd">{{'Order' | translate}}</div>
-                        </td>
-                        <td rowspan="2" class="cen">{{'No.' | translate}}</td>
-                        <td rowspan="2">
-                          <div class="ten-sp min">{{'Product name' | translate}}</div>
-                        </td>
+								<div class="ds-san-pham">
+									<table cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr class="head">
+												<td rowspan="2">
+													<div class="ma-hd">{{'Order' | translate}}</div>
+												</td>
+												<td rowspan="2" class="cen">{{'No.' | translate}}</td>
+												<td rowspan="2">
+													<div class="ten-sp min">{{'Product name' | translate}}</div>
+												</td>
 
-                        <td class="cen" rowspan="2">{{'Unit' | translate}}</td>
-                        <td class="cen" colspan="2">{{'Quantity' | translate}}</td>
-                        <td class="cen tien" colspan="2">{{'Amount' | translate}}</td>
-                      </tr>
-                      <tr class="head">
-                        <td class="num">{{'HD' | translate}}</td>
-                        <td class="">{{'Actual' | translate}}</td>
-                        <td class="num tien">{{'Cash on hand' | translate}}</td>
-                        <td class="num tien">{{'Remaining debt' | translate}}</td>
-                      </tr>
-                    </tbody>
+												<td class="cen" rowspan="2">{{'Unit' | translate}}</td>
+												<td class="cen" colspan="2">{{'Quantity' | translate}}</td>
+												<td class="cen tien" colspan="2">{{'Amount' | translate}}</td>
+											</tr>
+											<tr class="head">
+												<td class="num">{{'HD' | translate}}</td>
+												<td class="">{{'Actual' | translate}}</td>
+												<td class="num tien">{{'Cash on hand' | translate}}</td>
+												<td class="num tien">{{'Remaining debt' | translate}}</td>
+											</tr>
+										</tbody>
 
-                    <tbody class="break-guard" *ngFor="let o of s.ShipmentOrder; let idx = index; ">
-                      <tr class="odd" *ngFor="let l of o.SaleOrder.OrderLines; let jdx = index; ">
-                        <td class="" [attr.rowspan]="o.SaleOrder.OrderLines.length" *ngIf="jdx == 0">
-                          <div class="ma-hd">
-                            <a
-                              [href]="'#/'+'sale-order/'+o.SaleOrder.Id"
-                              (click)="nav('sale-order/'+o.SaleOrder.Id,'forward')"
-                              >{{'Order' | translate}}: #<span class="big">{{o.SaleOrder.Id}}</span></a
-                            >
+										<tbody class="break-guard" *ngFor="let o of s.ShipmentOrder; let idx = index; ">
+											<tr class="odd" *ngFor="let l of o.SaleOrder.OrderLines; let jdx = index; ">
+												<td class="" [attr.rowspan]="o.SaleOrder.OrderLines.length" *ngIf="jdx == 0">
+													<div class="ma-hd">
+														<a [href]="'#/'+'sale-order/'+o.SaleOrder.Id" (click)="nav('sale-order/'+o.SaleOrder.Id,'forward')"
+															>{{'Order' | translate}}: #<span class="big">{{o.SaleOrder.Id}}</span></a
+														>
 
-                            <!-- <span (click)="nav('sale-order/'+o.SaleOrder.Id,'forward')" >Đơn: <span class="big">{{o.SaleOrder.Id}}</span></span> -->
-                            <div>{{o.SaleOrder.Customer.Name}}</div>
-                            <div>
-                              <small>{{o.SaleOrder.Customer.AddressLine1}}</small>
-                            </div>
-                            <!-- <span>∑: {{o.SaleOrder.OriginalTotalAfterTaxText}}</span> -->
-                            <!-- <span class="big" *ngIf="o.SaleOrder.OriginalTotalAfterTaxText != o.SaleOrder.TotalAfterTaxText && o.SaleOrder.TotalAfterTax > 0"><br>=> {{o.SaleOrder.TotalAfterTaxText}} </span> -->
-                            <div>
-                              <ion-text [color]="o.Status.Color"> {{o.Status.Name}}</ion-text>
-                              <div>
-                                <small>{{o.ShippedDate | date:'HH:mm dd/MM/yy'}}</small>
-                              </div>
-                            </div>
-                            <span><i>{{o.Remark}}</i></span>
-                          </div>
-                        </td>
+														<!-- <span (click)="nav('sale-order/'+o.SaleOrder.Id,'forward')" >Đơn: <span class="big">{{o.SaleOrder.Id}}</span></span> -->
+														<div>{{o.SaleOrder.Customer.Name}}</div>
+														<div>
+															<small>{{o.SaleOrder.Customer.AddressLine1}}</small>
+														</div>
+														<!-- <span>∑: {{o.SaleOrder.OriginalTotalAfterTaxText}}</span> -->
+														<!-- <span class="big" *ngIf="o.SaleOrder.OriginalTotalAfterTaxText != o.SaleOrder.TotalAfterTaxText && o.SaleOrder.TotalAfterTax > 0"><br>=> {{o.SaleOrder.TotalAfterTaxText}} </span> -->
+														<div>
+															<ion-text [color]="o.Status.Color"> {{o.Status.Name}}</ion-text>
+															<div>
+																<small>{{o.ShippedDate | date:'HH:mm dd/MM/yy'}}</small>
+															</div>
+														</div>
+														<span><i>{{o.Remark}}</i></span>
+													</div>
+												</td>
 
-                        <td class="cen">{{l.STT}}</td>
-                        <td>
-                          <div class="ten-sp min"><b>{{l.ItemCode}}</b> - {{l.ItemName}}</div>
-                        </td>
+												<td class="cen">{{l.STT}}</td>
+												<td>
+													<div class="ten-sp min"><b>{{l.ItemCode}}</b> - {{l.ItemName}}</div>
+												</td>
 
-                        <td class="cen">{{l.UoMName}}</td>
-                        <td class="num">
-                          <span *ngIf="l.Quantity">{{l.Quantity}}</span>
-                        </td>
-                        <td [ngClass]="{big: l.Quantity != l.ShippedQuantity }">
-                          <span>{{l.ShippedQuantity}}</span>
-                        </td>
+												<td class="cen">{{l.UoMName}}</td>
+												<td class="num">
+													<span *ngIf="l.Quantity">{{l.Quantity}}</span>
+												</td>
+												<td [ngClass]="{big: l.Quantity != l.ShippedQuantity }">
+													<span>{{l.ShippedQuantity}}</span>
+												</td>
 
-                        <td
-                          class="num tien"
-                          [ngClass]="{big: o.SaleOrder.OriginalTotalAfterTax != o.SaleOrder.TotalAfterTax }"
-                          [attr.rowspan]="o.SaleOrder.OrderLines.length"
-                          *ngIf="jdx == 0"
-                        >
-                          <span *ngIf="o.Received">{{o.ReceivedText}}</span>
-                        </td>
-                        <td
-                          class="num tien"
-                          [ngClass]="{big: o.SaleOrder.OriginalTotalAfterTax != o.SaleOrder.TotalAfterTax }"
-                          [attr.rowspan]="o.SaleOrder.OrderLines.length"
-                          *ngIf="jdx == 0"
-                        >
-                          <span *ngIf="o.Debt">{{o.DebtText}}</span>
-                        </td>
-                      </tr>
-                    </tbody>
+												<td
+													class="num tien"
+													[ngClass]="{big: o.SaleOrder.OriginalTotalAfterTax != o.SaleOrder.TotalAfterTax }"
+													[attr.rowspan]="o.SaleOrder.OrderLines.length"
+													*ngIf="jdx == 0"
+												>
+													<span *ngIf="o.Received">{{o.ReceivedText}}</span>
+												</td>
+												<td
+													class="num tien"
+													[ngClass]="{big: o.SaleOrder.OriginalTotalAfterTax != o.SaleOrder.TotalAfterTax }"
+													[attr.rowspan]="o.SaleOrder.OrderLines.length"
+													*ngIf="jdx == 0"
+												>
+													<span *ngIf="o.Debt">{{o.DebtText}}</span>
+												</td>
+											</tr>
+										</tbody>
 
-                    <!-- <tr class="head">
+										<!-- <tr class="head">
 											<td colspan="6" class="num tien">
 												<div><span></span></div>
 											</td>
@@ -176,41 +174,41 @@
 											<td class="num tien"><span>{{s.TotalOfNewDebtOrderText}}</span></td>
 										</tr> -->
 
-                    <tbody class="break-guard" *ngIf="s.ShipmentDebt.length">
-                      <tr class="head">
-                        <td colspan="8">
-                          <div class="cen">{{'Debt note' | translate}}</div>
-                        </td>
-                      </tr>
+										<tbody class="break-guard" *ngIf="s.ShipmentDebt.length">
+											<tr class="head">
+												<td colspan="8">
+													<div class="cen">{{'Debt note' | translate}}</div>
+												</td>
+											</tr>
 
-                      <tr class="odd" *ngFor="let o of s.ShipmentDebt; let idx = index; ">
-                        <td class="num">
-                          <div class="ma-hd">
-                            <span>{{'Order' | translate}}: {{o.SaleOrder.Id}}</span>
-                            <div>
-                              <ion-text [color]="o.Status.Color"> {{o.Status.Name}}</ion-text>
-                            </div>
-                            <span><i>{{o.Remark}}</i></span>
-                          </div>
-                        </td>
+											<tr class="odd" *ngFor="let o of s.ShipmentDebt; let idx = index; ">
+												<td class="num">
+													<div class="ma-hd">
+														<span>{{'Order' | translate}}: {{o.SaleOrder.Id}}</span>
+														<div>
+															<ion-text [color]="o.Status.Color"> {{o.Status.Name}}</ion-text>
+														</div>
+														<span><i>{{o.Remark}}</i></span>
+													</div>
+												</td>
 
-                        <td class="cen">{{idx+1}}</td>
+												<td class="cen">{{idx+1}}</td>
 
-                        <td colspan="4" class="num tien">
-                          <div>
-                            <span>{{o.DebtText}}</span>
-                          </div>
-                        </td>
+												<td colspan="4" class="num tien">
+													<div>
+														<span>{{o.DebtText}}</span>
+													</div>
+												</td>
 
-                        <td class="num tien">
-                          <span *ngIf="o.Received">{{o.ReceivedText}}</span>
-                        </td>
-                        <td class="num tien">
-                          <span *ngIf="o.RemainingDebt">{{o.RemainingDebtText}}</span>
-                        </td>
-                      </tr>
+												<td class="num tien">
+													<span *ngIf="o.Received">{{o.ReceivedText}}</span>
+												</td>
+												<td class="num tien">
+													<span *ngIf="o.RemainingDebt">{{o.RemainingDebtText}}</span>
+												</td>
+											</tr>
 
-                      <!-- <tr class="head">
+											<!-- <tr class="head">
 												<td colspan="6" class="num tien">
 													<div><span>Tổng: {{s.TotalOfDebtText}}</span></div>
 												</td>
@@ -218,197 +216,193 @@
 												<td class="num tien"><span>{{s.TotalOfReceivedDebtText}}</span></td>
 												<td class="num tien"><span></span></td>
 											</tr> -->
-                    </tbody>
+										</tbody>
 
-                    <!-- oven -->
-                  </table>
-                </div>
+										<!-- oven -->
+									</table>
+								</div>
 
-                <div class="no-break-page">
-                  <table cellpadding="0" cellspacing="0">
-                    <tbody>
-                      <tr>
-                        <td class="">
-                          <div class="line2">
-                            {{'All parties please carefully check the doccuments' | translate}} &amp; {{'hàng hóa trước
-                            khi rời kho.' | translate}}
-                            <br />
-                            {{'Distributor will be held accountable for addressing further complaints' | translate}}
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+								<div class="no-break-page">
+									<table cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td class="">
+													<div class="line2">
+														{{'All parties please carefully check the doccuments' | translate}} &amp; {{'hàng hóa trước khi rời kho.' | translate}}
+														<br />
+														{{'Distributor will be held accountable for addressing further complaints' | translate}}
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
 
-                  <table class="chu-ky" cellpadding="0" cellspacing="0">
-                    <tbody>
-                      <tr>
-                        <td>
-                          {{'Warehouse keeper' | translate}}
-                          <div class="line2">{{'Sign and write full name' | translate}}</div>
-                        </td>
-                        <td>
-                          {{'Shipper' | translate}}
-                          <div class="line2">{{'Sign and write full name' | translate}}</div>
-                        </td>
-                        <td>
-                          {{'Sales staff' | translate}}
-                          <div class="line2">{{'Sign and write full name' | translate}}</div>
-                        </td>
-                        <td>
-                          {{'Accountant' | translate}}
-                          <div class="line2">{{'Sign and write full name' | translate}}</div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
+									<table class="chu-ky" cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td>
+													{{'Warehouse keeper' | translate}}
+													<div class="line2">{{'Sign and write full name' | translate}}</div>
+												</td>
+												<td>
+													{{'Shipper' | translate}}
+													<div class="line2">{{'Sign and write full name' | translate}}</div>
+												</td>
+												<td>
+													{{'Sales staff' | translate}}
+													<div class="line2">{{'Sign and write full name' | translate}}</div>
+												</td>
+												<td>
+													{{'Accountant' | translate}}
+													<div class="line2">{{'Sign and write full name' | translate}}</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
 
-        <tfoot>
-          <tr>
-            <td>
-              <div class="page-footer-space"></div>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </section>
+				<tfoot>
+					<tr>
+						<td>
+							<div class="page-footer-space"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</section>
 
-    <section class="sheet rpt" *ngFor="let s of sheets">
-      <table>
-        <thead>
-          <tr>
-            <td>
-              <div class="page-header-space"></div>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="top-zone">
-                <table class="rpt-header" cellpadding="0" cellspacing="0">
-                  <tbody>
-                    <tr>
-                      <td class="head-c1">{{'Pick - up warehouse' | translate}}:</td>
-                      <td class="bol">{{s.WarehouseName}} ({{s.WarehousePhone}})</td>
-                      <td class="num"></td>
-                      <td class="bol"></td>
-                      <td class="num">{{'Delivery date' | translate}}:</td>
-                      <td class="num bol ngay-hd">{{s.DeliveryDateText}}</td>
-                    </tr>
-                    <tr>
-                      <td colspan="6" class="bol title">{{'Goods in transit' | translate}}</td>
-                    </tr>
-                  </tbody>
-                </table>
+		<section class="sheet rpt" *ngFor="let s of sheets">
+			<table>
+				<thead>
+					<tr>
+						<td>
+							<div class="page-header-space"></div>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<div class="top-zone">
+								<table class="rpt-header" cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td class="head-c1">{{'Pick - up warehouse' | translate}}:</td>
+											<td class="bol">{{s.WarehouseName}} ({{s.WarehousePhone}})</td>
+											<td class="num"></td>
+											<td class="bol"></td>
+											<td class="num">{{'Delivery date' | translate}}:</td>
+											<td class="num bol ngay-hd">{{s.DeliveryDateText}}</td>
+										</tr>
+										<tr>
+											<td colspan="6" class="bol title">{{'Goods in transit' | translate}}</td>
+										</tr>
+									</tbody>
+								</table>
 
-                <table class="rpt-header rpt-nvgh-header" cellpadding="0" cellspacing="0">
-                  <tbody>
-                    <tr>
-                      <td class="head-c1">{{'shipper' | translate}}:</td>
-                      <td class="bol">
-                        {{s.Vehicle}} - {{s.ShipperName}}
-                        <span *ngIf="s.ShipperPhone"> - {{s.ShipperPhone}}</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+								<table class="rpt-header rpt-nvgh-header" cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td class="head-c1">{{'shipper' | translate}}:</td>
+											<td class="bol">
+												{{s.Vehicle}} - {{s.ShipperName}}
+												<span *ngIf="s.ShipperPhone"> - {{s.ShipperPhone}}</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 
-                <div class="ds-san-pham">
-                  <table cellpadding="0" cellspacing="0">
-                    <tbody>
-                      <tr class="head">
-                        <td rowspan="2">
-                          <div>{{'Product name' | translate}}</div>
-                        </td>
-                        <td style="max-width: 140px" class="cen" colspan="2">{{'Returned goods' | translate}}</td>
-                      </tr>
-                      <tr class="head">
-                        <td style="width: 70px" class="num">{{'Box' | translate}}</td>
-                        <td style="width: 70px" class="num">{{'LCL' | translate}}</td>
-                      </tr>
+								<div class="ds-san-pham">
+									<table cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr class="head">
+												<td rowspan="2">
+													<div>{{'Product name' | translate}}</div>
+												</td>
+												<td style="max-width: 140px" class="cen" colspan="2">{{'Returned goods' | translate}}</td>
+											</tr>
+											<tr class="head">
+												<td style="width: 70px" class="num">{{'Box' | translate}}</td>
+												<td style="width: 70px" class="num">{{'LCL' | translate}}</td>
+											</tr>
 
-                      <ng-container *ngFor="let i of s.Items; let idx = index; ">
-                        <tr *ngFor="let uom of i.UoMs; let gdx = index; ">
-                          <td [attr.rowspan]="i.UoMs.length" *ngIf="gdx == 0">
-                            <div>
-                              <b *ngIf="i.ItemCode">{{i.ItemCode}}</b><b *ngIf="!i.ItemCode">{{i.IDItem}}</b>
-                              - {{i.ItemName}}
-                            </div>
-                          </td>
-                          <td class="num big" *ngIf="uom.IDUoM == 0">
-                            <span *ngIf="uom.InventoryQuantity">{{uom.InventoryQuantity}}</span>
-                          </td>
-                          <td class="num big" *ngIf="uom.IDUoM == 0">
-                            <span *ngIf="uom.BaseQuantity"> {{uom.BaseQuantity}} </span>
-                          </td>
+											<ng-container *ngFor="let i of s.Items; let idx = index; ">
+												<tr *ngFor="let uom of i.UoMs; let gdx = index; ">
+													<td [attr.rowspan]="i.UoMs.length" *ngIf="gdx == 0">
+														<div>
+															<b *ngIf="i.ItemCode">{{i.ItemCode}}</b><b *ngIf="!i.ItemCode">{{i.IDItem}}</b>
+															- {{i.ItemName}}
+														</div>
+													</td>
+													<td class="num big" *ngIf="uom.IDUoM == 0">
+														<span *ngIf="uom.InventoryQuantity">{{uom.InventoryQuantity}}</span>
+													</td>
+													<td class="num big" *ngIf="uom.IDUoM == 0">
+														<span *ngIf="uom.BaseQuantity"> {{uom.BaseQuantity}} </span>
+													</td>
 
-                          <td colspan="2" class="ion-text-center big" *ngIf="uom.IDUoM != 0">
-                            {{uom.Quantity}} {{uom.UoMName}}
-                          </td>
-                        </tr>
-                      </ng-container>
-                    </tbody>
-                  </table>
-                </div>
+													<td colspan="2" class="ion-text-center big" *ngIf="uom.IDUoM != 0">{{uom.Quantity}} {{uom.UoMName}}</td>
+												</tr>
+											</ng-container>
+										</tbody>
+									</table>
+								</div>
 
-                <div class="no-break-page">
-                  <table cellpadding="0" cellspacing="0">
-                    <tbody>
-                      <tr>
-                        <td class="">
-                          <div class="line2">
-                            {{'All parties please carefully check the doccuments' | translate}} &amp; {{'hàng hóa trước
-                            khi rời kho.' | translate}}
-                            <br />
-                            {{'Distributor will be held accountable for addressing further complaints' | translate}}
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+								<div class="no-break-page">
+									<table cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td class="">
+													<div class="line2">
+														{{'All parties please carefully check the doccuments' | translate}} &amp; {{'hàng hóa trước khi rời kho.' | translate}}
+														<br />
+														{{'Distributor will be held accountable for addressing further complaints' | translate}}
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
 
-                  <table class="chu-ky" cellpadding="0" cellspacing="0">
-                    <tbody>
-                      <tr>
-                        <td>
-                          {{'Warehouse keeper' | translate}}
-                          <div class="line2">{{'Sign and write full name' | translate}}</div>
-                        </td>
-                        <td>
-                          {{'Shipper' | translate}}
-                          <div class="line2">{{'Sign and write full name' | translate}}</div>
-                        </td>
-                        <td>
-                          {{'Sales staff' | translate}}
-                          <div class="line2">{{'Sign and write full name' | translate}}</div>
-                        </td>
-                        <td>
-                          {{'Accountant' | translate}}
-                          <div class="line2">{{'Sign and write full name' | translate}}</div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
+									<table class="chu-ky" cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td>
+													{{'Warehouse keeper' | translate}}
+													<div class="line2">{{'Sign and write full name' | translate}}</div>
+												</td>
+												<td>
+													{{'Shipper' | translate}}
+													<div class="line2">{{'Sign and write full name' | translate}}</div>
+												</td>
+												<td>
+													{{'Sales staff' | translate}}
+													<div class="line2">{{'Sign and write full name' | translate}}</div>
+												</td>
+												<td>
+													{{'Accountant' | translate}}
+													<div class="line2">{{'Sign and write full name' | translate}}</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
 
-        <tfoot>
-          <tr>
-            <td>
-              <div class="page-footer-space"></div>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </section>
-  </div>
+				<tfoot>
+					<tr>
+						<td>
+							<div class="page-footer-space"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</section>
+	</div>
 </ion-content>

@@ -10,14 +10,14 @@ import { ShipmentDebtPickerModalPage } from '../shipment-debt-picker-modal/shipm
 import { MapCompsModule } from 'src/app/components/map-comps/map-comps.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ShipmentDetailPage,
-  },
+	{
+		path: '',
+		component: ShipmentDetailPage,
+	},
 ];
 
 @NgModule({
-  imports: [CommonModule, FormsModule,MapCompsModule ,IonicModule, ReactiveFormsModule, ShareModule, RouterModule.forChild(routes)],
-  declarations: [ShipmentDetailPage, ShipmentModalPage, ShipmentDebtPickerModalPage],
+	imports: [CommonModule, FormsModule, MapCompsModule, IonicModule, ReactiveFormsModule, ShareModule, RouterModule.forChild(routes)],
+	declarations: [ShipmentDetailPage, ShipmentModalPage, ShipmentDebtPickerModalPage],
 })
 export class ShipmentDetailPageModule {}

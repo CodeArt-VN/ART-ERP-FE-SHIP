@@ -7,13 +7,7 @@ import { ShipmentPage } from './shipment.page';
 import { ShareModule } from 'src/app/share.module';
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ShareModule,
-    RouterModule.forChild([{ path: '', component: ShipmentPage }]),
-  ],
-  declarations: [ShipmentPage],
+	imports: [IonicModule, CommonModule, FormsModule, ShareModule, RouterModule.forChild([{ path: '', component: ShipmentPage }])],
+	declarations: [ShipmentPage],
 })
 export class ShipmentPageModule {}

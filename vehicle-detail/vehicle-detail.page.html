@@ -1,447 +1,427 @@
 <ion-header>
-  <app-detail-toolbar [page]="this"></app-detail-toolbar>
+	<app-detail-toolbar [page]="this"></app-detail-toolbar>
 </ion-header>
 
 <ion-content appScrollbarTheme class="ion-padding">
-  <div class="main-view" *ngIf="item && pageConfig.showSpinner==false">
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col class="img-holder" size="12" size-sm="300px">
-          <div class="avatar">
-            <img
-              src="assets/undraw_street_food_hm5i.svg"
-              (error)="img.src = 'assets/undraw_street_food_hm5i.svg'"
-              #img
-            />
-            <div>
-              <ion-button class="change-avatar" *ngIf="item.IsDisabled" color="danger" size="small">
-                {{'Pause' | translate}}
-              </ion-button>
-              <ion-button class="change-avatar" *ngIf="!item.IsDisabled && item.Id" color="primary" size="small">
-                {{'Change truck picture' | translate}}
-              </ion-button>
-            </div>
-          </div>
-        </ion-col>
-        <ion-col size="12" size-sm>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="12" size-md="12" size-lg="12" size-xl="5">
-                <!-- <div class="c-control">
+	<div class="main-view" *ngIf="item && pageConfig.showSpinner==false">
+		<ion-grid fixed>
+			<ion-row>
+				<ion-col class="img-holder" size="12" size-sm="300px">
+					<div class="avatar">
+						<img src="assets/undraw_street_food_hm5i.svg" (error)="img.src = 'assets/undraw_street_food_hm5i.svg'" #img />
+						<div>
+							<ion-button class="change-avatar" *ngIf="item.IsDisabled" color="danger" size="small"> {{'Pause' | translate}} </ion-button>
+							<ion-button class="change-avatar" *ngIf="!item.IsDisabled && item.Id" color="primary" size="small"> {{'Change truck picture' | translate}} </ion-button>
+						</div>
+					</div>
+				</ion-col>
+				<ion-col size="12" size-sm>
+					<ion-grid>
+						<ion-row>
+							<ion-col size="12" size-md="12" size-lg="12" size-xl="5">
+								<!-- <div class="c-control">
                                     <label class="c-label" for="Id">Id nhân sự
                                         <span *ngIf="!formGroup.controls.Id.valid && !formGroup.controls.Id.pending && (formGroup.controls.Id.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                                     </label>
                                     <input readonly class="c-input" id="Id" formControlName="Id" type="text" >
                                 </div> -->
 
-                <!-- <div class="c-control">
+								<!-- <div class="c-control">
                                     <label class="c-label" for="Code">Mã nhân sự
                                         <span *ngIf="!formGroup.controls.Code.valid && !formGroup.controls.Code.pending && (formGroup.controls.Code.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                                     </label>
                                     <input class="c-input" id="Code" formControlName="Code" type="text" >
                                 </div> -->
 
-                <div class="c-control">
-                  <label class="c-label"
-                    >{{'License plate' | translate}}
-                    <span
-                      *ngIf="!formGroup.controls.Name.valid && !formGroup.controls.Name.pending && (formGroup.controls.Name.dirty || submitAttempt)"
-                      ion-text
-                      color="danger"
-                      >(*)</span
-                    >
-                  </label>
-                  <input readonly class="c-input" [ngModel]="item.Name" type="text" />
-                </div>
-              </ion-col>
-              <ion-col size="12" size-md="12" size-lg="12" size-xl="5">
-                <div class="c-control">
-                  <label class="c-label"
-                    >{{'Shipper' | translate}}
-                    <span
-                      *ngIf="!formGroup.controls.Name.valid && !formGroup.controls.Name.pending && (formGroup.controls.Name.dirty || submitAttempt)"
-                      ion-text
-                      color="danger"
-                      >(*)</span
-                    >
-                  </label>
-                  <input readonly class="c-input" [ngModel]="item.ShipperName" type="text" />
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+								<div class="c-control">
+									<label class="c-label"
+										>{{'License plate' | translate}}
+										<span
+											*ngIf="!formGroup.controls.Name.valid && !formGroup.controls.Name.pending && (formGroup.controls.Name.dirty || submitAttempt)"
+											ion-text
+											color="danger"
+											>(*)</span
+										>
+									</label>
+									<input readonly class="c-input" [ngModel]="item.Name" type="text" />
+								</div>
+							</ion-col>
+							<ion-col size="12" size-md="12" size-lg="12" size-xl="5">
+								<div class="c-control">
+									<label class="c-label"
+										>{{'Shipper' | translate}}
+										<span
+											*ngIf="!formGroup.controls.Name.valid && !formGroup.controls.Name.pending && (formGroup.controls.Name.dirty || submitAttempt)"
+											ion-text
+											color="danger"
+											>(*)</span
+										>
+									</label>
+									<input readonly class="c-input" [ngModel]="item.ShipperName" type="text" />
+								</div>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
 
-    <div class="row-full shadow full-screen">
-      <ion-toolbar color="primary">
-        <ion-segment scrollable="true" (ionChange)="segmentChanged($event)" [value]="segmentView">
-          <ion-segment-button value="s1">
-            <ion-label>{{'Vehicle information' | translate}}</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="s2">
-            <ion-label>{{'Maintenance schedule' | translate}}</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="s3">
-            <ion-label>{{'Journal' | translate}}</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="s4">
-            <ion-label>{{'Expenses' | translate}}</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="s5">
-            <ion-label>{{'Documents/ Due date reminder' | translate}}</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="s6">
-            <ion-label>{{'Lease contract - renewal' | translate}}</ion-label>
-          </ion-segment-button>
-        </ion-segment>
-      </ion-toolbar>
+		<div class="row-full shadow full-screen">
+			<ion-toolbar color="primary">
+				<ion-segment scrollable="true" (ionChange)="segmentChanged($event)" [value]="segmentView">
+					<ion-segment-button value="s1">
+						<ion-label>{{'Vehicle information' | translate}}</ion-label>
+					</ion-segment-button>
+					<ion-segment-button value="s2">
+						<ion-label>{{'Maintenance schedule' | translate}}</ion-label>
+					</ion-segment-button>
+					<ion-segment-button value="s3">
+						<ion-label>{{'Journal' | translate}}</ion-label>
+					</ion-segment-button>
+					<ion-segment-button value="s4">
+						<ion-label>{{'Expenses' | translate}}</ion-label>
+					</ion-segment-button>
+					<ion-segment-button value="s5">
+						<ion-label>{{'Documents/ Due date reminder' | translate}}</ion-label>
+					</ion-segment-button>
+					<ion-segment-button value="s6">
+						<ion-label>{{'Lease contract - renewal' | translate}}</ion-label>
+					</ion-segment-button>
+				</ion-segment>
+			</ion-toolbar>
 
-      <div>
-        <div *ngIf="segmentView == 's1'">
-          <div class="ion-padding">
-            <ion-grid fixed>
-              <form [formGroup]="formGroup">
-                <ion-row class="hr-group">
-                  <ion-col size="12" size-sm="12" size-md="12" size-xl="3">
-                    <ion-list-header class="ion-no-padding">
-                      <ion-label color="primary">{{'General information' | translate}}</ion-label>
-                    </ion-list-header>
-                  </ion-col>
-                  <ion-col size="12" size-sm size-xl="4">
-                    <div class="c-control" *ngIf="item.Id">
-                      <label class="c-label" for="Id">{{'Id' | translate}}</label>
-                      <input class="c-input" id="Id" formControlName="Id" type="number" />
-                    </div>
-                    <!-- <div class="c-control">
+			<div>
+				<div *ngIf="segmentView == 's1'">
+					<div class="ion-padding">
+						<ion-grid fixed>
+							<form [formGroup]="formGroup">
+								<ion-row class="hr-group">
+									<ion-col size="12" size-sm="12" size-md="12" size-xl="3">
+										<ion-list-header class="ion-no-padding">
+											<ion-label color="primary">{{'General information' | translate}}</ion-label>
+										</ion-list-header>
+									</ion-col>
+									<ion-col size="12" size-sm size-xl="4">
+										<div class="c-control" *ngIf="item.Id">
+											<label class="c-label" for="Id">{{'Id' | translate}}</label>
+											<input class="c-input" id="Id" formControlName="Id" type="number" />
+										</div>
+										<!-- <div class="c-control">
                                             <label class="c-label" for="Code">Mã tham chiếu
                                                 <span *ngIf="!formGroup.controls.Code.valid && !formGroup.controls.Code.pending && (formGroup.controls.Code.dirty || submitAttempt)" ion-text color="danger">(*)</span>
                                             </label>
                                             <input (change)="saveChange()" class="c-input" id="Code" formControlName="Code" type="text">
                                         </div> -->
-                    <div class="c-control">
-                      <label class="c-label" for="Name"
-                        >{{'License plate' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.Name.valid && !formGroup.controls.Name.pending && (formGroup.controls.Name.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input class="c-input" id="Name" (change)="saveChange();" formControlName="Name" type="text" />
-                    </div>
+										<div class="c-control">
+											<label class="c-label" for="Name"
+												>{{'License plate' | translate}}
+												<span
+													*ngIf="!formGroup.controls.Name.valid && !formGroup.controls.Name.pending && (formGroup.controls.Name.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input class="c-input" id="Name" (change)="saveChange();" formControlName="Name" type="text" />
+										</div>
 
-                    <div class="c-control">
-                      <label class="c-label" for="IDShipper">{{'Shipper' | translate}}</label>
-                      <ng-select
-                        (change)="saveChange()"
-                        class="c-input"
-                        #IDShipper
-                        formControlName="IDShipper"
-                        labelForId="IDShipper"
-                        [items]="shipperList$ | async"
-                        [typeahead]="shipperListInput$"
-                        [loading]="shipperListLoading"
-                        [virtualScroll]="true"
-                        bindLabel="FullName"
-                        bindValue="Id"
-                        placeholder="{{'shipper-list-placeholder' | translate}}"
-                      >
-                        <ng-template ng-option-tmp let-i="item" let-search="searchTerm">
-                          <div *ngIf="i">
-                            <div>
-                              <span [ngOptionHighlight]="search">{{i.FullName}}</span>
-                            </div>
-                            <small
-                              >#<b
-                                ><span class="important" [ngOptionHighlight]="search"
-                                  >{{i.Id}} - {{i.RefShipper}}</span
-                                ></b
-                              >
-                              <span *ngIf="i.Phone">
-                                | {{'phone' | translate}}:
-                                <b [ngOptionHighlight]="search">{{i.Phone}}</b></span
-                              ></small
-                            >
-                          </div>
-                        </ng-template>
-                      </ng-select>
-                    </div>
+										<div class="c-control">
+											<label class="c-label" for="IDShipper">{{'Shipper' | translate}}</label>
+											<ng-select
+												(change)="saveChange()"
+												class="c-input"
+												#IDShipper
+												formControlName="IDShipper"
+												labelForId="IDShipper"
+												[items]="shipperList$ | async"
+												[typeahead]="shipperListInput$"
+												[loading]="shipperListLoading"
+												[virtualScroll]="true"
+												bindLabel="FullName"
+												bindValue="Id"
+												placeholder="{{'shipper-list-placeholder' | translate}}"
+											>
+												<ng-template ng-option-tmp let-i="item" let-search="searchTerm">
+													<div *ngIf="i">
+														<div>
+															<span [ngOptionHighlight]="search">{{i.FullName}}</span>
+														</div>
+														<small
+															>#<b><span class="important" [ngOptionHighlight]="search">{{i.Id}} - {{i.RefShipper}}</span></b>
+															<span *ngIf="i.Phone">
+																| {{'phone' | translate}}:
+																<b [ngOptionHighlight]="search">{{i.Phone}}</b></span
+															></small
+														>
+													</div>
+												</ng-template>
+											</ng-select>
+										</div>
 
-                    <div class="c-control">
-                      <label class="c-label" for="RefShipper"
-                        >{{'Reference (Sales staff name RPT061)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.RefShipper.valid && !formGroup.controls.RefShipper.pending && (formGroup.controls.RefShipper.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="RefShipper"
-                        formControlName="RefShipper"
-                        type="text"
-                      />
-                    </div>
-                  </ion-col>
-                  <ion-col size="12" size-sm size-xl="4">
-                    <div class="c-control">
-                      <label class="c-label" for="DateOfPurchase">{{'Date of purchase' | translate}}</label>
-                      <input
-                        (change)="saveChange()"
-                        formControlName="DateOfPurchase"
-                        [ngModel]="item.DateOfPurchase | date:'yyyy-MM-dd'"
-                        class="c-input"
-                        type="date"
-                      />
-                    </div>
+										<div class="c-control">
+											<label class="c-label" for="RefShipper"
+												>{{'Reference (Sales staff name RPT061)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.RefShipper.valid && !formGroup.controls.RefShipper.pending && (formGroup.controls.RefShipper.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input (change)="saveChange()" class="c-input" id="RefShipper" formControlName="RefShipper" type="text" />
+										</div>
+									</ion-col>
+									<ion-col size="12" size-sm size-xl="4">
+										<div class="c-control">
+											<label class="c-label" for="DateOfPurchase">{{'Date of purchase' | translate}}</label>
+											<input
+												(change)="saveChange()"
+												formControlName="DateOfPurchase"
+												[ngModel]="item.DateOfPurchase | date:'yyyy-MM-dd'"
+												class="c-input"
+												type="date"
+											/>
+										</div>
 
-                    <div class="c-control">
-                      <label class="c-label" for="DateOfRegistration">{{'latest registry date' | translate}}</label>
-                      <input
-                        (change)="saveChange()"
-                        formControlName="DateOfRegistration"
-                        [ngModel]="item.DateOfRegistration | date:'yyyy-MM-dd'"
-                        class="c-input"
-                        type="date"
-                      />
-                    </div>
+										<div class="c-control">
+											<label class="c-label" for="DateOfRegistration">{{'latest registry date' | translate}}</label>
+											<input
+												(change)="saveChange()"
+												formControlName="DateOfRegistration"
+												[ngModel]="item.DateOfRegistration | date:'yyyy-MM-dd'"
+												class="c-input"
+												type="date"
+											/>
+										</div>
 
-                    <div class="c-control">
-                      <label class="c-label" for="DateOfRegistrationExpire"
-                        >{{'Registry expiration date' | translate}}</label
-                      >
-                      <input
-                        (change)="saveChange()"
-                        formControlName="DateOfRegistrationExpire"
-                        [ngModel]="item.DateOfRegistrationExpire | date:'yyyy-MM-dd'"
-                        class="c-input"
-                        type="date"
-                      />
-                    </div>
-                  </ion-col>
-                </ion-row>
+										<div class="c-control">
+											<label class="c-label" for="DateOfRegistrationExpire">{{'Registry expiration date' | translate}}</label>
+											<input
+												(change)="saveChange()"
+												formControlName="DateOfRegistrationExpire"
+												[ngModel]="item.DateOfRegistrationExpire | date:'yyyy-MM-dd'"
+												class="c-input"
+												type="date"
+											/>
+										</div>
+									</ion-col>
+								</ion-row>
 
-                <ion-row class="hr-group">
-                  <ion-col size="12" size-sm="12" size-md="12" size-xl="3">
-                    <ion-list-header class="ion-no-padding">
-                      <ion-label color="primary">{{'Truck body dimension' | translate}}</ion-label>
-                    </ion-list-header>
-                  </ion-col>
-                  <ion-col size="12" size-sm size-xl="4">
-                    <div class="c-control">
-                      <label class="c-label" for="Length">
-                        {{'Length (m)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.Length.valid && !formGroup.controls.Length.pending && (formGroup.controls.Length.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="Length"
-                        formControlName="Length"
-                        type="tel"
-                        (focus)="$event.target.select()"
-                        mask="separator.2"
-                        thousandSeparator=","
-                      />
-                    </div>
+								<ion-row class="hr-group">
+									<ion-col size="12" size-sm="12" size-md="12" size-xl="3">
+										<ion-list-header class="ion-no-padding">
+											<ion-label color="primary">{{'Truck body dimension' | translate}}</ion-label>
+										</ion-list-header>
+									</ion-col>
+									<ion-col size="12" size-sm size-xl="4">
+										<div class="c-control">
+											<label class="c-label" for="Length">
+												{{'Length (m)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.Length.valid && !formGroup.controls.Length.pending && (formGroup.controls.Length.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input
+												(change)="saveChange()"
+												class="c-input"
+												id="Length"
+												formControlName="Length"
+												type="tel"
+												(focus)="$event.target.select()"
+												mask="separator.2"
+												thousandSeparator=","
+											/>
+										</div>
 
-                    <div class="c-control">
-                      <label class="c-label" for="Width">
-                        {{'Width (m)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.Width.valid && !formGroup.controls.Width.pending && (formGroup.controls.Width.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="Width"
-                        formControlName="Width"
-                        type="tel"
-                        (focus)="$event.target.select()"
-                        mask="separator.2"
-                        thousandSeparator=","
-                      />
-                    </div>
+										<div class="c-control">
+											<label class="c-label" for="Width">
+												{{'Width (m)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.Width.valid && !formGroup.controls.Width.pending && (formGroup.controls.Width.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input
+												(change)="saveChange()"
+												class="c-input"
+												id="Width"
+												formControlName="Width"
+												type="tel"
+												(focus)="$event.target.select()"
+												mask="separator.2"
+												thousandSeparator=","
+											/>
+										</div>
 
-                    <div class="c-control">
-                      <label class="c-label" for="Height">
-                        {{'Height (m)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.Height.valid && !formGroup.controls.Height.pending && (formGroup.controls.Height.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="Height"
-                        formControlName="Height"
-                        type="tel"
-                        (focus)="$event.target.select()"
-                        mask="separator.2"
-                        thousandSeparator=","
-                      />
-                    </div>
-                  </ion-col>
-                  <ion-col size="12" size-sm size-xl="4"> </ion-col>
-                </ion-row>
+										<div class="c-control">
+											<label class="c-label" for="Height">
+												{{'Height (m)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.Height.valid && !formGroup.controls.Height.pending && (formGroup.controls.Height.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input
+												(change)="saveChange()"
+												class="c-input"
+												id="Height"
+												formControlName="Height"
+												type="tel"
+												(focus)="$event.target.select()"
+												mask="separator.2"
+												thousandSeparator=","
+											/>
+										</div>
+									</ion-col>
+									<ion-col size="12" size-sm size-xl="4"> </ion-col>
+								</ion-row>
 
-                <ion-row class="hr-group">
-                  <ion-col size="12" size-sm="12" size-md="12" size-xl="3">
-                    <ion-list-header class="ion-no-padding">
-                      <ion-label color="primary">{{'Load' | translate}}</ion-label>
-                    </ion-list-header>
-                  </ion-col>
-                  <ion-col size="12" size-sm size-xl="4">
-                    <div class="c-control">
-                      <label class="c-label" for="WeightMin">
-                        {{'Minimum weight (tons)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.WeightMin.valid && !formGroup.controls.WeightMin.pending && (formGroup.controls.WeightMin.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="WeightMin"
-                        formControlName="WeightMin"
-                        type="tel"
-                        (focus)="$event.target.select()"
-                        mask="separator.2"
-                        thousandSeparator=","
-                      />
-                    </div>
-                    <div class="c-control">
-                      <label class="c-label" for="WeightRecommend">
-                        {{'Most efficient weight (tons)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.WeightRecommend.valid && !formGroup.controls.WeightRecommend.pending && (formGroup.controls.WeightRecommend.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="WeightRecommend"
-                        formControlName="WeightRecommend"
-                        type="tel"
-                        (focus)="$event.target.select()"
-                        mask="separator.2"
-                        thousandSeparator=","
-                      />
-                    </div>
-                    <div class="c-control">
-                      <label class="c-label" for="WeightMax">
-                        {{'Maximum weight (tons)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.WeightMax.valid && !formGroup.controls.WeightMax.pending && (formGroup.controls.WeightMax.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="WeightMax"
-                        formControlName="WeightMax"
-                        type="tel"
-                        (focus)="$event.target.select()"
-                        mask="separator.2"
-                        thousandSeparator=","
-                      />
-                    </div>
-                  </ion-col>
-                  <ion-col size="12" size-sm size-xl="4">
-                    <div class="c-control">
-                      <label class="c-label" for="VolumeMin">
-                        {{'Minimum volumes (m³)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.VolumeMin.valid && !formGroup.controls.VolumeMin.pending && (formGroup.controls.VolumeMin.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="VolumeMin"
-                        formControlName="VolumeMin"
-                        type="tel"
-                        (focus)="$event.target.select()"
-                        mask="separator.2"
-                        thousandSeparator=","
-                      />
-                    </div>
-                    <div class="c-control">
-                      <label class="c-label" for="VolumeRecommend">
-                        {{'Most efficient volume (m³)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.VolumeRecommend.valid && !formGroup.controls.VolumeRecommend.pending && (formGroup.controls.VolumeRecommend.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="VolumeRecommend"
-                        formControlName="VolumeRecommend"
-                        type="tel"
-                        (focus)="$event.target.select()"
-                        mask="separator.2"
-                        thousandSeparator=","
-                      />
-                    </div>
-                    <div class="c-control">
-                      <label class="c-label" for="VolumeMax">
-                        {{'Maximum volumes (m³)' | translate}}
-                        <span
-                          *ngIf="!formGroup.controls.VolumeMax.valid && !formGroup.controls.VolumeMax.pending && (formGroup.controls.VolumeMax.dirty || submitAttempt)"
-                          ion-text
-                          color="danger"
-                          >(*)</span
-                        >
-                      </label>
-                      <input
-                        (change)="saveChange()"
-                        class="c-input"
-                        id="VolumeMax"
-                        formControlName="VolumeMax"
-                        type="tel"
-                        (focus)="$event.target.select()"
-                        mask="separator.2"
-                        thousandSeparator=","
-                      />
-                    </div>
-                  </ion-col>
-                </ion-row>
+								<ion-row class="hr-group">
+									<ion-col size="12" size-sm="12" size-md="12" size-xl="3">
+										<ion-list-header class="ion-no-padding">
+											<ion-label color="primary">{{'Load' | translate}}</ion-label>
+										</ion-list-header>
+									</ion-col>
+									<ion-col size="12" size-sm size-xl="4">
+										<div class="c-control">
+											<label class="c-label" for="WeightMin">
+												{{'Minimum weight (tons)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.WeightMin.valid && !formGroup.controls.WeightMin.pending && (formGroup.controls.WeightMin.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input
+												(change)="saveChange()"
+												class="c-input"
+												id="WeightMin"
+												formControlName="WeightMin"
+												type="tel"
+												(focus)="$event.target.select()"
+												mask="separator.2"
+												thousandSeparator=","
+											/>
+										</div>
+										<div class="c-control">
+											<label class="c-label" for="WeightRecommend">
+												{{'Most efficient weight (tons)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.WeightRecommend.valid && !formGroup.controls.WeightRecommend.pending && (formGroup.controls.WeightRecommend.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input
+												(change)="saveChange()"
+												class="c-input"
+												id="WeightRecommend"
+												formControlName="WeightRecommend"
+												type="tel"
+												(focus)="$event.target.select()"
+												mask="separator.2"
+												thousandSeparator=","
+											/>
+										</div>
+										<div class="c-control">
+											<label class="c-label" for="WeightMax">
+												{{'Maximum weight (tons)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.WeightMax.valid && !formGroup.controls.WeightMax.pending && (formGroup.controls.WeightMax.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input
+												(change)="saveChange()"
+												class="c-input"
+												id="WeightMax"
+												formControlName="WeightMax"
+												type="tel"
+												(focus)="$event.target.select()"
+												mask="separator.2"
+												thousandSeparator=","
+											/>
+										</div>
+									</ion-col>
+									<ion-col size="12" size-sm size-xl="4">
+										<div class="c-control">
+											<label class="c-label" for="VolumeMin">
+												{{'Minimum volumes (m³)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.VolumeMin.valid && !formGroup.controls.VolumeMin.pending && (formGroup.controls.VolumeMin.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input
+												(change)="saveChange()"
+												class="c-input"
+												id="VolumeMin"
+												formControlName="VolumeMin"
+												type="tel"
+												(focus)="$event.target.select()"
+												mask="separator.2"
+												thousandSeparator=","
+											/>
+										</div>
+										<div class="c-control">
+											<label class="c-label" for="VolumeRecommend">
+												{{'Most efficient volume (m³)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.VolumeRecommend.valid && !formGroup.controls.VolumeRecommend.pending && (formGroup.controls.VolumeRecommend.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input
+												(change)="saveChange()"
+												class="c-input"
+												id="VolumeRecommend"
+												formControlName="VolumeRecommend"
+												type="tel"
+												(focus)="$event.target.select()"
+												mask="separator.2"
+												thousandSeparator=","
+											/>
+										</div>
+										<div class="c-control">
+											<label class="c-label" for="VolumeMax">
+												{{'Maximum volumes (m³)' | translate}}
+												<span
+													*ngIf="!formGroup.controls.VolumeMax.valid && !formGroup.controls.VolumeMax.pending && (formGroup.controls.VolumeMax.dirty || submitAttempt)"
+													ion-text
+													color="danger"
+													>(*)</span
+												>
+											</label>
+											<input
+												(change)="saveChange()"
+												class="c-input"
+												id="VolumeMax"
+												formControlName="VolumeMax"
+												type="tel"
+												(focus)="$event.target.select()"
+												mask="separator.2"
+												thousandSeparator=","
+											/>
+										</div>
+									</ion-col>
+								</ion-row>
 
-                <!-- <ion-row class="hr-group">
+								<!-- <ion-row class="hr-group">
                     <ion-col size="12" size-sm="12" size-md="12" size-xl="3">
                         <ion-list-header class="ion-no-padding">
                             <ion-label color="primary">Thông tin sản phẩm</ion-label>
@@ -455,20 +435,20 @@
                         
                     </ion-col>
                 </ion-row> -->
-              </form>
-            </ion-grid>
-          </div>
-        </div>
-        <div *ngIf="segmentView == 's2'"></div>
+							</form>
+						</ion-grid>
+					</div>
+				</div>
+				<div *ngIf="segmentView == 's2'"></div>
 
-        <div *ngIf="segmentView == 's3'"></div>
+				<div *ngIf="segmentView == 's3'"></div>
 
-        <div *ngIf="segmentView == 's4'"></div>
+				<div *ngIf="segmentView == 's4'"></div>
 
-        <div *ngIf="segmentView == 's5'"></div>
-      </div>
-    </div>
-  </div>
+				<div *ngIf="segmentView == 's5'"></div>
+			</div>
+		</div>
+	</div>
 
-  <app-page-message [itemsLength]="item? 1: 0" [showSpinner]="pageConfig.showSpinner"></app-page-message>
+	<app-page-message [itemsLength]="item? 1: 0" [showSpinner]="pageConfig.showSpinner"></app-page-message>
 </ion-content>

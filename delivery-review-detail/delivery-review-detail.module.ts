@@ -7,14 +7,7 @@ import { DeliveryReviewDetailPage } from './delivery-review-detail.page';
 import { ShareModule } from 'src/app/share.module';
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ShareModule,
-    RouterModule.forChild([{ path: '', component: DeliveryReviewDetailPage }]),
-  ],
-  declarations: [DeliveryReviewDetailPage],
+	imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, ShareModule, RouterModule.forChild([{ path: '', component: DeliveryReviewDetailPage }])],
+	declarations: [DeliveryReviewDetailPage],
 })
 export class DeliveryReviewDetailPageModule {}

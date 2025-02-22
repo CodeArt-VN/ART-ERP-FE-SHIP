@@ -6,23 +6,23 @@ import { BRA_BranchProvider, SHIP_VehicleProvider } from 'src/app/services/stati
 import { Location } from '@angular/common';
 
 @Component({
-    selector: 'app-vehicle',
-    templateUrl: 'vehicle.page.html',
-    styleUrls: ['vehicle.page.scss'],
-    standalone: false
+	selector: 'app-vehicle',
+	templateUrl: 'vehicle.page.html',
+	styleUrls: ['vehicle.page.scss'],
+	standalone: false,
 })
 export class VehiclePage extends PageBase {
-  constructor(
-    public pageProvider: SHIP_VehicleProvider,
-    public branchProvider: BRA_BranchProvider,
-    public modalController: ModalController,
-    public popoverCtrl: PopoverController,
-    public alertCtrl: AlertController,
-    public loadingController: LoadingController,
-    public env: EnvService,
-    public navCtrl: NavController,
-    public location: Location,
-  ) {
-    super();
-  }
+	constructor(
+		public pageProvider: SHIP_VehicleProvider,
+		public branchProvider: BRA_BranchProvider,
+		public modalController: ModalController,
+		public popoverCtrl: PopoverController,
+		public alertCtrl: AlertController,
+		public loadingController: LoadingController,
+		public env: EnvService,
+		public navCtrl: NavController,
+		public location: Location
+	) {
+		super();
+	}
 }

@@ -4,12 +4,12 @@ import { PageBase } from 'src/app/page-base';
 import { ActivatedRoute } from '@angular/router';
 import { EnvService } from 'src/app/services/core/env.service';
 import {
-  CRM_RouteProvider,
-  CRM_RouteDetailProvider,
-  SHIP_VehicleProvider,
-  HRM_StaffProvider,
-  BRA_BranchProvider,
-  CRM_PartnerAddressProvider,
+	CRM_RouteProvider,
+	CRM_RouteDetailProvider,
+	SHIP_VehicleProvider,
+	HRM_StaffProvider,
+	BRA_BranchProvider,
+	CRM_PartnerAddressProvider,
 } from 'src/app/services/static/services.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CommonService } from 'src/app/services/core/common.service';
@@ -20,325 +20,315 @@ import { catchError, distinctUntilChanged, switchMap, tap } from 'rxjs/operators
 import { MCPCustomerPickerModalPage } from '../../CRM/mcp-customer-picker-modal/mcp-customer-picker-modal.page';
 
 @Component({
-    selector: 'app-shipping-route-detail',
-    templateUrl: './shipping-route-detail.page.html',
-    styleUrls: ['./shipping-route-detail.page.scss'],
-    standalone: false
+	selector: 'app-shipping-route-detail',
+	templateUrl: './shipping-route-detail.page.html',
+	styleUrls: ['./shipping-route-detail.page.scss'],
+	standalone: false,
 })
 export class ShippingRouteDetailPage extends PageBase {
-  @ViewChild('importfile') importfile: any;
-  formGroup: FormGroup;
+	@ViewChild('importfile') importfile: any;
+	formGroup: FormGroup;
 
-  minDOB = '';
-  maxDOB = '';
+	minDOB = '';
+	maxDOB = '';
 
-  routeDetail = [];
-  vehicleList = [];
-  wareHouseList = [];
+	routeDetail = [];
+	vehicleList = [];
+	wareHouseList = [];
 
-  constructor(
-    public pageProvider: CRM_RouteProvider,
-    public routeDetailProvider: CRM_RouteDetailProvider,
-    public partnerAddressProvider: CRM_PartnerAddressProvider,
-    public vehicleProvider: SHIP_VehicleProvider,
-    public staffProvider: HRM_StaffProvider,
-    public branchProvider: BRA_BranchProvider,
-    
-    public popoverCtrl: PopoverController,
-    public env: EnvService,
-    public navCtrl: NavController,
-    public route: ActivatedRoute,
+	constructor(
+		public pageProvider: CRM_RouteProvider,
+		public routeDetailProvider: CRM_RouteDetailProvider,
+		public partnerAddressProvider: CRM_PartnerAddressProvider,
+		public vehicleProvider: SHIP_VehicleProvider,
+		public staffProvider: HRM_StaffProvider,
+		public branchProvider: BRA_BranchProvider,
 
-    public modalController: ModalController,
-    public alertCtrl: AlertController,
-    // public navParams: NavParams,
-    public formBuilder: FormBuilder,
-    public cdr: ChangeDetectorRef,
-    public loadingController: LoadingController,
-    public commonService: CommonService,
-    private config: NgSelectConfig,
-  ) {
-    super();
-    this.item = {};
-    this.pageConfig.isDetailPage = true;
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.formGroup = formBuilder.group({
-      IDBranch: new FormControl({
-        value: this.env.selectedBranch,
-        disabled: false,
-      }),
-      Id: new FormControl({ value: '', disabled: true }),
-      Code: new FormControl(),
-      Name: new FormControl('', Validators.required),
-      Remark: new FormControl(),
-      CreatedBy: new FormControl({ value: '', disabled: true }),
-      CreatedDate: new FormControl({ value: '', disabled: true }),
-      ModifiedBy: new FormControl({ value: '', disabled: true }),
-      ModifiedDate: new FormControl({ value: '', disabled: true }),
-      Sort: new FormControl(),
-      IsDisabled: new FormControl({ value: '', disabled: true }),
+		public popoverCtrl: PopoverController,
+		public env: EnvService,
+		public navCtrl: NavController,
+		public route: ActivatedRoute,
 
-      IDWarehouse: new FormControl('', Validators.required),
-      Type: new FormControl('ShippingRoute', Validators.required),
+		public modalController: ModalController,
+		public alertCtrl: AlertController,
+		// public navParams: NavParams,
+		public formBuilder: FormBuilder,
+		public cdr: ChangeDetectorRef,
+		public loadingController: LoadingController,
+		public commonService: CommonService,
+		private config: NgSelectConfig
+	) {
+		super();
+		this.item = {};
+		this.pageConfig.isDetailPage = true;
+		this.id = this.route.snapshot.paramMap.get('id');
+		this.formGroup = formBuilder.group({
+			IDBranch: new FormControl({
+				value: this.env.selectedBranch,
+				disabled: false,
+			}),
+			Id: new FormControl({ value: '', disabled: true }),
+			Code: new FormControl(),
+			Name: new FormControl('', Validators.required),
+			Remark: new FormControl(),
+			CreatedBy: new FormControl({ value: '', disabled: true }),
+			CreatedDate: new FormControl({ value: '', disabled: true }),
+			ModifiedBy: new FormControl({ value: '', disabled: true }),
+			ModifiedDate: new FormControl({ value: '', disabled: true }),
+			Sort: new FormControl(),
+			IsDisabled: new FormControl({ value: '', disabled: true }),
 
-      IDSeller: [''],
-      IDVehicle: [''],
-      IDVehicleForSample: [''],
-      IDVehicleForUrgent: [''],
-      IDVehicleForWholeSale: [''],
-      IDShipper: [''],
-      IDParent: [''],
+			IDWarehouse: new FormControl('', Validators.required),
+			Type: new FormControl('ShippingRoute', Validators.required),
 
-      StartDate: [''],
-    });
+			IDSeller: [''],
+			IDVehicle: [''],
+			IDVehicleForSample: [''],
+			IDVehicleForUrgent: [''],
+			IDVehicleForWholeSale: [''],
+			IDShipper: [''],
+			IDParent: [''],
 
-    let cYear = new Date().getFullYear();
-    this.minDOB = cYear - 1 + '-01-01';
-    this.maxDOB = cYear + 5 + '-12-31';
+			StartDate: [''],
+		});
 
-    this.config.notFoundText = 'Không tìm thấy dữ liệu phù hợp...';
-    this.config.clearAllText = 'Xóa hết';
-  }
+		let cYear = new Date().getFullYear();
+		this.minDOB = cYear - 1 + '-01-01';
+		this.maxDOB = cYear + 5 + '-12-31';
 
-  preLoadData(event) {
-    this.vehicleProvider.read({ IDParent: 3 }).then((response) => {
-      this.vehicleList = response['data'];
-    });
-    this.branchProvider.read({ Type: 'Warehouse' }).then((response) => {
-      this.wareHouseList = response['data'];
-    });
+		this.config.notFoundText = 'Không tìm thấy dữ liệu phù hợp...';
+		this.config.clearAllText = 'Xóa hết';
+	}
 
-    super.preLoadData(event);
-  }
+	preLoadData(event) {
+		this.vehicleProvider.read({ IDParent: 3 }).then((response) => {
+			this.vehicleList = response['data'];
+		});
+		this.branchProvider.read({ Type: 'Warehouse' }).then((response) => {
+			this.wareHouseList = response['data'];
+		});
 
-  loadedData(event) {
-    if (this.item.Id) {
-      this.routeDetailProvider.read({ IDRoute: this.item.Id, Take: 5000, Skip: 0 }).then((response) => {
-        this.routeDetail = response['data'];
-        this.item.CoordinateList = response['data'];
-      });
-    }
+		super.preLoadData(event);
+	}
 
-    super.loadedData(event);
-    this.item.StartDate = this.item.StartDate
-      ? lib.dateFormat(this.item.StartDate, 'yyyy-mm-dd')
-      : lib.dateFormat(new Date(), 'yyyy-mm-dd');
+	loadedData(event) {
+		if (this.item.Id) {
+			this.routeDetailProvider.read({ IDRoute: this.item.Id, Take: 5000, Skip: 0 }).then((response) => {
+				this.routeDetail = response['data'];
+				this.item.CoordinateList = response['data'];
+			});
+		}
 
-    if (this.item.IDSeller) {
-      this.loadSelectedSeller(this.item.IDSeller);
-    } else {
-      this.salesmanSearch();
-    }
+		super.loadedData(event);
+		this.item.StartDate = this.item.StartDate ? lib.dateFormat(this.item.StartDate, 'yyyy-mm-dd') : lib.dateFormat(new Date(), 'yyyy-mm-dd');
 
-    if (this.item.IDShipper) {
-      this.loadSelectedShipper(this.item.IDShipper);
-    } else {
-      this.shipperSearch();
-    }
-  }
+		if (this.item.IDSeller) {
+			this.loadSelectedSeller(this.item.IDSeller);
+		} else {
+			this.salesmanSearch();
+		}
 
-  saveRouteDetail(i) {
-    i.Frequency =
-      ((i.Week1 ? 1 : 0) + (i.Week2 ? 1 : 0) + (i.Week3 ? 1 : 0) + (i.Week4 ? 1 : 0)) *
-      ((i.Monday ? 1 : 0) +
-        (i.Tuesday ? 1 : 0) +
-        (i.Wednesday ? 1 : 0) +
-        (i.Thursday ? 1 : 0) +
-        (i.Friday ? 1 : 0) +
-        (i.Saturday ? 1 : 0) +
-        (i.Sunday ? 1 : 0));
-    this.routeDetailProvider.save(i).then((result) => {
-      if (i.Id == 0) {
-        i.Id = result['Id'];
-      }
-      this.env.showMessage('Update completed', 'success');
-    });
-  }
+		if (this.item.IDShipper) {
+			this.loadSelectedShipper(this.item.IDShipper);
+		} else {
+			this.shipperSearch();
+		}
+	}
 
-  deleteRouteDetail(i) {
-    this.routeDetailProvider.delete(i).then((result) => {
-      this.env.showMessage('Update completed', 'success');
-      const index = this.routeDetail.indexOf(i);
-      if (index > -1) {
-        this.routeDetail.splice(index, 1);
-      }
-    });
-  }
+	saveRouteDetail(i) {
+		i.Frequency =
+			((i.Week1 ? 1 : 0) + (i.Week2 ? 1 : 0) + (i.Week3 ? 1 : 0) + (i.Week4 ? 1 : 0)) *
+			((i.Monday ? 1 : 0) + (i.Tuesday ? 1 : 0) + (i.Wednesday ? 1 : 0) + (i.Thursday ? 1 : 0) + (i.Friday ? 1 : 0) + (i.Saturday ? 1 : 0) + (i.Sunday ? 1 : 0));
+		this.routeDetailProvider.save(i).then((result) => {
+			if (i.Id == 0) {
+				i.Id = result['Id'];
+			}
+			this.env.showMessage('Update completed', 'success');
+		});
+	}
 
-  segmentView = 's1';
-  segmentChanged(ev: any) {
-    this.segmentView = ev.detail.value;
-  }
+	deleteRouteDetail(i) {
+		this.routeDetailProvider.delete(i).then((result) => {
+			this.env.showMessage('Update completed', 'success');
+			const index = this.routeDetail.indexOf(i);
+			if (index > -1) {
+				this.routeDetail.splice(index, 1);
+			}
+		});
+	}
 
-  shipperList$;
-  shipperListLoading = false;
-  shipperListInput$ = new Subject<string>();
-  shipperListSelected = [];
-  shipperSelected = null;
-  shipperSearch() {
-    this.shipperListLoading = false;
-    this.shipperList$ = concat(
-      of(this.shipperListSelected),
-      this.shipperListInput$.pipe(
-        distinctUntilChanged(),
-        tap(() => (this.shipperListLoading = true)),
-        switchMap((term) =>
-          this.staffProvider
-            .search({
-              Take: 20,
-              Skip: 0,
-              Term: term ? term : this.item.IDSeller,
-            })
-            .pipe(
-              catchError(() => of([])), // empty list on error
-              tap(() => (this.shipperListLoading = false)),
-            ),
-        ),
-      ),
-    );
-  }
-  loadSelectedShipper(IDShipper) {
-    this.staffProvider.getAnItem(IDShipper).then((resp) => {
-      this.shipperListSelected.push(resp);
-      this.shipperListSelected = [...this.shipperListSelected];
-      this.shipperSearch();
-    });
-  }
+	segmentView = 's1';
+	segmentChanged(ev: any) {
+		this.segmentView = ev.detail.value;
+	}
 
-  changedVehicle() {
-    // let IDVehicle = this.formGroup.get('IDVehicle').value;
-    // let selectedVehicle = this.vehicleList.find(d => d.Id == IDVehicle);
-    // this.formGroup.get('IDShipper').setValue(selectedVehicle.IDShipper);
-    // this.loadSelectedShipper(selectedVehicle.IDShipper);
-    this.saveChange();
-  }
+	shipperList$;
+	shipperListLoading = false;
+	shipperListInput$ = new Subject<string>();
+	shipperListSelected = [];
+	shipperSelected = null;
+	shipperSearch() {
+		this.shipperListLoading = false;
+		this.shipperList$ = concat(
+			of(this.shipperListSelected),
+			this.shipperListInput$.pipe(
+				distinctUntilChanged(),
+				tap(() => (this.shipperListLoading = true)),
+				switchMap((term) =>
+					this.staffProvider
+						.search({
+							Take: 20,
+							Skip: 0,
+							Term: term ? term : this.item.IDSeller,
+						})
+						.pipe(
+							catchError(() => of([])), // empty list on error
+							tap(() => (this.shipperListLoading = false))
+						)
+				)
+			)
+		);
+	}
+	loadSelectedShipper(IDShipper) {
+		this.staffProvider.getAnItem(IDShipper).then((resp) => {
+			this.shipperListSelected.push(resp);
+			this.shipperListSelected = [...this.shipperListSelected];
+			this.shipperSearch();
+		});
+	}
 
-  salesmanList$;
-  salesmanListLoading = false;
-  salesmanListInput$ = new Subject<string>();
-  salesmanListSelected = [];
-  salesmanSelected = null;
-  salesmanSearch() {
-    this.salesmanListLoading = false;
-    this.salesmanList$ = concat(
-      of(this.salesmanListSelected),
-      this.salesmanListInput$.pipe(
-        distinctUntilChanged(),
-        tap(() => (this.salesmanListLoading = true)),
-        switchMap((term) =>
-          this.staffProvider
-            .search({
-              Take: 20,
-              Skip: 0,
-              Term: term ? term : this.item.IDSeller,
-            })
-            .pipe(
-              catchError(() => of([])), // empty list on error
-              tap(() => (this.salesmanListLoading = false)),
-            ),
-        ),
-      ),
-    );
-  }
-  loadSelectedSeller(IDSeller) {
-    this.staffProvider.getAnItem(IDSeller).then((resp) => {
-      this.salesmanListSelected.push(resp);
-      this.salesmanListSelected = [...this.salesmanListSelected];
-      this.salesmanSearch();
-    });
-  }
+	changedVehicle() {
+		// let IDVehicle = this.formGroup.get('IDVehicle').value;
+		// let selectedVehicle = this.vehicleList.find(d => d.Id == IDVehicle);
+		// this.formGroup.get('IDShipper').setValue(selectedVehicle.IDShipper);
+		// this.loadSelectedShipper(selectedVehicle.IDShipper);
+		this.saveChange();
+	}
 
-  async showShippingRouteCustomerPickerModal() {
-    const modal = await this.modalController.create({
-      component: MCPCustomerPickerModalPage,
-      componentProps: {
-        id: this.item.Id,
-      },
-      cssClass: 'modal90',
-    });
+	salesmanList$;
+	salesmanListLoading = false;
+	salesmanListInput$ = new Subject<string>();
+	salesmanListSelected = [];
+	salesmanSelected = null;
+	salesmanSearch() {
+		this.salesmanListLoading = false;
+		this.salesmanList$ = concat(
+			of(this.salesmanListSelected),
+			this.salesmanListInput$.pipe(
+				distinctUntilChanged(),
+				tap(() => (this.salesmanListLoading = true)),
+				switchMap((term) =>
+					this.staffProvider
+						.search({
+							Take: 20,
+							Skip: 0,
+							Term: term ? term : this.item.IDSeller,
+						})
+						.pipe(
+							catchError(() => of([])), // empty list on error
+							tap(() => (this.salesmanListLoading = false))
+						)
+				)
+			)
+		);
+	}
+	loadSelectedSeller(IDSeller) {
+		this.staffProvider.getAnItem(IDSeller).then((resp) => {
+			this.salesmanListSelected.push(resp);
+			this.salesmanListSelected = [...this.salesmanListSelected];
+			this.salesmanSearch();
+		});
+	}
 
-    await modal.present();
-    const { data } = await modal.onWillDismiss();
+	async showShippingRouteCustomerPickerModal() {
+		const modal = await this.modalController.create({
+			component: MCPCustomerPickerModalPage,
+			componentProps: {
+				id: this.item.Id,
+			},
+			cssClass: 'modal90',
+		});
 
-    if (data && data.length) {
-      for (let i = 0; i < data.length; i++) {
-        const e = data[i];
-        if (this.routeDetail.findIndex((d) => d.IDContact == e.Id) == -1) {
-          e.IDRoute = this.id;
-          e.IDContact = e.Id;
-          e.Id = 0;
-          e.CustomerName = e.Name;
-          e.Week1 = true;
-          e.Week2 = true;
-          e.Week3 = true;
-          e.Week4 = true;
-          e.Monday = false;
-          e.Tuesday = false;
-          e.Wednesday = false;
-          e.Thursday = false;
-          e.Friday = false;
-          e.Saturday = false;
-          e.Sunday = false;
-          e.Frequency = 0;
-          e.Sort = 10;
+		await modal.present();
+		const { data } = await modal.onWillDismiss();
 
-          this.routeDetail.push(e);
-          this.saveRouteDetail(e);
-        }
-      }
-    }
-  }
+		if (data && data.length) {
+			for (let i = 0; i < data.length; i++) {
+				const e = data[i];
+				if (this.routeDetail.findIndex((d) => d.IDContact == e.Id) == -1) {
+					e.IDRoute = this.id;
+					e.IDContact = e.Id;
+					e.Id = 0;
+					e.CustomerName = e.Name;
+					e.Week1 = true;
+					e.Week2 = true;
+					e.Week3 = true;
+					e.Week4 = true;
+					e.Monday = false;
+					e.Tuesday = false;
+					e.Wednesday = false;
+					e.Thursday = false;
+					e.Friday = false;
+					e.Saturday = false;
+					e.Sunday = false;
+					e.Frequency = 0;
+					e.Sort = 10;
 
-  onClickImport() {
-    this.importfile.nativeElement.value = '';
-    this.importfile.nativeElement.click();
-  }
+					this.routeDetail.push(e);
+					this.saveRouteDetail(e);
+				}
+			}
+		}
+	}
 
-  importFileChange(event) {
-    this.import(event);
-  }
+	onClickImport() {
+		this.importfile.nativeElement.value = '';
+		this.importfile.nativeElement.click();
+	}
 
-  async export() {
-    this.query.Id = this.item.Id;
-    super.export();
-  }
+	importFileChange(event) {
+		this.import(event);
+	}
 
-  filter(ev) {
-    this.routeDetailProvider.read({ IDRoute: this.item.Id, Take: 5000, Skip: 0 }).then((response) => {
-      this.routeDetail = response['data'];
-      if (ev != '') {
-        this.routeDetail = this.routeDetail.filter((f) =>
-          f._Contact.Name.toLowerCase().includes(ev.Name.toLowerCase()),
-        );
-      }
-    });
-  }
+	async export() {
+		this.query.Id = this.item.Id;
+		super.export();
+	}
 
-  refresh(event?) {
-    this.preLoadData(event);
-  }
+	filter(ev) {
+		this.routeDetailProvider.read({ IDRoute: this.item.Id, Take: 5000, Skip: 0 }).then((response) => {
+			this.routeDetail = response['data'];
+			if (ev != '') {
+				this.routeDetail = this.routeDetail.filter((f) => f._Contact.Name.toLowerCase().includes(ev.Name.toLowerCase()));
+			}
+		});
+	}
 
-  savePosition(ev) {
-    if (this.pageConfig.canEdit) {
-      let marker = ev.marker;
-      let content = ev.content;
+	refresh(event?) {
+		this.preLoadData(event);
+	}
 
-      this.partnerAddressProvider.read({ IDPartner: content.IDContact }).then((results) => {
-        let partnerAddress = results['data'][0];
+	savePosition(ev) {
+		if (this.pageConfig.canEdit) {
+			let marker = ev.marker;
+			let content = ev.content;
 
-        let submitItem = {
-          Id: partnerAddress.Id,
-          Lat: marker.getPosition().lat(),
-          Long: marker.getPosition().lng(),
-        };
+			this.partnerAddressProvider.read({ IDPartner: content.IDContact }).then((results) => {
+				let partnerAddress = results['data'][0];
 
-        this.partnerAddressProvider.save(submitItem).then((resp) => {
-          this.env.showMessage('Location updated', 'success');
-        });
-      });
-    } else {
-      this.env.showMessage('Bạn không có quyền chỉnh sửa, vui lòng kiểm tra lại', 'warning');
-      return;
-    }
-  }
+				let submitItem = {
+					Id: partnerAddress.Id,
+					Lat: marker.getPosition().lat(),
+					Long: marker.getPosition().lng(),
+				};
+
+				this.partnerAddressProvider.save(submitItem).then((resp) => {
+					this.env.showMessage('Location updated', 'success');
+				});
+			});
+		} else {
+			this.env.showMessage('Bạn không có quyền chỉnh sửa, vui lòng kiểm tra lại', 'warning');
+			return;
+		}
+	}
 }
