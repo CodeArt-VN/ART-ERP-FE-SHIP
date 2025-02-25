@@ -253,13 +253,13 @@ export class ShipmentPage extends PageBase {
 			});
 	}
 
-	deleteItems() {
+	delete() {
 		this.pageProvider.apiPath.delItem = {
 			method: 'DELETE',
 			url: function (id) {
 				return ApiSetting.apiDomain('SHIP/Shipment/Delete/') + id;
 			},
 		};
-		super.deleteItems(this.pageConfig.pageName);
+		super.delete(this.pageConfig.pageName);
 	}
 }

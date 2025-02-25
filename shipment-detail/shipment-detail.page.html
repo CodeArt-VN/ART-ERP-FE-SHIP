@@ -449,7 +449,7 @@
 								<div class="col-code cell money">{{i.ProductWeightText}} kg</div>
 								<div class="col-code cell money">{{i.ProductDimensionsText}} lít</div>
 								<div class="col-code cell">{{i.Code}}</div>
-								<div class="col-checkbox cell clickable" title="{{'Delete this order' | translate}}" (click)="removeSelectedOrder(i)" *ngIf="pageConfig.canEdit">
+								<div class="col-checkbox cell clickable" title="{{'Delete' | translate}}" (click)="removeSelectedOrder(i)" *ngIf="pageConfig.canEdit">
 									<ion-icon color="danger" class="min-btn" name="trash-outline"></ion-icon>
 								</div>
 							</div>
