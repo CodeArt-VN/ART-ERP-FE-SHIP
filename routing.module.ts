@@ -21,4 +21,5 @@ export const SHIPRoutes: Routes = [
     { path: 'shipping-route', loadChildren: () => import('./shipping-route/shipping-route.module').then(m => m.ShippingRoutePageModule), canActivate: [AuthGuard] },
     { path: 'shipping-route/:id', loadChildren: () => import('./shipping-route-detail/shipping-route-detail.module').then(m => m.ShippingRouteDetailPageModule), canActivate: [AuthGuard] },
   
+    { path: 'shipment-map', loadChildren: () => import('./shipment-map/shipment-map.module').then(m => m.ShipmentMapPageModule), canActivate: [AuthGuard] },
 ];

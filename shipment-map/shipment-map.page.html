@@ -1,0 +1,59 @@
+<ion-header>
+	<app-toolbar [page]="this"></app-toolbar>
+</ion-header>
+
+<ion-content appScrollbarTheme appPrintFix class="A4 left" [ngClass]="{withFeature: pageConfig.isShowFeature}">
+	<ion-fab *ngIf="pageConfig.isShowFeature" [ngClass]="{withSearch: pageConfig.isShowSearch}" class="feature no-print" vertical="top" horizontal="start" slot="fixed">
+		
+		<ion-list class="sticky-top">
+			<ion-list-header lines="full">
+				<ion-label color="dark">{{'Trucks waiting to pick up' | translate}}</ion-label>
+
+				<ion-button size="small" (click)="toggleDateFilter()">
+					<ion-icon slot="icon-only" [name]="query.IDStatus=='[301]' ? 'calendar-outline' : 'calendar'"></ion-icon>
+				</ion-button>
+			</ion-list-header>
+
+			<ion-item lines="full" *ngIf="query.IDStatus!='[301]'">
+				<div class="c-control">
+					<label class="c-label" for="DeliveryDate">{{'Delivery date' | translate}}</label>
+					<input class="c-input" (change)="refresh()" id="DeliveryDate" type="date" [(ngModel)]="query.DeliveryDate" />
+				</div>
+			</ion-item>
+		</ion-list>
+		
+
+		<ion-list style="min-height: 100vh;">
+			<ion-item lines="full" *ngFor="let i of items">
+				<ion-checkbox slot="start" (click)="i.checked =!i.checked; changeSelection(i)" ></ion-checkbox>
+
+				<ion-label class="ion-text-wrap">
+					<ion-text>
+						<h3><small>{{i.VehicleName}}</small> {{i.ShipperName}}</h3>
+					</ion-text>
+					<p>
+						<b>
+							<small>
+								<ion-text color="primary">SH:{{i.Id}}</ion-text>
+							</small>
+							<ion-text color="dark"> - {{i.DeliveryDate | date: 'dd/MM/yy HH:mm'}}</ion-text>
+						</b>
+					</p>
+				</ion-label>
+				<ion-badge [style.--background]="i._color">{{i.OrderCount + i.DebtCount}}</ion-badge>
+			</ion-item>
+		</ion-list>
+
+		<div class="action-buttons sticky-bottom">
+			<ion-grid>
+				<ion-row>
+					<ion-col size="12">
+						<ion-button (click)="loadShipmentMap()" expand="block" shape="round" [disabled]="submitAttempt"> {{'View map' | translate}} </ion-button>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+	</ion-fab>
+
+	<app-map-view [CoordinateList]="mapData" *ngIf="!this.submitAttempt && mapData.length > 0"></app-map-view>
+</ion-content>
