@@ -3,7 +3,7 @@ import { NavController, ModalController, LoadingController, AlertController, Pop
 import { PageBase } from 'src/app/page-base';
 import { ActivatedRoute } from '@angular/router';
 import { EnvService } from 'src/app/services/core/env.service';
-import { SALE_OrderProvider, HRM_StaffProvider, SHIP_ShipmentProvider, SHIP_VehicleProvider, BRA_BranchProvider } from 'src/app/services/static/services.service';
+import { SALE_OrderProvider, HRM_StaffProvider, SHIP_VehicleProvider, BRA_BranchProvider } from 'src/app/services/static/services.service';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CommonService } from 'src/app/services/core/common.service';
 import { NgSelectConfig } from '@ng-select/ng-select';
@@ -13,6 +13,7 @@ import { ApiSetting } from 'src/app/services/static/api-setting';
 import { lib } from 'src/app/services/static/global-functions';
 import { ShipmentModalPage } from '../shipment-modal/shipment-modal.page';
 import { ShipmentDebtPickerModalPage } from '../shipment-debt-picker-modal/shipment-debt-picker-modal.page';
+import { SHIP_ShipmentService } from '../shipment.service';
 
 @Component({
 	selector: 'app-shipment-detail',
@@ -32,7 +33,7 @@ export class ShipmentDetailPage extends PageBase {
 	wareHouseList = [];
 
 	constructor(
-		public pageProvider: SHIP_ShipmentProvider,
+		public pageProvider: SHIP_ShipmentService,
 		public vehicleProvider: SHIP_VehicleProvider,
 		public saleOrderProvider: SALE_OrderProvider,
 		public branchProvider: BRA_BranchProvider,
@@ -530,5 +531,20 @@ export class ShipmentDetailPage extends PageBase {
 			},
 		};
 		super.delete();
+	}
+
+	reopenOrder(id) {
+		let dto = {Id: this.item.Id, ShipmentOrder: [{IDShipmentDetail: id}]};
+
+		this.pageProvider
+			.reopenOrder(dto)
+			.then((resp) => {
+				this.env.showMessage('Reopen order successfully', 'success');
+				this.refresh();
+			})
+			.catch((err) => {
+				this.env.showMessage('Cannot reopen order, please try again. ' + err.message, 'danger');
+
+			});
 	}
 }

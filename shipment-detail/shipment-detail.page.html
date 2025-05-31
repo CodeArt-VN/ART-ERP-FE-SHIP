@@ -428,7 +428,13 @@
 								<div class="col-checkbox cell" *ngIf="pageConfig.canEdit">
 									<input class="c-checkbox" [(ngModel)]="i.checked" type="checkbox" />
 								</div>
-								<div (click)="nav('sale-order/'+i.Id,'forward')" class="col-id cell">{{i.Id}}</div>
+								<div  class="col-id cell">
+									<a (click)="nav('sale-order/'+i.Id,'forward')" [routerLink]="['/sale-order/'+i.Id]" [title]="i.Id">{{i.Id}}</a>
+
+									<small class="clickable" title="{{'Reopen order' | translate}}" (click)="reopenOrder(i.IDShipmentDetail)" *ngIf="pageConfig.canReopenOrder && (item.IDStatus == 305 || item.IDStatus == 306) && i.IDStatusShipmentDetail == 319">
+										<ion-icon name="lock-open"></ion-icon>
+									</small>
+								</div>
 								<div class="col-code cell" (click)="query.OrderDate=i.Query; pageConfig.isShowSearch=true; loadSelectedOrders()">
 									{{i.OrderDateText}}
 									<small *ngIf="i.OrderTimeText ">{{i.OrderTimeText}}</small>
