@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Input } from '@angular/core';
 import { NavController, ModalController, NavParams, LoadingController, AlertController } from '@ionic/angular';
 import { PageBase } from 'src/app/page-base';
 import { ActivatedRoute } from '@angular/router';
@@ -15,6 +15,8 @@ import { ApiSetting } from 'src/app/services/static/api-setting';
 	standalone: false,
 })
 export class ShipmentDebtPickerModalPage extends PageBase {
+	@Input() selectedIds: any[] = [];
+	@Input() canViewAllOrders = false;
 	constructor(
 		public pageProvider: SALE_OrderProvider,
 		public env: EnvService,
@@ -121,6 +123,10 @@ export class ShipmentDebtPickerModalPage extends PageBase {
 			i.Query = i.OrderDate ? lib.dateFormat(i.OrderDate, 'yyyy-mm-dd') : '';
 			i.TotalText = lib.currencyFormat(i.TotalAfterTax);
 			i.DebtText = lib.currencyFormat(i.Debt);
+			i.checked = this.selectedIds.includes(i.Id);
+			if (i.checked) {
+				this.selectedItems.push(i);
+			}
 		});
 		super.loadedData(event);
 		this.changeSelection({});

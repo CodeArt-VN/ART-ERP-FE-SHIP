@@ -129,6 +129,7 @@
 	</section>
 </ion-header>
 <ion-content appScrollbarTheme class="header-table">
+	<app-page-message [itemsLength]="items.length" [showSpinner]="pageConfig.showSpinner"> </app-page-message>
 	<section class="table">
 		<div class="row" [ngClass]="{selected: i.checked}" *ngFor="let i of items">
 			<div class="col-checkbox cell">

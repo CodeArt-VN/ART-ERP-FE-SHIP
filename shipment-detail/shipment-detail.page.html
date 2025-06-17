@@ -431,7 +431,7 @@
 								<div  class="col-id cell">
 									<a (click)="nav('sale-order/'+i.Id,'forward')" [routerLink]="['/sale-order/'+i.Id]" [title]="i.Id">{{i.Id}}</a>
 
-									<small class="clickable" title="{{'Reopen order' | translate}}" (click)="reopenOrder(i.IDShipmentDetail)" *ngIf="pageConfig.canReopenOrder && (item.IDStatus == 305 || item.IDStatus == 306) && i.IDStatusShipmentDetail == 319">
+									<small class="clickable" title="{{'Reopen order' | translate}}" (click)="reopenOrder(i.IDShipmentDetail)" *ngIf="pageConfig.canReopenOrder && (item.IDStatus == 305 || item.IDStatus == 306) && i._locked ">
 										<ion-icon name="lock-open"></ion-icon>
 									</small>
 								</div>

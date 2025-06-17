@@ -150,6 +150,24 @@ export class ShipmentDetailPage extends PageBase {
 			//     day: parseInt(birthDate.format('D'), 10)
 			//   });
 
+			let lockedStatus = [
+				319,//Đã giao hàng
+				307,//Khách hẹn giao lại
+				308,//Không liên lạc được
+				309, //Khách không nhận do hàng lỗi
+				310, //Khách không nhận do giá
+				311, //Khách không nhận
+				312, //Khách không nhận do khách hết tiền
+				313 //Không giao được - lý do khác
+			]
+
+			this.item.Orders.forEach((d) => {	
+				//check locked SO by IDStatusShipmentDetail
+				if (lockedStatus.includes(d.IDStatusShipmentDetail)) {
+					d._locked = true;
+				}
+			});
+
 			this.loadSelectedShipper(this.item.IDShipper);
 			this.loadSelectedOrders();
 			this.loadSelectedDebtOrders();
@@ -478,6 +496,7 @@ export class ShipmentDetailPage extends PageBase {
 			component: ShipmentModalPage,
 			componentProps: {
 				id: this.item.Id,
+				canViewAllOrders: this.pageConfig.canViewAllOrders,
 			},
 			cssClass: 'modal90',
 		});
@@ -503,6 +522,7 @@ export class ShipmentDetailPage extends PageBase {
 			component: ShipmentDebtPickerModalPage,
 			componentProps: {
 				id: this.item.Id,
+				canViewAllOrders: this.pageConfig.canViewAllOrders,
 			},
 			cssClass: 'modal90',
 		});
@@ -534,7 +554,7 @@ export class ShipmentDetailPage extends PageBase {
 	}
 
 	reopenOrder(id) {
-		let dto = {Id: this.item.Id, ShipmentOrder: [{IDShipmentDetail: id}]};
+		let dto = {Id: this.item.Id, ShipmentOrder: [{Id: id}]};
 
 		this.pageProvider
 			.reopenOrder(dto)

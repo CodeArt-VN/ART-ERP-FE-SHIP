@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Input } from '@angular/core';
 import { NavController, ModalController, NavParams, LoadingController, AlertController } from '@ionic/angular';
 import { PageBase } from 'src/app/page-base';
 import { ActivatedRoute } from '@angular/router';
@@ -15,6 +15,8 @@ import { ApiSetting } from 'src/app/services/static/api-setting';
 	standalone: false,
 })
 export class ShipmentModalPage extends PageBase {
+	@Input() selectedIds: any[] = [];
+	@Input() canViewAllOrders = false;
 	constructor(
 		public pageProvider: SALE_OrderProvider,
 		public env: EnvService,
@@ -134,6 +136,10 @@ export class ShipmentModalPage extends PageBase {
 			i.OriginalTotalText = lib.currencyFormat(i.OriginalTotalAfterTax);
 			i.ProductWeightText = lib.formatMoney(i.ProductWeight, 2);
 			i.ProductDimensionsText = lib.formatMoney(i.ProductDimensions / 10 ** 3, 1);
+			i.checked = this.selectedIds.includes(i.Id);
+			if (i.checked) {
+				this.selectedItems.push(i);
+			}
 		});
 		super.loadedData(event);
 		this.changeSelection({});
