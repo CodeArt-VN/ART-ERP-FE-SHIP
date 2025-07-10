@@ -72,11 +72,12 @@ export class ShipmentPage extends PageBase {
 	}
 
 	preLoadData(event) {
-		// let today = new Date();
-		// this.query.DeliveryDate = lib.dateFormat(today, 'yyyy-mm-dd');
-		this.sort.Id = 'Id';
-		this.sortToggle('Id', true);
+		//this.query.DeliveryDate = lib.dateFormat(new Date(), 'yyyy-mm-dd');
 		//this.query.IDStatus = '[301,302,303,304,305,306,329]';
+
+		this.pageConfig.sort = [{ Dimension: 'DeliveryDate', Order: 'DESC' }];
+		
+		
 		this.env.getStatus('ShipmentStatus').then((data) => {
 			this.statusList = data;
 			super.preLoadData(event);
