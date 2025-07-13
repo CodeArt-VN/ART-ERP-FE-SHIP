@@ -24,6 +24,12 @@
 	color: var(--ion-color-primary) !important;
 }
 
+::ng-deep {
+	.divider{
+		font-weight: bold;
+	}
+}
+
 // .feature {
 //     border-left: none;
 //     border-right: solid 1px var(--ion-color-tertiary-shade);

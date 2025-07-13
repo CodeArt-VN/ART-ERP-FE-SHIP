@@ -153,8 +153,24 @@
 					</div>
 				</ng-template>
 			</datatable-column>
-			<datatable-column class="col-id" name="Orders" property="OrderCount"></datatable-column>
+
+			<datatable-column class="col-code" name="Orders" property="OrderCount">
+				<ng-template let-i="row" datatable-cell-template>
+					<span>{{i.OrderCount | number: '1.0-1' }} <small>{{i.DebtCount | number: '1.0-1' }} {{'Debts' | translate}}</small></span>
+				</ng-template>
+			</datatable-column>
+
+			<datatable-column class="col-code" name="Weight - Volume" property="OrderCount">
+				<ng-template let-i="row" datatable-cell-template>
+					<span>{{i.ProductWeight | number: '1.0-1' }}T - <small>{{i.ProductDimensions | number: '1.0-1' }}m³</small></span>
+				</ng-template>
+			</datatable-column>
+
+			<!-- <datatable-column class="col-id" name="Orders" property="OrderCount"></datatable-column>
 			<datatable-column class="col-id" name="Debts" property="DebtCount"></datatable-column>
+			<datatable-column class="col-id" name="Weight" property="ProductWeight"></datatable-column>
+			<datatable-column class="col-id" name="Volume" property="ProductDimensions"></datatable-column> -->
+
 			<datatable-column class="col-number bold" format="1.0-0" name="Total" property="OriginalTotalAfterTax"></datatable-column>
 			<datatable-column class="col-status" name="Status" property="IDStatus" filterControlType="ng-select-status" [filterDataSource]="statusList" filterBindValue="Id">
 				<ng-template let-i="row" datatable-cell-template>

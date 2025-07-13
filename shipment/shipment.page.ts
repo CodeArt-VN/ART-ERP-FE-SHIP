@@ -95,6 +95,8 @@ export class ShipmentPage extends PageBase {
 	loadedData(event) {
 		this.items.forEach((i) => {
 			i._Status = this.statusList.find((d) => d.Id == i.IDStatus);
+			i.ProductWeight = Math.round(i.ProductWeight / 100)/10; 
+			i.ProductDimensions = Math.round(i.ProductDimensions / 10 ** 5)/10; // Convert to m3
 		});
 		super.loadedData(event);
 
