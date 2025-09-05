@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { AlertController, LoadingController, ModalController, NavController, Platform, PopoverController } from '@ionic/angular';
 import { PageBase } from 'src/app/page-base';
-import { BarcodeScannerService } from 'src/app/services/barcode-scanner.service';
+import { BarcodeScannerService } from 'src/app/services/util/barcode-scanner.service';
 import { EnvService } from 'src/app/services/core/env.service';
 import { ApiSetting } from 'src/app/services/static/api-setting';
 import { lib } from 'src/app/services/static/global-functions';
@@ -109,7 +109,7 @@ export class DeliveryPage extends PageBase {
 			.connect(apiPath.method, apiPath.url(), this.query)
 			.toPromise()
 			.then((resp: any) => {
-				this.env.setStorage('deliveryData', resp).then((data) => {
+				this.env.setStorage('deliveryData', resp).then((data: any) => {
 					this.sheets = data;
 					this.loadedData(event);
 				});

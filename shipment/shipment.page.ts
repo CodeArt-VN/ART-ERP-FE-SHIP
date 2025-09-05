@@ -153,15 +153,6 @@ export class ShipmentPage extends PageBase {
 			return;
 		}
 		this.submitAttempt = true;
-		this.env.publishEvent({
-			Code: 'app:ShowAppMessage',
-			IsShow: true,
-			Id: 'FileImportShipment',
-			Icon: 'flash',
-			IsBlink: true,
-			Color: 'danger',
-			Message: 'đang import phân tài',
-		});
 
 		this.pageProvider.apiPath.postImport.method = 'UPLOAD';
 		let url = 'SHIP/Shipment/importManualShipment?IDBranch=' + this.env.selectedBranch;
@@ -173,21 +164,11 @@ export class ShipmentPage extends PageBase {
 			.import(event.target.files[0])
 			.then((response) => {
 				this.submitAttempt = false;
-				this.env.publishEvent({
-					Code: 'app:ShowAppMessage',
-					IsShow: false,
-					Id: 'FileImportShipment',
-				});
 				this.refresh();
 				//this.download(response);
 			})
 			.catch((err) => {
 				this.submitAttempt = false;
-				this.env.publishEvent({
-					Code: 'app:ShowAppMessage',
-					IsShow: false,
-					Id: 'FileImportShipment',
-				});
 				this.refresh();
 				this.env.showMessage('Import error, please check again', 'danger');
 			});

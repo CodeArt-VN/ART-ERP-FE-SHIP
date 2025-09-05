@@ -6,6 +6,7 @@ import { lib } from 'src/app/services/static/global-functions';
 import { PopoverPage } from '../../SYS/popover/popover.page';
 import { ApiSetting } from 'src/app/services/static/api-setting';
 import { SHIP_ShipmentProvider } from 'src/app/services/static/services.service';
+import { EVENT_TYPE } from 'src/app/services/static/event-type';
 
 @Component({
 	selector: 'app-delivery-review',
@@ -90,7 +91,7 @@ export class DeliveryReviewPage extends PageBase {
 	}
 
 	events(e) {
-		if (e.Code == 'app:updatedUser') {
+		if (e.Code == EVENT_TYPE.USER.CONTEXT_UPDATED) {
 			this.needReload = true;
 		}
 	}
