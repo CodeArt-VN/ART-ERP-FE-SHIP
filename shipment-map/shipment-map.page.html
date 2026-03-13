@@ -1,8 +1,8 @@
-<ion-header>
+<ion-header [translucent]="true">
 	<app-toolbar [page]="this"></app-toolbar>
 </ion-header>
 
-<ion-content appScrollbarTheme appPrintFix class="A4 left" [ngClass]="{withFeature: pageConfig.isShowFeature}">
+<ion-content [fullscreen]="true" appScrollbarTheme appPrintFix class="A4 left" [ngClass]="{withFeature: pageConfig.isShowFeature}">
 	<ion-fab *ngIf="pageConfig.isShowFeature" [ngClass]="{withSearch: pageConfig.isShowSearch}" class="feature no-print" vertical="top" horizontal="start" slot="fixed">
 		
 		<ion-list class="sticky-top">

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [translucent]="true">
 	<app-toolbar [page]="this" [ShowFeature]="true">
 		<ion-button id="openVRP" fill="outline" [disabled]="!vrpReady" (click)="onVRPOpen()" color="danger">
 			<ion-icon slot="start" name="trail-sign"></ion-icon>
@@ -11,7 +11,7 @@
 	</app-toolbar>
 </ion-header>
 
-<ion-content appScrollbarTheme class="scrollx" [ngClass]="{withFeature: pageConfig.isShowFeature}">
+<ion-content [fullscreen]="true" appScrollbarTheme class="scrollx" [ngClass]="{withFeature: pageConfig.isShowFeature}">
 	<ion-fab *ngIf="pageConfig.isShowFeature" class="feature" [ngClass]="{'ion-hide-md-down': !pageConfig.isSubActive}" vertical="top" horizontal="end" slot="fixed">
 		<!-- <ion-list>
 			<ion-list-header lines="inset">
@@ -186,7 +186,7 @@
 
 	<ion-modal [isOpen]="isOpenVRP" (willDismiss)="onVRPWillDismiss($event)">
 		<ng-template>
-			<ion-header collapse="fade">
+			<ion-header [translucent]="true" collapse="fade">
 				<ion-toolbar>
 					<ion-title>{{'Shipment assignment optimization' | translate}}</ion-title>
 					<ion-buttons slot="end">
@@ -196,7 +196,7 @@
 					</ion-buttons>
 				</ion-toolbar>
 			</ion-header>
-			<ion-content appScrollbarTheme>
+			<ion-content [fullscreen]="true" appScrollbarTheme>
 				<div style="min-height: 0%">
 					<ion-list [inset]="true">
 						<ion-item>
@@ -312,7 +312,7 @@
 	</ion-modal>
 	<ion-modal [isOpen]="isOpenReviewVRP" (willDismiss)="onReviewVRPWillDismiss($event)" class="modal90">
 		<ng-template>
-			<ion-header collapse="fade">
+			<ion-header [translucent]="true" collapse="fade">
 				<ion-toolbar>
 					<ion-title>{{'Review route' | translate}}</ion-title>
 					<ion-buttons slot="end">
