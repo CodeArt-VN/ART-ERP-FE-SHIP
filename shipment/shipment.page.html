@@ -299,13 +299,13 @@
 			</ion-content>
 			<ion-footer collapse="fade">
 				<ion-toolbar>
-					<buttons slot="start">
+					<ion-buttons slot="start">
 						<ion-button *ngIf="vrpOutputDTO != null" (click)="openReviewVRP()" fill="outline" color="primary">{{'View plan on map' | translate}}</ion-button>
-					</buttons>
-					<buttons slot="end">
+					</ion-buttons>
+					<ion-buttons slot="end">
 						<ion-button (click)="onVRPcancel()" fill="outline" color="warning">{{'Cancel' | translate}}</ion-button>
 						<ion-button (click)="onVRPConfirm()" [strong]="true" color="success">{{'Automated dispatching' | translate}}</ion-button>
-					</buttons>
+					</ion-buttons>
 				</ion-toolbar>
 			</ion-footer>
 		</ng-template>
