@@ -50,11 +50,13 @@ export class ShipmentDetailPage extends PageBase {
 		public loadingController: LoadingController
 	) {
 		super();
-		this.route.queryParams.subscribe((e) => {
-			if (e && e.shipment) {
-				this.initItem = e.shipment;
-			}
-		});
+		this.subscriptions.push(
+			this.route.queryParams.subscribe((e) => {
+				if (e && e.shipment) {
+					this.initItem = e.shipment;
+				}
+			})
+		);
 		this.item = {};
 		this.pageConfig.isDetailPage = true;
 		this.id = this.route.snapshot.paramMap.get('id');
