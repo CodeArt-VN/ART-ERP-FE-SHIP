@@ -267,9 +267,7 @@
 							<ion-icon color="danger" slot="start" [name]="vrpInputDTO.IsReviewVRP?'map':'map-outline'"></ion-icon>
 							<ion-toggle [(ngModel)]="vrpInputDTO.IsReviewVRP">
 								<ion-label>{{'Review route' | translate}}</ion-label>
-								<ion-note *ngIf="vrpInputDTO.IsReviewVRP" class="ion-text-wrap" 
-									>{{'Review plan on map before creating shipments' | translate}}</ion-note
-								>
+								<ion-note *ngIf="vrpInputDTO.IsReviewVRP" class="ion-text-wrap">{{'Review plan on map before creating shipments' | translate}}</ion-note>
 							</ion-toggle>
 						</ion-item>
 						<!-- <ion-item>
@@ -291,21 +289,24 @@
 							<pre>{{vrpInputDTO | json}}</pre>
 						</div> -->
 				</div>
-
-				<!-- <div class="ion-text-right sticky-bottom" style="padding: 8px 16px">
-						<ion-button size="small" (click)="onVRPcancel()" fill="outline" color="warning">{{'Cancel' | translate}}</ion-button>
-						<ion-button size="small" (click)="onVRPConfirm()" [strong]="true" color="success">{{'Confirm' | translate}}</ion-button>
-					</div> -->
 			</ion-content>
-			<ion-footer collapse="fade">
+			<ion-footer [translucent]="true" collapse="fade">
 				<ion-toolbar>
-					<ion-buttons slot="start">
-						<ion-button *ngIf="vrpOutputDTO != null" (click)="openReviewVRP()" fill="outline" color="primary">{{'View plan on map' | translate}}</ion-button>
-					</ion-buttons>
-					<ion-buttons slot="end">
-						<ion-button (click)="onVRPcancel()" fill="outline" color="warning">{{'Cancel' | translate}}</ion-button>
-						<ion-button (click)="onVRPConfirm()" [strong]="true" color="success">{{'Automated dispatching' | translate}}</ion-button>
-					</ion-buttons>
+					<div slot="start">
+						<ion-button *ngIf="vrpOutputDTO != null" (click)="openReviewVRP()" fill="outline" color="primary">
+							<ion-icon slot="start" name="map"></ion-icon>
+							{{'View plan on map' | translate}}
+						</ion-button>
+					</div>
+					<div slot="end">
+						<ion-button (click)="onVRPcancel()" fill="outline">
+							<ion-icon slot="start" name="close" ></ion-icon>
+							{{'Cancel' | translate}}
+						</ion-button>
+						<ion-button (click)="onVRPConfirm()" [strong]="true" color="success">
+							<ion-icon slot="start" name="flash"></ion-icon>
+							{{'Automated dispatching' | translate}}</ion-button>
+					</div>
 				</ion-toolbar>
 			</ion-footer>
 		</ng-template>
