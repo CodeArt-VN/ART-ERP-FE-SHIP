@@ -52,9 +52,7 @@ export class ShipmentPage extends PageBase {
 				dividerFn: (record, recordIndex, records) => {
 					let a: any = recordIndex == 0 ? new Date('2000-01-01') : new Date(records[recordIndex - 1].DeliveryDate);
 					let b: any = new Date(record.DeliveryDate);
-					let mins = Math.floor((b - a) / 1000 / 60);
-
-					if (Math.abs(mins) < 600) {
+					if (a.getDate() == b.getDate() && a.getMonth() == b.getMonth() && a.getFullYear() == b.getFullYear()) {
 						return null;
 					}
 					return  lib.dateFormat(record.DeliveryDate, 'yyyy-mm-dd') ;
