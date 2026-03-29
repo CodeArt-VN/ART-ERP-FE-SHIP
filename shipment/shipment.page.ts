@@ -48,7 +48,7 @@ export class ShipmentPage extends PageBase {
 		this.exportQuery.IsAllOrders = true;
 		this.pageConfig.dividers = [
 			{
-				field: 'DeliveryDate',
+				fields: ['DeliveryDate'],
 				dividerFn: (record, recordIndex, records) => {
 					let a: any = recordIndex == 0 ? new Date('2000-01-01') : new Date(records[recordIndex - 1].DeliveryDate);
 					let b: any = new Date(record.DeliveryDate);
