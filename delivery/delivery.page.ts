@@ -109,10 +109,10 @@ export class DeliveryPage extends PageBase {
 			.connect(apiPath.method, apiPath.url(), this.query)
 			.toPromise()
 			.then((resp: any) => {
-				this.env.setStorage('deliveryData', resp).then((data: any) => {
-					this.sheets = data;
-					this.loadedData(event);
-				});
+				const nextSheets = Array.isArray(resp) ? resp : [];
+				this.sheets = nextSheets;
+				this.env.setStorage('deliveryData', nextSheets);
+				this.loadedData(event);
 			})
 			.catch((err) => {
 				if (err.message != null) {
