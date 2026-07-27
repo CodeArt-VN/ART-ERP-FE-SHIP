@@ -362,7 +362,7 @@ export class DeliveryDetailPage extends PageBase {
 		if (sumCK3 < 0) {
 			i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
 			e.target.value = i.DiscountFromSalesman;
-			this.env.showAlert('Tổng bù giá phải lớn hơn hoặc bằng 0. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
+			this.env.showAlert('Total offset must be higher than or equals 0.The system will take back the previous discount from Sales agent.');
 			// setTimeout(() => {
 			//     i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
 			// }, 0);
@@ -370,7 +370,7 @@ export class DeliveryDetailPage extends PageBase {
 		if (sumCK3 > this.item.SaleOrder.TotalAfterDiscount) {
 			i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
 			e.target.value = i.DiscountFromSalesman;
-			this.env.showAlert('Tổng bù giá phải nhỏ hơn trị giá đơn hàng. Hệ thống sẽ lấy lại CK NVBH ban đầu.');
+			this.env.showAlert('Total offset must be less than the bill value. The system will take back the previous discount from Sales agent.');
 			// setTimeout(() => {
 			//     i.DiscountFromSalesman = i.OriginalDiscountFromSalesman;
 			// }, 0);
