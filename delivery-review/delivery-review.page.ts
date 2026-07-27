@@ -375,7 +375,7 @@ export class DeliveryReviewPage extends PageBase {
 				popConfig: {
 					type: 'PopSingleDate',
 					isShowSingleDate: true,
-					singleDateLabel: 'Ngày giao hàng',
+					singleDateLabel: 'Delivery date',
 				},
 				popData: {
 					singleDate: this.query.DeliveryDate,
