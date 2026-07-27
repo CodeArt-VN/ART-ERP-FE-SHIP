@@ -318,7 +318,7 @@ export class ShipmentPage extends PageBase {
 			// Handle the confirmed data here
 			this.env
 				.showLoading(
-					'Đang phân bổ đơn hàng, xin vui lòng chờ giây lát',
+					'Allocating orders, please wait a moment',
 					this.pageProvider.commonService.connect('POST', 'SHIP/Shipment/VRPCalc', this.vrpInputDTO).toPromise()
 				)
 				.then((response) => {
@@ -331,7 +331,7 @@ export class ShipmentPage extends PageBase {
 					} else {
 						this.vrpInputDTO.SO = [];
 						this.vrpInputDTO.Debt = [];
-						this.env.showMessage('Phân bổ đơn hàng thành công', 'success');
+						this.env.showMessage('Orders allocated successfully', 'success');
 						this.refresh();
 					}
 				})
@@ -339,7 +339,7 @@ export class ShipmentPage extends PageBase {
 					if (err.message != null) {
 						this.env.showMessage(err.message, 'danger');
 					} else {
-						this.env.showMessage('Không thể phân bổ đơn hàng', 'danger');
+						this.env.showMessage('Unable to allocate orders', 'danger');
 					}
 				});
 		}
@@ -432,18 +432,18 @@ export class ShipmentPage extends PageBase {
 			// Handle the confirmed data here
 			this.env
 				.showLoading(
-					'Đang cập nhật, xin vui lòng chờ giây lát',
+					'Updating, please wait a moment',
 					this.pageProvider.commonService.connect('POST', 'SHIP/Shipment/CreateShipmentFromVRPCalc', this.vrpOutputDTO).toPromise()
 				)
 				.then((response) => {
-					this.env.showMessage('Đã lưu phân tài', 'success');
+					this.env.showMessage('Shipment allocation saved', 'success');
 					this.refresh();
 				})
 				.catch((err) => {
 					if (err.message != null) {
 						this.env.showMessage(err.message, 'danger');
 					} else {
-						this.env.showMessage('Không thể lưu phân tài', 'danger');
+						this.env.showMessage('Unable to save shipment allocation', 'danger');
 					}
 				});
 		}
