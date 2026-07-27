@@ -67,7 +67,7 @@
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.OriginalTotalAfterTax" name="search" color="primary"></ion-icon>
 			</div>
 			<div class="col-code cell money" (click)="sortToggle('ProductWeight')">
-				{{'weight' | translate}}
+				{{'Weight' | translate}}
 				<ion-icon class="min-btn" *ngIf="sort.ProductWeight" [name]="sort.ProductWeight == 'ProductWeight'?'arrow-down': 'arrow-up'"></ion-icon>
 				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.ProductWeight" name="search" color="primary"></ion-icon>
 			</div>
