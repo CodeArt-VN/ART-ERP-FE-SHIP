@@ -564,7 +564,7 @@ export class DeliveryDetailPage extends PageBase {
 		return new Promise((resolve, reject) => {
 			this.env.getStorage('deliveryData').then((data) => {
 				if (!data || !data.length) {
-					this.env.showMessage('Please recheck. Cannot find Order {{value}} within the saved list.', '', this.item.SaleOrder.Id);
+					this.env.showMessage('Please recheck. Cannot find Order {value} within the saved list.', '', this.item.SaleOrder.Id);
 				} else {
 					let found = false;
 					this.item._state = 'waitSync';
@@ -594,7 +594,7 @@ export class DeliveryDetailPage extends PageBase {
 					}
 
 					if (found == false) {
-						this.env.showMessage('Please recheck. Cannot find Order {{value}} within the saved list.', '', this.item.SaleOrder.Id);
+						this.env.showMessage('Please recheck. Cannot find Order {value} within the saved list.', '', this.item.SaleOrder.Id);
 						reject(false);
 					} else {
 						this.env.setStorage('deliveryData', data).then((result) => {
