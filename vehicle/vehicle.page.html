@@ -1,90 +1,32 @@
 <ion-header [translucent]="true">
 	<app-toolbar [page]="this"></app-toolbar>
-
-	<section class="table">
-		<header class="bold">
-			<div class="col-checkbox cell"></div>
-			<div class="col-id cell" (click)="sortToggle('Id')">
-				{{'Id' | translate}}
-				<ion-icon class="min-btn" *ngIf="sort.Id" [name]="sort.Id == 'Id'?'arrow-down': 'arrow-up'"></ion-icon>
-				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Id" name="search" color="primary"></ion-icon>
-			</div>
-			<div class="col-code cell" (click)="sortToggle('Name')">
-				{{'License plate' | translate}}
-				<ion-icon class="min-btn" *ngIf="sort.Name" [name]="sort.Name == 'Name'?'arrow-down': 'arrow-up'"></ion-icon>
-				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Name" name="search" color="primary"></ion-icon>
-			</div>
-			<div class="col-name cell">
-				{{'Shippers' | translate}}
-				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.ShipperName" name="search" color="primary"></ion-icon>
-			</div>
-			<div class="col-weight cell" (click)="sortToggle('WeightMax')">
-				{{'Tons' | translate}}
-				<ion-icon class="min-btn" *ngIf="sort.WeightMax" [name]="sort.WeightMax == 'WeightMax'?'arrow-down': 'arrow-up'"></ion-icon>
-				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.WeightMax" name="search" color="primary"></ion-icon>
-			</div>
-
-			<div class="col-remark cell">{{'Reference' | translate}}</div>
-
-			<!-- <div class="col-code cell" (click)="sortToggle('Code')">{{'Unit' | translate}}
-				<ion-icon class="min-btn" *ngIf="sort.Code" [name]="sort.Code == 'Code'?'arrow-down': 'arrow-up'"></ion-icon>
-				<ion-icon class="min-btn" (click)="pageConfig.isShowSearch = !pageConfig.isShowSearch" *ngIf="query.Code_eq" name="search" color="primary"></ion-icon>
-			</div> -->
-		</header>
-		<form (submit)="refresh()" action="#">
-			<header class="filter" *ngIf="pageConfig.isShowSearch">
-				<div class="col-checkbox cell"></div>
-				<div class="col-id cell">
-					<input [ngModelOptions]="{standalone: true}" [(ngModel)]="query.Id" class="c-input" [ngClass]="{active: query.Id}" type="text" />
-					<ion-icon class="min-btn" (click)="query.Id=''; refresh()" *ngIf="query.Id" name="close-circle-outline"></ion-icon>
-				</div>
-				<div class="col-code cell">
-					<input [ngModelOptions]="{standalone: true}" [(ngModel)]="query.Name" class="c-input" [ngClass]="{active: query.Name}" type="text" />
-					<ion-icon class="min-btn" (click)="query.Name=''; refresh()" *ngIf="query.Name" name="close-circle-outline"></ion-icon>
-				</div>
-				<div class="col-name cell">
-					<input [ngModelOptions]="{standalone: true}" [(ngModel)]="query.ShipperName" class="c-input" [ngClass]="{active: query.ShipperName}" type="text" />
-					<ion-icon class="min-btn" (click)="query.ShipperName=''; refresh()" *ngIf="query.ShipperName" name="close-circle-outline"></ion-icon>
-				</div>
-				<div class="col-weight cell">
-					<input
-						style="text-align: center"
-						[ngModelOptions]="{standalone: true}"
-						[(ngModel)]="query.WeightMax"
-						class="c-input"
-						[ngClass]="{active: query.WeightMax}"
-						type="text"
-					/>
-					<ion-icon class="min-btn" (click)="query.WeightMax=''; refresh()" *ngIf="query.WeightMax" name="close-circle-outline"></ion-icon>
-				</div>
-
-				<div class="col-remark cell"></div>
-
-				<button mat-raised-button type="submit" style="display: none">Search</button>
-			</header>
-		</form>
-	</section>
 </ion-header>
 
-<ion-content [fullscreen]="true" appScrollbarTheme class="header-table">
-	<app-page-message [itemsLength]="items.length" [showSpinner]="pageConfig.showSpinner"></app-page-message>
+<ion-content [fullscreen]="true" appScrollbarTheme class="left scrollx" forceOverscroll="false">
+	<app-page-title class="ion-padding safe-max-width" [pageConfig]="pageConfig"></app-page-title>
 
-	<div *ngIf="items.length && pageConfig.showSpinner==false">
-		<section class="table">
-			<div *ngFor="let i of items; let j = index;" class="row" [ngClass]="{odd: j % 2 != 0}" [ngClass]="{selected: i.checked}">
-				<div class="col-checkbox cell">
-					<input (click)="changeSelection(i, $event)" class="c-checkbox" [(ngModel)]="i.checked" type="checkbox" />
-				</div>
-				<div (click)="nav('vehicle/'+i.Id,'forward')" class="col-id cell">{{i.Id}}</div>
-				<div (click)="nav('vehicle/'+i.Id,'forward')" class="col-code cell">{{i.Name}}</div>
-				<div class="col-name cell">{{i.ShipperName}}</div>
-				<div class="col-weight cell">{{i.WeightMax}}</div>
-				<div class="col-remark cell">{{i.RefShipper}}</div>
-			</div>
-		</section>
+	<div class="safe-max-width">
+		<app-data-table
+			class="box-shadow responsive"
+			[rows]="items"
+			[trackBy]="'Id'"
+			[(selectedRows)]="selectedItems"
+			[showSpinner]="pageConfig.showSpinner"
+			[showFilter]="pageConfig.isShowSearch"
+			[(query)]="query"
+			(dataInfinite)="loadData($event)"
+			(filter)="onDatatableFilter($event)"
+			(sort)="onSort($event)"
+			(selectedRowsChange)="showCommandBySelectedRows($event)"
+		>
+			<datatable-column [checkbox]="true" name=""></datatable-column>
+			<datatable-column class="col-id" name="#" property="Id" [navLink]="pageConfig.pageName"></datatable-column>
+			<datatable-column class="col-code" name="License plate" property="Name" [navLink]="pageConfig.pageName"></datatable-column>
+			<datatable-column class="col-name" name="Shippers" property="ShipperName" [canSort]="false"></datatable-column>
+			<datatable-column class="col-weight" name="Tons" property="WeightMax"></datatable-column>
+			<datatable-column class="col-remark" name="Reference" property="RefShipper" [canSort]="false" [canFilter]="false"></datatable-column>
+		</app-data-table>
 	</div>
 
-	<ion-infinite-scroll color="primary" threshold="20%" (ionInfinite)="loadData($event)" [disabled]="!pageConfig.infiniteScroll || pageConfig.isEndOfData">
-		<ion-infinite-scroll-content loadingSpinner="dots"></ion-infinite-scroll-content>
-	</ion-infinite-scroll>
+	<div class="ion-padding"></div>
 </ion-content>
